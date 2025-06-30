@@ -1,0 +1,58 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E74C25;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#F7931E;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Camera body -->
+  <rect x="150" y="130" width="100" height="60" fill="#2C5530" rx="10"/>
+
+  <!-- Camera lens -->
+  <circle cx="200" cy="160" r="25" fill="#333"/>
+  <circle cx="200" cy="160" r="20" fill="#666"/>
+  <circle cx="200" cy="160" r="15" fill="#999"/>
+  <circle cx="200" cy="160" r="10" fill="#333"/>
+
+  <!-- Lens reflection -->
+  <circle cx="195" cy="155" r="3" fill="white" opacity="0.7"/>
+
+  <!-- Camera details -->
+  <rect x="220" y="140" width="15" height="8" fill="#E74C25" rx="2"/>
+  <circle cx="170" cy="145" r="3" fill="#F7931E"/>
+  <rect x="160" y="135" width="10" height="4" fill="#666" rx="1"/>
+
+  <!-- Flash -->
+  <rect x="175" y="120" width="8" height="6" fill="white" rx="1"/>
+
+  <!-- Photo frames around -->
+  <rect x="80" y="80" width="40" height="30" fill="white" stroke="#ddd" stroke-width="2" rx="2"/>
+  <rect x="85" y="85" width="30" height="20" fill="#f3f4f6"/>
+  <text x="100" y="97" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#666">IMG</text>
+
+  <rect x="280" y="90" width="40" height="30" fill="white" stroke="#ddd" stroke-width="2" rx="2"/>
+  <rect x="285" y="95" width="30" height="20" fill="#f3f4f6"/>
+  <text x="300" y="107" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#666">IMG</text>
+
+  <rect x="70" y="200" width="40" height="30" fill="white" stroke="#ddd" stroke-width="2" rx="2"/>
+  <rect x="75" y="205" width="30" height="20" fill="#f3f4f6"/>
+  <text x="90" y="217" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#666">IMG</text>
+
+  <rect x="290" y="210" width="40" height="30" fill="white" stroke="#ddd" stroke-width="2" rx="2"/>
+  <rect x="295" y="215" width="30" height="20" fill="#f3f4f6"/>
+  <text x="310" y="227" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#666">IMG</text>
+
+  <!-- Stars/sparkles -->
+  <polygon points="350,70 352,75 357,75 353,78 355,83 350,80 345,83 347,78 343,75 348,75" fill="#F7931E"/>
+  <polygon points="60,150 62,155 67,155 63,158 65,163 60,160 55,163 57,158 53,155 58,155" fill="#E74C25"/>
+  <polygon points="370,250 372,255 377,255 373,258 375,263 370,260 365,263 367,258 363,255 368,255" fill="#16a34a"/>
+
+  <!-- Picture icon -->
+  <rect x="40" y="40" width="30" height="25" fill="white" stroke="#2C5530" stroke-width="2" rx="2"/>
+  <circle cx="48" cy="50" r="3" fill="#F7931E"/>
+  <polygon points="45,58 55,48 65,58" fill="#E74C25"/>
+
+  <!-- Text -->
+  <text x="200" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C5530">Photo Gallery</text>
+</svg>

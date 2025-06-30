@@ -1,0 +1,62 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E74C25;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#F7931E;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Magnifying glass -->
+  <circle cx="180" cy="140" r="40" fill="none" stroke="#2C5530" stroke-width="8"/>
+  <line x1="212" y1="172" x2="250" y2="210" stroke="#2C5530" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Glass lens effect -->
+  <circle cx="180" cy="140" r="35" fill="none" stroke="#E74C25" stroke-width="3"/>
+  <circle cx="170" cy="130" r="8" fill="white" opacity="0.6"/>
+
+  <!-- Search results/documents -->
+  <rect x="80" y="80" width="60" height="8" fill="url(#grad1)" rx="2"/>
+  <rect x="80" y="95" width="45" height="6" fill="#ddd" rx="1"/>
+  <rect x="80" y="105" width="55" height="6" fill="#ddd" rx="1"/>
+
+  <rect x="280" y="100" width="60" height="8" fill="url(#grad1)" rx="2"/>
+  <rect x="280" y="115" width="45" height="6" fill="#ddd" rx="1"/>
+  <rect x="280" y="125" width="55" height="6" fill="#ddd" rx="1"/>
+
+  <rect x="320" y="180" width="60" height="8" fill="url(#grad1)" rx="2"/>
+  <rect x="320" y="195" width="45" height="6" fill="#ddd" rx="1"/>
+  <rect x="320" y="205" width="55" height="6" fill="#ddd" rx="1"/>
+
+  <!-- Search keywords floating -->
+  <text x="60" y="180" font-family="Arial, sans-serif" font-size="12" fill="#666">news</text>
+  <text x="90" y="200" font-family="Arial, sans-serif" font-size="12" fill="#666">events</text>
+  <text x="300" y="70" font-family="Arial, sans-serif" font-size="12" fill="#666">programs</text>
+  <text x="50" y="250" font-family="Arial, sans-serif" font-size="12" fill="#666">gallery</text>
+  <text x="320" y="250" font-family="Arial, sans-serif" font-size="12" fill="#666">contact</text>
+
+  <!-- Search box -->
+  <rect x="120" y="200" width="120" height="25" fill="white" stroke="#2C5530" stroke-width="2" rx="12"/>
+  <text x="130" y="216" font-family="Arial, sans-serif" font-size="12" fill="#999">Search...</text>
+
+  <!-- Search button -->
+  <circle cx="225" cy="212" r="8" fill="#E74C25"/>
+  <path d="M 220 207 L 230 217 M 220 217 L 230 207" stroke="white" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Filter/sort icons -->
+  <rect x="50" y="60" width="15" height="3" fill="#F7931E"/>
+  <rect x="50" y="67" width="10" height="3" fill="#F7931E"/>
+  <rect x="50" y="74" width="20" height="3" fill="#F7931E"/>
+
+  <circle cx="350" cy="60" r="3" fill="#2C5530"/>
+  <circle cx="360" cy="60" r="3" fill="#2C5530"/>
+  <circle cx="370" cy="60" r="3" fill="#2C5530"/>
+  <circle cx="350" cy="70" r="3" fill="#2C5530"/>
+  <circle cx="360" cy="70" r="3" fill="#2C5530"/>
+  <circle cx="370" cy="70" r="3" fill="#2C5530"/>
+  <circle cx="350" cy="80" r="3" fill="#2C5530"/>
+  <circle cx="360" cy="80" r="3" fill="#2C5530"/>
+  <circle cx="370" cy="80" r="3" fill="#2C5530"/>
+
+  <!-- Text -->
+  <text x="200" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C5530">Search Results</text>
+</svg>

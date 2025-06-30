@@ -1,0 +1,83 @@
+/*
+ * Ghana Primary School - Theme Configuration
+ * Main colors based on school brand color #E74C25
+ *
+ * This file contains all theme variables that can be easily customized
+ * by changing the CSS custom properties below.
+ */
+
+:root {
+    /* ===== PRIMARY THEME COLORS ===== */
+    --theme-primary: #E74C25;          /* School main color - vibrant orange-red */
+    --theme-secondary: #2C5530;        /* Deep forest green - complementary */
+    --theme-accent: #F7931E;           /* Bright orange - analogous */
+
+    /* ===== THEME COLOR VARIATIONS ===== */
+    --theme-primary-light: #FF6B47;    /* Lighter primary */
+    --theme-primary-dark: #C73E1D;     /* Darker primary */
+    --theme-secondary-light: #3D7043;  /* Lighter secondary */
+    --theme-secondary-dark: #1E3B22;   /* Darker secondary */
+    --theme-accent-light: #FFB84D;     /* Lighter accent */
+    --theme-accent-dark: #E07B00;      /* Darker accent */
+
+    /* ===== SEMANTIC COLORS ===== */
+    --theme-success: #16a34a;          /* Success green */
+    --theme-warning: #f59e0b;          /* Warning amber */
+    --theme-danger: #dc2626;           /* Danger red */
+    --theme-info: #0ea5e9;             /* Info blue */
+
+    /* ===== NEUTRAL COLORS ===== */
+    --theme-white: #ffffff;            /* Pure white */
+    --theme-black: #000000;            /* Pure black */
+    --theme-light-gray: #f8fafc;       /* Very light gray */
+    --theme-gray: #64748b;             /* Medium gray */
+    --theme-dark-gray: #475569;        /* Dark gray */
+    --theme-cream: #fef7ed;            /* Warm cream */
+
+    /* ===== GRADIENT COMBINATIONS ===== */
+    --gradient-primary: linear-gradient(135deg, var(--theme-primary), var(--theme-primary-dark));
+    --gradient-secondary: linear-gradient(135deg, var(--theme-secondary), var(--theme-secondary-dark));
+    --gradient-accent: linear-gradient(135deg, var(--theme-accent), var(--theme-primary-light));
+    --gradient-hero: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent));
+
+    /* ===== SHADOW COLORS ===== */
+    --shadow-primary: rgba(231, 76, 37, 0.3);
+    --shadow-secondary: rgba(44, 85, 48, 0.3);
+    --shadow-accent: rgba(247, 147, 30, 0.3);
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+
+    /* ===== LEGACY MAPPINGS (for backward compatibility) ===== */
+    --primary-color: var(--theme-primary);
+    --secondary-color: var(--theme-secondary);
+    --accent-color: var(--theme-accent);
+    --success-color: var(--theme-success);
+    --warning-color: var(--theme-warning);
+    --light-gray: var(--theme-light-gray);
+    --dark-gray: var(--theme-dark-gray);
+    --cream-color: var(--theme-cream);
+    --white: var(--theme-white);
+    --black: var(--theme-black);
+    --primary-light: var(--theme-primary-light);
+    --primary-dark: var(--theme-primary-dark);
+    --secondary-light: var(--theme-secondary-light);
+    --secondary-dark: var(--theme-secondary-dark);
+}
+
+/*
+ * HOW TO CHANGE THEME COLORS:
+ *
+ * To change the entire theme, simply update the values above:
+ *
+ * Example - Blue Theme:
+ * --theme-primary: #2563eb;
+ * --theme-secondary: #059669;
+ * --theme-accent: #f59e0b;
+ *
+ * Example - Purple Theme:
+ * --theme-primary: #7c3aed;
+ * --theme-secondary: #dc2626;
+ * --theme-accent: #f59e0b;
+ *
+ * The rest of the site will automatically adapt!
+ */

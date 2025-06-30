@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="documentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E74C25;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F7931E;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="paperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f8f9fa;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="300" fill="transparent"/>
+
+  <!-- Main Document -->
+  <rect x="150" y="50" width="180" height="220" rx="8" fill="url(#paperGradient)" stroke="#e0e0e0" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Document Header -->
+  <rect x="150" y="50" width="180" height="40" rx="8" fill="url(#documentGradient)"/>
+  <rect x="150" y="82" width="180" height="8" fill="url(#documentGradient)" opacity="0.3"/>
+
+  <!-- Document Icon -->
+  <circle cx="175" cy="70" r="12" fill="white" opacity="0.9"/>
+  <path d="M170 65 L175 70 L180 65" stroke="url(#documentGradient)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M175 70 L175 77" stroke="url(#documentGradient)" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Document Title -->
+  <rect x="195" y="65" width="80" height="4" fill="white" opacity="0.9" rx="2"/>
+  <rect x="195" y="73" width="60" height="3" fill="white" opacity="0.7" rx="1"/>
+
+  <!-- Document Lines -->
+  <rect x="165" y="110" width="140" height="3" fill="#e0e0e0" rx="1"/>
+  <rect x="165" y="120" width="120" height="3" fill="#e0e0e0" rx="1"/>
+  <rect x="165" y="130" width="150" height="3" fill="#e0e0e0" rx="1"/>
+  <rect x="165" y="140" width="100" height="3" fill="#e0e0e0" rx="1"/>
+
+  <rect x="165" y="160" width="130" height="3" fill="#e0e0e0" rx="1"/>
+  <rect x="165" y="170" width="140" height="3" fill="#e0e0e0" rx="1"/>
+  <rect x="165" y="180" width="110" height="3" fill="#e0e0e0" rx="1"/>
+
+  <rect x="165" y="200" width="120" height="3" fill="#e0e0e0" rx="1"/>
+  <rect x="165" y="210" width="100" height="3" fill="#e0e0e0" rx="1"/>
+
+  <!-- Side Documents -->
+  <rect x="120" y="80" width="40" height="50" rx="3" fill="white" stroke="#e0e0e0" stroke-width="1" filter="url(#shadow)" transform="rotate(-15 140 105)"/>
+  <rect x="320" y="120" width="40" height="50" rx="3" fill="white" stroke="#e0e0e0" stroke-width="1" filter="url(#shadow)" transform="rotate(12 340 145)"/>
+
+  <!-- Download Icon -->
+  <circle cx="300" cy="200" r="20" fill="url(#documentGradient)" filter="url(#shadow)"/>
+  <path d="M295 195 L300 200 L305 195" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M300 190 L300 200" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <rect x="292" y="205" width="16" height="2" fill="white" rx="1"/>
+
+  <!-- Floating Elements -->
+  <circle cx="80" cy="100" r="3" fill="url(#documentGradient)" opacity="0.6"/>
+  <circle cx="370" cy="80" r="2" fill="url(#documentGradient)" opacity="0.4"/>
+  <circle cx="90" cy="180" r="2" fill="url(#documentGradient)" opacity="0.5"/>
+  <circle cx="350" cy="200" r="4" fill="url(#documentGradient)" opacity="0.3"/>
+
+  <!-- Folder -->
+  <path d="M50 200 L120 200 L120 250 L50 250 Z" fill="#F7931E" opacity="0.8"/>
+  <path d="M50 200 L70 190 L90 190 L90 200" fill="#E74C25"/>
+  <rect x="60" y="210" width="50" height="2" fill="white" opacity="0.7" rx="1"/>
+  <rect x="60" y="220" width="40" height="2" fill="white" opacity="0.7" rx="1"/>
+  <rect x="60" y="230" width="45" height="2" fill="white" opacity="0.7" rx="1"/>
+</svg>

@@ -1,0 +1,52 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E74C25;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#F7931E;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Newspaper -->
+  <rect x="120" y="100" width="160" height="120" fill="white" stroke="#2C5530" stroke-width="2" rx="5"/>
+
+  <!-- Header -->
+  <rect x="130" y="110" width="140" height="20" fill="url(#grad1)" rx="2"/>
+  <text x="200" y="124" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">SCHOOL NEWS</text>
+
+  <!-- Lines for text -->
+  <line x1="130" y1="145" x2="270" y2="145" stroke="#ccc" stroke-width="1"/>
+  <line x1="130" y1="155" x2="250" y2="155" stroke="#ccc" stroke-width="1"/>
+  <line x1="130" y1="165" x2="260" y2="165" stroke="#ccc" stroke-width="1"/>
+  <line x1="130" y1="175" x2="240" y2="175" stroke="#ccc" stroke-width="1"/>
+
+  <!-- Image placeholder -->
+  <rect x="140" y="185" width="50" height="25" fill="#f3f4f6" stroke="#ddd" stroke-width="1" rx="2"/>
+  <text x="165" y="201" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#666">IMG</text>
+
+  <!-- More text lines -->
+  <line x1="200" y1="190" x2="270" y2="190" stroke="#ccc" stroke-width="1"/>
+  <line x1="200" y1="200" x2="260" y2="200" stroke="#ccc" stroke-width="1"/>
+
+  <!-- Megaphone -->
+  <ellipse cx="320" cy="140" rx="15" ry="25" fill="#E74C25"/>
+  <rect x="335" y="135" width="25" height="10" fill="#2C5530"/>
+  <polygon points="360,135 370,130 370,150 360,145" fill="#F7931E"/>
+
+  <!-- Sound waves -->
+  <path d="M 375 125 Q 385 130 375 135" stroke="#F7931E" stroke-width="2" fill="none"/>
+  <path d="M 380 120 Q 395 130 380 140" stroke="#F7931E" stroke-width="2" fill="none"/>
+  <path d="M 385 115 Q 405 130 385 145" stroke="#F7931E" stroke-width="2" fill="none"/>
+
+  <!-- Notification bell -->
+  <path d="M 80 160 Q 70 150 80 140 Q 90 150 80 160" fill="#E74C25"/>
+  <rect x="77" y="160" width="6" height="4" fill="#2C5530"/>
+  <circle cx="80" cy="135" r="2" fill="#F7931E"/>
+
+  <!-- Date -->
+  <rect x="50" y="200" width="40" height="30" fill="white" stroke="#2C5530" stroke-width="2" rx="3"/>
+  <rect x="50" y="200" width="40" height="8" fill="#E74C25"/>
+  <text x="70" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2C5530">15</text>
+
+  <!-- Text -->
+  <text x="200" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C5530">News & Announcements</text>
+</svg>

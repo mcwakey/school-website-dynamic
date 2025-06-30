@@ -1,0 +1,71 @@
+<svg width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#2563eb;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.4" />
+    </linearGradient>
+    <radialGradient id="sunGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.7" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#skyGradient)"/>
+
+  <!-- Sun -->
+  <circle cx="1000" cy="100" r="80" fill="url(#sunGradient)"/>
+
+  <!-- Mountains in background -->
+  <polygon points="0,400 200,200 400,300 600,150 800,250 1000,100 1200,200 1200,600 0,600" fill="#1e3a8a" opacity="0.3"/>
+
+  <!-- School buildings silhouette -->
+  <rect x="100" y="350" width="200" height="150" fill="#1a365d" opacity="0.7"/>
+  <polygon points="80,350 200,280 320,350" fill="#0f172a" opacity="0.8"/>
+
+  <rect x="350" y="380" width="150" height="120" fill="#1a365d" opacity="0.7"/>
+  <polygon points="335,380 425,320 515,380" fill="#0f172a" opacity="0.8"/>
+
+  <rect x="550" y="360" width="180" height="140" fill="#1a365d" opacity="0.7"/>
+  <polygon points="530,360 640,290 750,360" fill="#0f172a" opacity="0.8"/>
+
+  <!-- Trees -->
+  <ellipse cx="80" cy="450" rx="40" ry="60" fill="#166534" opacity="0.6"/>
+  <ellipse cx="300" cy="470" rx="35" ry="50" fill="#166534" opacity="0.6"/>
+  <ellipse cx="520" cy="460" rx="45" ry="65" fill="#166534" opacity="0.6"/>
+  <ellipse cx="760" cy="450" rx="40" ry="55" fill="#166534" opacity="0.6"/>
+  <ellipse cx="950" cy="470" rx="35" ry="50" fill="#166534" opacity="0.6"/>
+
+  <!-- Clouds -->
+  <ellipse cx="200" cy="80" rx="60" ry="30" fill="#ffffff" opacity="0.3"/>
+  <ellipse cx="230" cy="70" rx="40" ry="20" fill="#ffffff" opacity="0.3"/>
+  <ellipse cx="250" cy="85" rx="35" ry="18" fill="#ffffff" opacity="0.3"/>
+
+  <ellipse cx="500" cy="120" rx="45" ry="25" fill="#ffffff" opacity="0.3"/>
+  <ellipse cx="525" cy="110" rx="35" ry="20" fill="#ffffff" opacity="0.3"/>
+
+  <ellipse cx="800" cy="90" rx="50" ry="28" fill="#ffffff" opacity="0.3"/>
+  <ellipse cx="825" cy="80" rx="40" ry="22" fill="#ffffff" opacity="0.3"/>
+
+  <!-- Stars/sparkles -->
+  <circle cx="150" cy="50" r="2" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="350" cy="40" r="1.5" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="600" cy="60" r="2" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="750" cy="45" r="1.5" fill="#fbbf24" opacity="0.8"/>
+
+  <!-- School windows with light -->
+  <rect x="130" y="380" width="20" height="25" fill="#fbbf24" opacity="0.8"/>
+  <rect x="170" y="380" width="20" height="25" fill="#fbbf24" opacity="0.8"/>
+  <rect x="210" y="380" width="20" height="25" fill="#fbbf24" opacity="0.8"/>
+  <rect x="250" y="380" width="20" height="25" fill="#fbbf24" opacity="0.8"/>
+
+  <rect x="380" y="410" width="18" height="22" fill="#fbbf24" opacity="0.8"/>
+  <rect x="420" y="410" width="18" height="22" fill="#fbbf24" opacity="0.8"/>
+  <rect x="460" y="410" width="18" height="22" fill="#fbbf24" opacity="0.8"/>
+
+  <rect x="580" y="390" width="20" height="25" fill="#fbbf24" opacity="0.8"/>
+  <rect x="620" y="390" width="20" height="25" fill="#fbbf24" opacity="0.8"/>
+  <rect x="660" y="390" width="20" height="25" fill="#fbbf24" opacity="0.8"/>
+  <rect x="700" y="390" width="20" height="25" fill="#fbbf24" opacity="0.8"/>
+</svg>
