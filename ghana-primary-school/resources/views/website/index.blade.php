@@ -79,27 +79,65 @@
             <div class="container">
                 <div class="row align-items-center min-vh-100">
                     <div class="col-lg-6">
-                        <h1 class="display-4 fw-bold mb-4 text-white">
-                            {{ isset($settings['hero_title']) ? $settings['hero_title']->value : 'Welcome to Ghana Excellence Primary School' }}
-                        </h1>
-                        <h2 class="h4 mb-4 opacity-90 text-white">
-                            {{ isset($settings['hero_subtitle']) ? $settings['hero_subtitle']->value : 'Where Young Minds Grow and Dreams Take Flight' }}
-                        </h2>
-                        <p class="lead mb-4 text-white">
-                            {{ isset($settings['hero_description']) ? $settings['hero_description']->value : 'We provide quality education that nurtures creativity, critical thinking, and character development in a safe and caring environment.' }}
-                        </p>
-                        <div class="d-flex gap-3 flex-wrap">
-                            <a href="{{ route('about') }}" class="btn btn-light btn-lg">
-                                <i class="fas fa-info-circle me-2"></i>Learn More
-                            </a>
-                            <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg">
-                                <i class="fas fa-phone me-2"></i>Contact Us
-                            </a>
+                        <div class="hero-content animate-fade-in">
+                            <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Welcome to Excellence</span>
+                            <h1 class="display-4 fw-bold mb-4 text-white">
+                                {{ isset($settings['hero_title']) ? $settings['hero_title']->value : 'Shaping Tomorrow\'s Leaders Today' }}
+                            </h1>
+                            <h2 class="h4 mb-4 opacity-90 text-white">
+                                {{ isset($settings['hero_subtitle']) ? $settings['hero_subtitle']->value : 'Where Dreams Take Flight and Minds Grow Bright' }}
+                            </h2>
+                            <p class="lead mb-4 text-white">
+                                {{ isset($settings['hero_description']) ? $settings['hero_description']->value : 'We provide world-class primary education that nurtures creativity, builds character, and develops critical thinking skills in a safe, inclusive, and inspiring environment.' }}
+                            </p>
+                            <div class="d-flex gap-3 flex-wrap">
+                                <a href="{{ route('about') }}" class="btn btn-light btn-lg rounded-pill">
+                                    <i class="fas fa-rocket me-2"></i>Discover Our School
+                                </a>
+                                <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg rounded-pill">
+                                    <i class="fas fa-phone me-2"></i>Schedule a Visit
+                                </a>
+                            </div>
+                            <div class="hero-stats mt-4">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="stat-item text-white">
+                                            <div class="stat-number">500+</div>
+                                            <div class="stat-label">Happy Students</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="stat-item text-white">
+                                            <div class="stat-number">15+</div>
+                                            <div class="stat-label">Years Excellence</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="stat-item text-white">
+                                            <div class="stat-number">50+</div>
+                                            <div class="stat-label">Expert Teachers</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 text-center">
-                        <div class="hero-image mt-5 mt-lg-0">
-                            <img src="{{ asset('images/hero-school.svg') }}" alt="Ghana Excellence Primary School" class="img-fluid rounded-lg shadow-lg" style="border-radius: 20px;">
+                        <div class="hero-image mt-5 mt-lg-0 animate-slide-up">
+                            <div class="hero-image-wrapper">
+                                <img src="{{ asset('images/hero-school.svg') }}" alt="Ghana Excellence Primary School" class="img-fluid hero-main-image">
+                                <div class="floating-elements">
+                                    <div class="floating-element element-1">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div class="floating-element element-2">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="floating-element element-3">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,47 +147,93 @@
 </section>
 
 <!-- About Section -->
-<section class="py-5 bg-secondary text-white">
+<section class="py-5 bg-gradient-primary text-white">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h2 class="section-title text-white">{{ isset($settings['about_title']) ? $settings['about_title']->value : 'Want to Learn More About Our School?' }}</h2>
-                <p class="lead text-white">
-                    {{ isset($settings['about_description']) ? $settings['about_description']->value : 'Our school has been serving the community for over a decade, providing quality primary education that prepares students for secondary school and beyond.' }}
-                </p>
-                @if($school)
-                <div class="row g-4 mt-3">
-                    <div class="col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-light text-primary rounded-circle p-3 me-3">
-                                <i class="fas fa-calendar-alt"></i>
+                <div class="about-content">
+                    <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">About Our School</span>
+                    <h2 class="section-title text-white mb-4">{{ isset($settings['about_title']) ? $settings['about_title']->value : 'Building Futures, One Student at a Time' }}</h2>
+                    <p class="lead text-white mb-4">
+                        {{ isset($settings['about_description']) ? $settings['about_description']->value : 'For over a decade, we have been dedicated to providing exceptional primary education that prepares students for secondary school and life beyond. Our comprehensive approach combines academic excellence with character development.' }}
+                    </p>
+                    @if($school)
+                    <div class="row g-4 mt-3">
+                        <div class="col-sm-6">
+                            <div class="info-card">
+                                <div class="info-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="info-content">
+                                    <h6 class="fw-bold mb-1 text-white">Established</h6>
+                                    <small class="text-white opacity-90">{{ $school->established_year ?? 'Since 2010' }}</small>
+                                </div>
                             </div>
-                            <div>
-                                <h6 class="fw-bold mb-0 text-white">Established</h6>
-                                <small class="text-white opacity-75">{{ $school->established_year ?? 'Since 2010' }}</small>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-card">
+                                <div class="info-icon">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <div class="info-content">
+                                    <h6 class="fw-bold mb-1 text-white">Principal</h6>
+                                    <small class="text-white opacity-90">{{ $school->principal_name ?? 'Mrs. Akosua Mensah' }}</small>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-light text-primary rounded-circle p-3 me-3">
-                                <i class="fas fa-user-tie"></i>
+                    @endif
+                    <div class="about-features mt-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="feature-point">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    <span>STEM-Focused Curriculum</span>
+                                </div>
                             </div>
-                            <div>
-                                <h6 class="fw-bold mb-0 text-white">Principal</h6>
-                                <small class="text-white opacity-75">{{ $school->principal_name ?? 'Mrs. Akosua Mensah' }}</small>
+                            <div class="col-md-6">
+                                <div class="feature-point">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    <span>Small Class Sizes</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-point">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    <span>Extracurricular Activities</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-point">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    <span>Community Partnerships</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <a href="{{ route('about') }}" class="btn btn-light btn-lg mt-4 rounded-pill">
+                        <i class="fas fa-arrow-right me-2"></i>Discover More About Us
+                    </a>
                 </div>
-                @endif
-                <a href="{{ route('about') }}" class="btn btn-light btn-lg mt-4">
-                    <i class="fas fa-arrow-right me-2"></i>Read More
-                </a>
             </div>
             <div class="col-lg-6 text-center">
-                <div class="mt-5 mt-lg-0">
-                    <img src="{{ asset('images/about-students.svg') }}" alt="Our Students" class="img-fluid rounded-lg shadow" style="border-radius: 15px;">
+                <div class="about-visual mt-5 mt-lg-0">
+                    <div class="image-stack">
+                        <div class="image-main">
+                            <img src="{{ asset('images/about-students.svg') }}" alt="Our Students" class="img-fluid">
+                        </div>
+                        <div class="image-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <div class="stat-value">500+</div>
+                                    <div class="stat-desc">Students</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -157,49 +241,62 @@
 </section>
 
 <!-- Features Section -->
-<section class="py-5">
+<section class="py-5 bg-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <h2 class="section-title">Why Choose Ghana Excellence Primary School?</h2>
-                <p class="lead">We provide a nurturing environment where every child can thrive and reach their full potential</p>
+                <span class="badge bg-primary-soft text-primary fs-6 px-3 py-2 rounded-pill mb-3">Why Choose Us</span>
+                <h2 class="section-title">Excellence in Every Aspect of Education</h2>
+                <p class="lead">We provide a nurturing environment where every child can thrive and reach their full potential through innovative teaching methods and dedicated support.</p>
             </div>
         </div>
         <div class="row g-4">
             <div class="col-lg-3 col-md-6">
-                <div class="feature-box">
-                    <div class="feature-icon">
+                <div class="feature-box modern-card">
+                    <div class="feature-icon gradient-icon">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Qualified Teachers</h5>
-                    <p class="text-muted">Our experienced and certified teachers are committed to helping every student succeed.</p>
+                    <h5 class="fw-bold mb-3">Expert Educators</h5>
+                    <p class="text-muted">Our highly qualified and experienced teachers are passionate about nurturing young minds and fostering academic excellence.</p>
+                    <div class="feature-stats">
+                        <span class="badge bg-success">15+ Years Experience</span>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="feature-box">
-                    <div class="feature-icon">
-                        <i class="fas fa-laptop"></i>
+                <div class="feature-box modern-card">
+                    <div class="feature-icon gradient-icon">
+                        <i class="fas fa-laptop-code"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Modern Technology</h5>
-                    <p class="text-muted">State-of-the-art computer labs and smart classrooms enhance learning experiences.</p>
+                    <h5 class="fw-bold mb-3">Digital Learning</h5>
+                    <p class="text-muted">State-of-the-art computer labs, interactive smart boards, and modern educational technology enhance every learning experience.</p>
+                    <div class="feature-stats">
+                        <span class="badge bg-info">100% Digital Ready</span>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="feature-box">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                <div class="feature-box modern-card">
+                    <div class="feature-icon gradient-icon">
+                        <i class="fas fa-shield-check"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Safe Environment</h5>
-                    <p class="text-muted">A secure campus with CCTV monitoring ensures the safety of all our students.</p>
+                    <h5 class="fw-bold mb-3">Safe & Secure</h5>
+                    <p class="text-muted">A fully secure campus with 24/7 CCTV monitoring, trained security personnel, and comprehensive safety protocols.</p>
+                    <div class="feature-stats">
+                        <span class="badge bg-warning">24/7 Monitoring</span>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="feature-box">
-                    <div class="feature-icon">
-                        <i class="fas fa-trophy"></i>
+                <div class="feature-box modern-card">
+                    <div class="feature-icon gradient-icon">
+                        <i class="fas fa-award"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Excellence Awards</h5>
-                    <p class="text-muted">Recognized for outstanding academic performance and student development programs.</p>
+                    <h5 class="fw-bold mb-3">Award Winning</h5>
+                    <p class="text-muted">Nationally recognized for outstanding academic performance, innovative teaching methods, and exceptional student development programs.</p>
+                    <div class="feature-stats">
+                        <span class="badge bg-primary">Top Rated School</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -212,39 +309,55 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
+                <span class="badge bg-primary-soft text-primary fs-6 px-3 py-2 rounded-pill mb-3">Stay Informed</span>
                 <h2 class="section-title">Latest News & Announcements</h2>
-                <p class="lead">Stay updated with the latest happenings at our school</p>
+                <p class="lead">Stay updated with the latest happenings, achievements, and important announcements from our school community</p>
             </div>
         </div>
         <div class="row g-4">
             @foreach($featuredNews as $news)
             <div class="col-lg-4">
-                <div class="card h-100">
-                    @if($news->featured_image)
-                        <img src="{{ asset('storage/' . $news->featured_image) }}" class="card-img-top" alt="{{ $news->title }}" style="height: 200px; object-fit: cover;">
-                    @else
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                            <i class="fas fa-newspaper fa-3x text-muted"></i>
+                <div class="card modern-card h-100 news-card">
+                    <div class="card-image-wrapper">
+                        @if($news->featured_image)
+                            <img src="{{ asset('storage/' . $news->featured_image) }}" class="card-img-top" alt="{{ $news->title }}">
+                        @else
+                            <div class="card-img-placeholder">
+                                <div class="placeholder-icon">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="card-badge">
+                            <span class="badge bg-primary">
+                                <i class="fas fa-bullhorn me-1"></i>News
+                            </span>
                         </div>
-                    @endif
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ $news->title }}</h5>
-                        <p class="card-text">{{ Str::limit($news->excerpt ?: $news->content, 120) }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">
-                                <i class="fas fa-calendar me-1"></i>
-                                {{ $news->published_at ? $news->published_at->format('M d, Y') : $news->created_at->format('M d, Y') }}
-                            </small>
-                            <a href="{{ route('news.show', $news->slug) }}" class="btn btn-sm btn-outline-primary">Read More</a>
+                        <h5 class="card-title fw-bold">{{ $news->title }}</h5>
+                        <p class="card-text text-muted">{{ Str::limit($news->excerpt ?: $news->content, 120) }}</p>
+                        <div class="card-meta">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="meta-icon">
+                                    <i class="fas fa-calendar text-primary"></i>
+                                </div>
+                                <small class="text-muted ms-2">
+                                    {{ $news->published_at ? $news->published_at->format('M d, Y') : $news->created_at->format('M d, Y') }}
+                                </small>
+                            </div>
+                            <a href="{{ route('news.show', $news->slug) }}" class="btn btn-outline-primary btn-sm rounded-pill">
+                                Read Article <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
-        <div class="text-center mt-4">
-            <a href="{{ route('news') }}" class="btn btn-primary">
-                <i class="fas fa-newspaper me-2"></i>View All News
+        <div class="text-center mt-5">
+            <a href="{{ route('news') }}" class="btn btn-primary btn-lg rounded-pill">
+                <i class="fas fa-newspaper me-2"></i>View All News & Updates
             </a>
         </div>
     </div>
@@ -253,51 +366,60 @@
 
 <!-- Events Section -->
 @if($upcomingEvents->count() > 0)
-<section class="py-5 bg-light-custom">
+<section class="py-5 bg-gradient-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <h2 class="section-title">Upcoming Events</h2>
-                <p class="lead">Don't miss out on our exciting upcoming events</p>
+                <span class="badge bg-accent-soft text-accent fs-6 px-3 py-2 rounded-pill mb-3">Mark Your Calendar</span>
+                <h2 class="section-title">Upcoming Events & Activities</h2>
+                <p class="lead">Join us for exciting events, educational activities, and community celebrations throughout the academic year</p>
             </div>
         </div>
         <div class="row g-4">
             @foreach($upcomingEvents as $event)
             <div class="col-lg-4">
-                <div class="card h-100">
-                    @if($event->featured_image)
-                        <img src="{{ asset('storage/' . $event->featured_image) }}" class="card-img-top" alt="{{ $event->title }}" style="height: 200px; object-fit: cover;">
-                    @else
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                            <i class="fas fa-calendar-check fa-3x text-muted"></i>
+                <div class="card modern-card h-100 event-card">
+                    <div class="card-image-wrapper">
+                        @if($event->featured_image)
+                            <img src="{{ asset('storage/' . $event->featured_image) }}" class="card-img-top" alt="{{ $event->title }}">
+                        @else
+                            <div class="card-img-placeholder">
+                                <div class="placeholder-icon">
+                                    <i class="fas fa-calendar-star"></i>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="event-date-badge">
+                            <div class="date-month">{{ $event->start_date->format('M') }}</div>
+                            <div class="date-day">{{ $event->start_date->format('d') }}</div>
                         </div>
-                    @endif
+                    </div>
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <span class="badge bg-primary">{{ $event->start_date->format('M d') }}</span>
+                        <div class="event-meta mb-3">
                             @if($event->location)
-                                <small class="text-muted">
-                                    <i class="fas fa-map-marker-alt me-1"></i>{{ $event->location }}
-                                </small>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                    <small class="text-muted">{{ $event->location }}</small>
+                                </div>
                             @endif
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-clock text-primary me-2"></i>
+                                <small class="text-muted">{{ $event->start_date->format('g:i A') }}</small>
+                            </div>
                         </div>
-                        <h5 class="card-title">{{ $event->title }}</h5>
-                        <p class="card-text">{{ Str::limit($event->excerpt ?: $event->description, 120) }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">
-                                <i class="fas fa-clock me-1"></i>
-                                {{ $event->start_date->format('g:i A') }}
-                            </small>
-                            <a href="{{ route('events.show', $event->slug) }}" class="btn btn-sm btn-outline-primary">Learn More</a>
-                        </div>
+                        <h5 class="card-title fw-bold">{{ $event->title }}</h5>
+                        <p class="card-text text-muted">{{ Str::limit($event->excerpt ?: $event->description, 120) }}</p>
+                        <a href="{{ route('events.show', $event->slug) }}" class="btn btn-outline-accent btn-sm rounded-pill">
+                            Learn More <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
-        <div class="text-center mt-4">
-            <a href="{{ route('events') }}" class="btn btn-primary">
-                <i class="fas fa-calendar me-2"></i>View All Events
+        <div class="text-center mt-5">
+            <a href="{{ route('events') }}" class="btn btn-accent btn-lg rounded-pill">
+                <i class="fas fa-calendar-alt me-2"></i>View Full Calendar
             </a>
         </div>
     </div>
@@ -310,25 +432,35 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <h2 class="section-title">School Gallery</h2>
-                <p class="lead">Take a glimpse into life at our school</p>
+                <span class="badge bg-success-soft text-success fs-6 px-3 py-2 rounded-pill mb-3">School Life</span>
+                <h2 class="section-title">Moments That Matter</h2>
+                <p class="lead">Discover the vibrant life at our school through these captured moments of learning, growth, and joy</p>
             </div>
         </div>
-        <div class="row g-5">
+        <div class="row g-4">
             @foreach($featuredGallery as $photo)
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="gallery-item">
-                    <img src="{{ asset($photo->image_path) }}" class="img-fluid rounded" alt="{{ $photo->title }}" style="height: 250px; width: 100%; object-fit: cover;">
-                    <div class="gallery-overlay">
-                        <h6 class="text-white">{{ $photo->title }}</h6>
+            <div class="col-lg-4 col-md-6">
+                <div class="gallery-card modern-card">
+                    <div class="gallery-image-wrapper">
+                        <img src="{{ asset($photo->image_path) }}" class="img-fluid" alt="{{ $photo->title }}">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h6 class="text-white fw-bold">{{ $photo->title }}</h6>
+                                <div class="gallery-actions">
+                                    <button class="btn btn-light btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#galleryModal">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
-        <div class="text-center mt-4">
-            <a href="{{ route('gallery') }}" class="btn btn-primary">
-                <i class="fas fa-images me-2"></i>View Full Gallery
+        <div class="text-center mt-5">
+            <a href="{{ route('gallery') }}" class="btn btn-success btn-lg rounded-pill">
+                <i class="fas fa-images me-2"></i>Explore Full Gallery
             </a>
         </div>
     </div>
@@ -337,52 +469,117 @@
 
 <!-- Staff Section -->
 @if($featuredStaff->count() > 0)
-<section class="py-5 bg-light-custom">
+<section class="py-5 bg-gradient-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <h2 class="section-title">Meet Our Team</h2>
-                <p class="lead">Dedicated educators committed to your child's success</p>
+                <span class="badge bg-secondary-soft text-secondary fs-6 px-3 py-2 rounded-pill mb-3">Our Team</span>
+                <h2 class="section-title">Meet Our Dedicated Educators</h2>
+                <p class="lead">Our passionate team of educators brings years of experience and a commitment to nurturing every student's potential</p>
             </div>
         </div>
         <div class="row g-4">
             @foreach($featuredStaff as $staff)
             <div class="col-lg-3 col-md-6">
-                <div class="card text-center h-100">
-                    @if($staff->photo)
-                        <img src="{{ asset('storage/' . $staff->photo) }}" class="card-img-top rounded-circle mx-auto mt-3" alt="{{ $staff->name }}" style="width: 120px; height: 120px; object-fit: cover;">
-                    @else
-                        <div class="staff-placeholder">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    @endif
+                <div class="card modern-card text-center h-100 staff-card">
                     <div class="card-body">
-                        <h6 class="card-title">{{ $staff->name }}</h6>
-                        <p class="text-muted mb-2">{{ $staff->position }}</p>
+                        <div class="staff-avatar-wrapper mb-3">
+                            @if($staff->photo)
+                                <img src="{{ asset('storage/' . $staff->photo) }}" class="staff-avatar" alt="{{ $staff->name }}">
+                            @else
+                                <div class="staff-placeholder-modern">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            @endif
+                            <div class="staff-status-badge">
+                                <i class="fas fa-check-circle text-success"></i>
+                            </div>
+                        </div>
+                        <h6 class="card-title fw-bold mb-2">{{ $staff->name }}</h6>
+                        <p class="text-primary fw-semibold mb-2">{{ $staff->position }}</p>
                         @if($staff->department)
-                            <small class="text-muted">{{ $staff->department }}</small>
+                            <div class="department-badge">
+                                <span class="badge bg-light text-dark">{{ $staff->department }}</span>
+                            </div>
                         @endif
+                        <div class="staff-social mt-3">
+                            <div class="social-links">
+                                <button class="btn btn-sm btn-outline-primary rounded-circle">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             @endforeach
+        </div>
+        <div class="text-center mt-5">
+            <a href="{{ route('staff') }}" class="btn btn-secondary btn-lg rounded-pill">
+                <i class="fas fa-users me-2"></i>Meet All Our Team
+            </a>
         </div>
     </div>
 </section>
 @endif
 
 <!-- CTA Section -->
-<section class="py-5 bg-secondary text-white">
+<section class="py-5 bg-gradient-primary text-white">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
-                <h3 class="fw-bold mb-2">Ready to Join Our School Community?</h3>
-                <p class="mb-0">Contact us today to learn more about enrollment and how we can help your child succeed.</p>
+                <div class="cta-content">
+                    <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Join Our Community</span>
+                    <h3 class="fw-bold mb-3">Ready to Give Your Child the Best Start?</h3>
+                    <p class="lead mb-0 opacity-90">
+                        Join our school community today and discover how we can help your child thrive academically, socially, and personally.
+                        Contact us to schedule a tour and learn more about our enrollment process.
+                    </p>
+                    <div class="cta-features mt-4">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center text-white">
+                                    <div class="feature-check me-3">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <span>Enrollment Open</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center text-white">
+                                    <div class="feature-check me-3">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <span>Free Campus Tour</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center text-white">
+                                    <div class="feature-check me-3">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <span>24/7 Support</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-4 text-lg-end">
-                <a href="{{ route('contact') }}" class="btn btn-light btn-lg">
-                    <i class="fas fa-envelope me-2"></i>Get In Touch
-                </a>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                <div class="cta-actions">
+                    <a href="{{ route('contact') }}" class="btn btn-light btn-lg rounded-pill mb-3 me-2">
+                        <i class="fas fa-phone me-2"></i>Contact Us Today
+                    </a>
+                    <a href="{{ route('about') }}" class="btn btn-outline-light btn-lg rounded-pill">
+                        <i class="fas fa-info-circle me-2"></i>Learn More
+                    </a>
+                    <div class="mt-3">
+                        <small class="text-light opacity-75">
+                            <i class="fas fa-star me-1"></i>
+                            Trusted by 500+ families in the community
+                        </small>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -392,23 +589,329 @@
 
 @push('scripts')
 <style>
+    /* Modern Design Variables */
+    :root {
+        --gradient-primary: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
+        --gradient-light: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+        --shadow-soft: 0 4px 25px rgba(0, 0, 0, 0.08);
+        --shadow-hover: 0 8px 35px rgba(0, 0, 0, 0.12);
+        --border-radius-lg: 1rem;
+        --border-radius-xl: 1.5rem;
+    }
+
+    /* Modern Utility Classes */
+    .bg-primary-soft { background-color: rgba(231, 76, 37, 0.1) !important; }
+    .bg-accent-soft { background-color: rgba(255, 193, 7, 0.1) !important; }
+    .bg-success-soft { background-color: rgba(25, 135, 84, 0.1) !important; }
+    .bg-secondary-soft { background-color: rgba(108, 117, 125, 0.1) !important; }
+    .text-accent { color: #ffc107 !important; }
+    .btn-accent { background-color: #ffc107; border-color: #ffc107; color: #000; }
+    .btn-outline-accent { border-color: #ffc107; color: #ffc107; }
+    .btn-outline-accent:hover { background-color: #ffc107; color: #000; }
+    .bg-gradient-primary { background: var(--gradient-primary) !important; }
+    .bg-gradient-light { background: var(--gradient-light) !important; }
+
+    /* Modern Card Styles */
+    .modern-card {
+        border: none;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-soft);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .modern-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    /* Feature Box Enhancements */
+    .feature-box {
+        padding: 2rem;
+        border-radius: var(--border-radius-lg);
+        text-align: center;
+        height: 100%;
+        position: relative;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .gradient-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 1.8rem;
+        box-shadow: 0 8px 25px rgba(231, 76, 37, 0.2);
+    }
+
+    .feature-stats {
+        margin-top: 1rem;
+    }
+
+    .feature-stats .badge {
+        font-size: 0.7rem;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+    }
+
+    /* News Card Styles */
+    .news-card {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .card-image-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-image-wrapper img {
+        height: 220px;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .news-card:hover .card-image-wrapper img {
+        transform: scale(1.05);
+    }
+
+    .card-img-placeholder {
+        height: 220px;
+        background: var(--gradient-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .placeholder-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(231, 76, 37, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        font-size: 1.5rem;
+    }
+
+    .card-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 2;
+    }
+
+    .card-meta {
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        padding-top: 1rem;
+    }
+
+    .meta-icon {
+        width: 24px;
+        height: 24px;
+        background: rgba(231, 76, 37, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+    }
+
+    /* Event Card Styles */
+    .event-card {
+        position: relative;
+    }
+
+    .event-date-badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: #fff;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        z-index: 2;
+        min-width: 60px;
+    }
+
+    .date-month {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--primary-color);
+        line-height: 1;
+    }
+
+    .date-day {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #333;
+        line-height: 1;
+    }
+
+    .event-meta {
+        background: rgba(0, 0, 0, 0.02);
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+    }
+
+    /* Gallery Card Styles */
+    .gallery-card {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .gallery-image-wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--border-radius-lg);
+    }
+
+    .gallery-image-wrapper img {
+        height: 280px;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        padding: 2rem 1.5rem 1.5rem;
+        transform: translateY(100%);
+        transition: all 0.3s ease;
+    }
+
+    .gallery-card:hover .gallery-overlay {
+        transform: translateY(0);
+    }
+
+    .gallery-card:hover .gallery-image-wrapper img {
+        transform: scale(1.1);
+    }
+
+    .gallery-actions .btn {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Staff Card Styles */
+    .staff-card {
+        position: relative;
+        background: #fff;
+    }
+
+    .staff-avatar-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .staff-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .staff-placeholder-modern {
+        width: 100px;
+        height: 100px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        border: 4px solid #fff;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+    }
+
+    .staff-status-badge {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: #fff;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .department-badge {
+        margin-top: 0.5rem;
+    }
+
+    .social-links .btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 2px;
+    }
+
+    /* CTA Section Enhancements */
+    .cta-content .badge {
+        backdrop-filter: blur(10px);
+    }
+
+    .feature-check {
+        width: 24px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+    .cta-actions .btn {
+        min-width: 160px;
+        font-weight: 600;
+    }
+
     /* Hero Slideshow Styles - Override global hero styles */
     .hero-section {
         position: relative !important;
         min-height: 90vh !important;
-        background: transparent !important; /* Remove initial background */
+        background: transparent !important;
         overflow: hidden !important;
-        padding: 0 !important; /* Remove global padding causing white space */
+        padding: 0 !important;
         margin: 0 !important;
     }
 
     .hero-section::before {
-        display: none !important; /* Remove any pseudo-elements */
+        display: none !important;
     }
 
-    /* Fallback hero background when no slides */
     .hero-fallback-bg {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        background: var(--gradient-primary);
         min-height: 90vh;
         height: 90vh;
         display: flex;
@@ -440,7 +943,7 @@
         background-position: center;
         background-repeat: no-repeat;
         z-index: 1;
-        transition: none; /* Remove any transition that might cause glitching */
+        transition: none;
     }
 
     .hero-overlay {
@@ -486,7 +989,6 @@
         z-index: 15;
         opacity: 0.9;
         transition: opacity 0.3s ease;
-        /* Remove unwanted background */
         background: transparent !important;
         border: none !important;
         margin: 0 20px;
@@ -495,7 +997,6 @@
     .carousel-control-prev:hover,
     .carousel-control-next:hover {
         opacity: 1;
-        /* Remove unwanted background on hover */
         background: transparent !important;
     }
 
@@ -504,15 +1005,9 @@
         width: 45px;
         height: 45px;
         background-size: 45px 45px;
-        /* Remove shadow/filter for clean look */
         filter: none;
     }
 
-    .min-vh-75 {
-        min-height: 75vh;
-    }
-
-    /* Ensure content is above background and properly positioned */
     .carousel-item .container {
         position: relative;
         z-index: 10;
@@ -521,7 +1016,7 @@
         align-items: center;
     }
 
-    /* Responsive adjustments */
+    /* Responsive Design */
     @media (max-width: 768px) {
         .hero-section, .carousel, .carousel-item {
             min-height: 70vh;
@@ -540,58 +1035,232 @@
             height: 35px;
             background-size: 35px 35px;
         }
+
+        .gradient-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+        }
+
+        .feature-box {
+            padding: 1.5rem;
+        }
+
+        .cta-actions .btn {
+            min-width: auto;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
     }
 
-    /* Gallery Styles with enhanced gaps */
-    .gallery-item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 0.375rem;
-        margin-bottom: 2.5rem;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .gallery-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-
-    .gallery-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    /* About Section Enhancements */
+    .info-card {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
         padding: 1rem;
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
+        border-radius: var(--border-radius-lg);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .gallery-item:hover .gallery-overlay {
-        transform: translateY(0);
-    }
-
-    /* Staff card placeholder */
-    .staff-placeholder {
-        width: 120px;
-        height: 120px;
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    .info-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
-        margin: 1rem auto;
-    }
-
-    .staff-placeholder i {
+        margin-right: 1rem;
+        font-size: 1.2rem;
         color: white;
-        font-size: 2.5rem;
     }
 
-    /* Section title adjustments for dark backgrounds */
-    .section-title.text-white::after {
-        background: linear-gradient(90deg, white, rgba(255,255,255,0.7));
+    .feature-point {
+        display: flex;
+        align-items: center;
+        color: white;
+        margin-bottom: 0.75rem;
+        font-weight: 500;
+    }
+
+    .feature-point i {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+    }
+
+    .about-visual {
+        position: relative;
+    }
+
+    .image-stack {
+        position: relative;
+        display: inline-block;
+    }
+
+    .image-main {
+        position: relative;
+        z-index: 2;
+    }
+
+    .image-main img {
+        border-radius: var(--border-radius-xl);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        max-width: 100%;
+        height: auto;
+    }
+
+    .image-stats {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        z-index: 3;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: var(--border-radius-lg);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        min-width: 140px;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-right: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #333;
+        line-height: 1;
+    }
+
+    .stat-desc {
+        font-size: 0.85rem;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Hero Section Enhancements */
+    .hero-content {
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-stats {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius-lg);
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .hero-image-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .hero-main-image {
+        border-radius: var(--border-radius-xl);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        max-width: 100%;
+        height: auto;
+    }
+
+    .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .floating-element {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .element-1 {
+        top: 20%;
+        right: -10%;
+        animation-delay: 0s;
+    }
+
+    .element-2 {
+        bottom: 30%;
+        left: -10%;
+        animation-delay: 1s;
+    }
+
+    .element-3 {
+        top: 50%;
+        right: -5%;
+        animation-delay: 2s;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+    .animate-fade-in {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.8s ease-out;
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 </style>
 

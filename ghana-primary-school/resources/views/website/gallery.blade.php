@@ -8,8 +8,9 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
+                <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Visual Stories</span>
                 <h1 class="display-4 fw-bold mb-3">Photo Gallery</h1>
-                <p class="lead mb-4">Capturing memories and moments from our school life</p>
+                <p class="lead mb-4">Capturing precious moments, memories, and milestones from our vibrant school life</p>
             </div>
             <div class="col-lg-4 text-center">
                 <img src="{{ asset('images/gallery-hero.svg') }}" alt="Photo Gallery" class="img-fluid" style="max-height: 300px;">
@@ -46,7 +47,7 @@
             <div class="gallery-grid" id="gallery">
                 @foreach($photos as $photo)
                     <div class="col-lg-4 col-md-6 mb-4 gallery-item {{ $photo->category ? Str::slug($photo->category) : '' }}">
-                        <div class="gallery-card">
+                        <div class="modern-card gallery-card">
                             <div class="gallery-image-container position-relative overflow-hidden">
                                 @if($photo->image_path)
                                     <img src="{{ asset($photo->image_path) }}"
@@ -60,23 +61,29 @@
                                 @else
                                     <div class="d-flex align-items-center justify-content-center bg-light"
                                          style="height: 250px;">
-                                        <i class="fas fa-image fa-3x text-muted"></i>
+                                        <div class="placeholder-icon">
+                                            <i class="fas fa-image"></i>
+                                        </div>
                                     </div>
                                 @endif
 
                                 <div class="gallery-overlay">
                                     <div class="overlay-content">
-                                        <i class="fas fa-search-plus fa-2x text-white mb-2"></i>
-                                        <h6 class="text-white">{{ $photo->title }}</h6>
+                                        <div class="gallery-actions">
+                                            <button class="btn btn-light btn-sm rounded-circle mb-2">
+                                                <i class="fas fa-expand"></i>
+                                            </button>
+                                        </div>
+                                        <h6 class="text-white fw-bold">{{ $photo->title }}</h6>
                                         @if($photo->category)
-                                            <span class="badge bg-light text-dark">{{ $photo->category }}</span>
+                                            <span class="badge bg-primary mt-2">{{ $photo->category }}</span>
                                         @endif
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="p-3">
-                                <h6 class="mb-1">{{ $photo->title }}</h6>
+                            <div class="card-body p-3">
+                                <h6 class="card-title fw-bold mb-1">{{ $photo->title }}</h6>
                                 @if($photo->description)
                                     <p class="text-muted small mb-2">{{ Str::limit($photo->description, 80) }}</p>
                                 @endif
@@ -237,4 +244,75 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<style>
+    /* Modern Gallery Styles */
+    .bg-primary-gradient {
+        background: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
+    }
+
+    .modern-card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .modern-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .gallery-image {
+        height: 280px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .gallery-card:hover .gallery-image {
+        transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        padding: 2rem 1.5rem 1.5rem;
+        transform: translateY(100%);
+        transition: all 0.3s ease;
+    }
+
+    .gallery-card:hover .gallery-overlay {
+        transform: translateY(0);
+    }
+
+    .placeholder-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(231, 76, 37, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e74c25;
+        font-size: 1.5rem;
+    }
+
+    .gallery-actions .btn {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hide {
+        display: none !important;
+    }
+</style>
 @endsection

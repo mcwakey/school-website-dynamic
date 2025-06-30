@@ -95,6 +95,14 @@ class WebsiteController extends Controller
         return view('website.gallery', compact('photos', 'categories'));
     }
 
+    public function staff()
+    {
+        $school = School::first();
+        $staff = Staff::active()->orderBy('sort_order')->get();
+        $settings = Setting::all()->keyBy('key');
+        return view('website.staff', compact('school', 'staff', 'settings'));
+    }
+
     public function contact()
     {
         $school = School::first();

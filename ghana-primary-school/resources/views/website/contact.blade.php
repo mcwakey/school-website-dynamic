@@ -8,8 +8,9 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
+                <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Get In Touch</span>
                 <h1 class="display-4 fw-bold mb-3">Contact Us</h1>
-                <p class="lead mb-4">Get in touch with us - we'd love to hear from you</p>
+                <p class="lead mb-4">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
             </div>
             <div class="col-lg-4 text-center">
                 <img src="{{ asset('images/contact-hero.svg') }}" alt="Contact Us" class="img-fluid" style="max-height: 300px;">
@@ -21,11 +22,19 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0"><i class="fas fa-envelope me-2"></i>Send us a Message</h4>
+            <div class="modern-card">
+                <div class="card-header-modern">
+                    <div class="d-flex align-items-center">
+                        <div class="header-icon me-3">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-1 fw-bold">Send us a Message</h4>
+                            <p class="mb-0 text-muted">Fill out the form below and we'll get back to you</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
@@ -145,46 +154,54 @@
 
         <div class="col-lg-4">
             <!-- Contact Information -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Get in Touch</h5>
+            <div class="modern-card mb-4">
+                <div class="card-header-modern">
+                    <div class="d-flex align-items-center">
+                        <div class="header-icon me-3">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1 fw-bold">Contact Information</h5>
+                            <p class="mb-0 text-muted">Find us here</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     @if($school)
-                        <div class="contact-item mb-4">
-                            <div class="d-flex align-items-start">
-                                <i class="fas fa-school text-primary me-3 mt-1"></i>
-                                <div>
-                                    <h6 class="mb-1">School Address</h6>
-                                    <p class="text-muted mb-0">{{ $school->address ?? 'Address not available' }}</p>
-                                </div>
+                        <div class="contact-item-modern mb-4">
+                            <div class="contact-icon">
+                                <i class="fas fa-school"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h6 class="fw-bold mb-1">School Address</h6>
+                                <p class="text-muted mb-0">{{ $school->address ?? 'Address not available' }}</p>
                             </div>
                         </div>
 
                         @if($school->phone)
-                            <div class="contact-item mb-4">
-                                <div class="d-flex align-items-start">
-                                    <i class="fas fa-phone text-primary me-3 mt-1"></i>
-                                    <div>
-                                        <h6 class="mb-1">Phone Number</h6>
-                                        <p class="text-muted mb-0">
-                                            <a href="tel:{{ $school->phone }}" class="text-decoration-none">{{ $school->phone }}</a>
-                                        </p>
-                                    </div>
+                            <div class="contact-item-modern mb-4">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <h6 class="fw-bold mb-1">Phone Number</h6>
+                                    <p class="text-muted mb-0">
+                                        <a href="tel:{{ $school->phone }}" class="text-decoration-none text-primary">{{ $school->phone }}</a>
+                                    </p>
                                 </div>
                             </div>
                         @endif
 
                         @if($school->email)
-                            <div class="contact-item mb-4">
-                                <div class="d-flex align-items-start">
-                                    <i class="fas fa-envelope text-primary me-3 mt-1"></i>
-                                    <div>
-                                        <h6 class="mb-1">Email Address</h6>
-                                        <p class="text-muted mb-0">
-                                            <a href="mailto:{{ $school->email }}" class="text-decoration-none">{{ $school->email }}</a>
-                                        </p>
-                                    </div>
+                            <div class="contact-item-modern mb-4">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <h6 class="fw-bold mb-1">Email Address</h6>
+                                    <p class="text-muted mb-0">
+                                        <a href="mailto:{{ $school->email }}" class="text-decoration-none text-primary">{{ $school->email }}</a>
+                                    </p>
                                 </div>
                             </div>
                         @endif
@@ -279,9 +296,139 @@
     border: none;
 }
 
-.btn-primary:hover {
-    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-    transform: translateY(-1px);
-}
+<style>
+    /* Modern Contact Page Styles */
+    .bg-primary-gradient {
+        background: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
+    }
+
+    .modern-card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .modern-card:hover {
+        box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-header-modern {
+        background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+    }
+
+    .header-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 15px rgba(231, 76, 37, 0.3);
+    }
+
+    .contact-item-modern {
+        display: flex;
+        align-items: flex-start;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        background: rgba(231, 76, 37, 0.02);
+        border: 1px solid rgba(231, 76, 37, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .contact-item-modern:hover {
+        background: rgba(231, 76, 37, 0.05);
+        transform: translateY(-2px);
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1rem;
+        margin-right: 1rem;
+        flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(231, 76, 37, 0.2);
+    }
+
+    .contact-content {
+        flex: 1;
+    }
+
+    .form-control {
+        border: 2px solid #e9ecef;
+        border-radius: 0.75rem;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #e74c25;
+        box-shadow: 0 0 0 0.2rem rgba(231, 76, 37, 0.15);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
+        border: none;
+        border-radius: 0.75rem;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #d63616 0%, #1e3a20 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(231, 76, 37, 0.3);
+    }
+
+    /* Quick Contact Buttons */
+    .quick-contact-btn {
+        width: 100%;
+        text-align: left;
+        border: 2px solid rgba(231, 76, 37, 0.1);
+        background: rgba(231, 76, 37, 0.02);
+        color: #333;
+        transition: all 0.3s ease;
+    }
+
+    .quick-contact-btn:hover {
+        border-color: #e74c25;
+        background: rgba(231, 76, 37, 0.1);
+        color: #e74c25;
+        transform: translateY(-2px);
+    }
+
+    .office-hours {
+        background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 768px) {
+        .contact-item-modern {
+            padding: 0.75rem;
+        }
+
+        .contact-icon {
+            width: 35px;
+            height: 35px;
+            font-size: 0.9rem;
+        }
+    }
 </style>
 @endsection

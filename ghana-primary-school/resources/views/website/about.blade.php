@@ -25,28 +25,29 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
+                <span class="badge bg-primary-soft text-primary fs-6 px-3 py-2 rounded-pill mb-3">Our Story</span>
                 <h2 class="section-title">{{ $school->name }}</h2>
                 <p class="lead">{{ $school->description }}</p>
 
                 <div class="row g-4 mt-4">
                     <div class="col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-primary-custom text-white rounded-circle p-3 me-3">
+                        <div class="info-card-modern">
+                            <div class="info-icon-modern">
                                 <i class="fas fa-calendar-alt"></i>
                             </div>
-                            <div>
-                                <h6 class="fw-bold mb-0">Established</h6>
+                            <div class="info-content">
+                                <h6 class="fw-bold mb-1">Established</h6>
                                 <small class="text-muted">{{ $school->established_year }}</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-primary-custom text-white rounded-circle p-3 me-3">
+                        <div class="info-card-modern">
+                            <div class="info-icon-modern">
                                 <i class="fas fa-user-tie"></i>
                             </div>
-                            <div>
-                                <h6 class="fw-bold mb-0">Principal</h6>
+                            <div class="info-content">
+                                <h6 class="fw-bold mb-1">Principal</h6>
                                 <small class="text-muted">{{ $school->principal_name }}</small>
                             </div>
                         </div>
@@ -89,30 +90,45 @@
 </section>
 
 <!-- Mission and Vision -->
-<section class="py-5 bg-light-custom">
+<section class="py-5 bg-gradient-light">
     <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <span class="badge bg-secondary-soft text-secondary fs-6 px-3 py-2 rounded-pill mb-3">Our Foundation</span>
+                <h2 class="section-title">Mission & Vision</h2>
+                <p class="lead">The driving forces behind our educational excellence</p>
+            </div>
+        </div>
         <div class="row g-5">
             @if($school->mission)
             <div class="col-lg-6">
-                <div class="text-center mb-4">
-                    <div class="bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                        <i class="fas fa-bullseye fa-2x"></i>
+                <div class="modern-card text-center h-100">
+                    <div class="card-body p-4">
+                        <div class="mission-icon mb-4">
+                            <div class="gradient-icon-large">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                        </div>
+                        <h3 class="fw-bold mb-3">Our Mission</h3>
+                        <p class="lead text-muted">{{ $school->mission }}</p>
                     </div>
                 </div>
-                <h3 class="text-center section-title">Our Mission</h3>
-                <p class="text-center lead">{{ $school->mission }}</p>
             </div>
             @endif
 
             @if($school->vision)
             <div class="col-lg-6">
-                <div class="text-center mb-4">
-                    <div class="bg-secondary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                        <i class="fas fa-eye fa-2x"></i>
+                <div class="modern-card text-center h-100">
+                    <div class="card-body p-4">
+                        <div class="vision-icon mb-4">
+                            <div class="gradient-icon-large">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                        <h3 class="fw-bold mb-3">Our Vision</h3>
+                        <p class="lead text-muted">{{ $school->vision }}</p>
                     </div>
                 </div>
-                <h3 class="text-center section-title">Our Vision</h3>
-                <p class="text-center lead">{{ $school->vision }}</p>
             </div>
             @endif
         </div>
@@ -125,22 +141,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <h2 class="section-title">Our Core Values</h2>
-                <p class="lead">The principles that guide everything we do</p>
+                <span class="badge bg-success-soft text-success fs-6 px-3 py-2 rounded-pill mb-3">Our Principles</span>
+                <h2 class="section-title">Core Values</h2>
+                <p class="lead">The fundamental principles that guide everything we do and shape our school culture</p>
             </div>
         </div>
         @if($coreValues->count() > 0)
             <div class="row g-4">
                 @foreach($coreValues as $value)
                 <div class="col-lg-3 col-md-6">
-                    <div class="card text-center h-100 border-0 shadow">
-                        <div class="card-body">
-                            <div class="text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                                 style="width: 60px; height: 60px; background-color: {{ $value->color }};">
-                                <i class="{{ $value->icon }}"></i>
+                    <div class="modern-card text-center h-100 value-card">
+                        <div class="card-body p-4">
+                            <div class="value-icon mb-3">
+                                <div class="value-icon-circle" style="background-color: {{ $value->color }};">
+                                    <i class="{{ $value->icon }}"></i>
+                                </div>
                             </div>
-                            <h5 class="card-title">{{ $value->title }}</h5>
-                            <p class="card-text">{{ $value->description }}</p>
+                            <h5 class="card-title fw-bold">{{ $value->title }}</h5>
+                            <p class="card-text text-muted">{{ $value->description }}</p>
                         </div>
                     </div>
                 </div>
@@ -329,3 +347,134 @@
 </section>
 
 @endsection
+
+@push('scripts')
+<style>
+    /* Modern Design Variables */
+    :root {
+        --gradient-primary: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
+        --gradient-light: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+        --shadow-soft: 0 4px 25px rgba(0, 0, 0, 0.08);
+        --shadow-hover: 0 8px 35px rgba(0, 0, 0, 0.12);
+        --border-radius-lg: 1rem;
+        --border-radius-xl: 1.5rem;
+    }
+
+    /* Modern Utility Classes */
+    .bg-primary-soft { background-color: rgba(231, 76, 37, 0.1) !important; }
+    .bg-secondary-soft { background-color: rgba(108, 117, 125, 0.1) !important; }
+    .bg-success-soft { background-color: rgba(25, 135, 84, 0.1) !important; }
+    .bg-gradient-light { background: var(--gradient-light) !important; }
+    .bg-primary-gradient { background: var(--gradient-primary) !important; }
+
+    /* Modern Card Styles */
+    .modern-card {
+        border: none;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-soft);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .modern-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    /* Info Card Styles */
+    .info-card-modern {
+        display: flex;
+        align-items: center;
+        background: rgba(231, 76, 37, 0.05);
+        padding: 1.5rem;
+        border-radius: var(--border-radius-lg);
+        border: 1px solid rgba(231, 76, 37, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .info-card-modern:hover {
+        background: rgba(231, 76, 37, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .info-icon-modern {
+        width: 60px;
+        height: 60px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5rem;
+        font-size: 1.5rem;
+        color: white;
+        box-shadow: 0 4px 15px rgba(231, 76, 37, 0.3);
+    }
+
+    /* Gradient Icon Styles */
+    .gradient-icon-large {
+        width: 100px;
+        height: 100px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        color: white;
+        font-size: 2.5rem;
+        box-shadow: 0 8px 30px rgba(231, 76, 37, 0.3);
+    }
+
+    /* Value Icon Styles */
+    .value-icon-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        color: white;
+        font-size: 2rem;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .value-card:hover .value-icon-circle {
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
+
+    /* Empty State */
+    .empty-state {
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .info-card-modern {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .info-icon-modern {
+            margin-right: 0;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-icon-large {
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+        }
+
+        .value-icon-circle {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+        }
+    }
+</style>
+@endpush

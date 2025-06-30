@@ -15,6 +15,7 @@ Route::get('/news/{slug}', [WebsiteController::class, 'newsShow'])->name('news.s
 Route::get('/events', [WebsiteController::class, 'events'])->name('events');
 Route::get('/events/{slug}', [WebsiteController::class, 'eventShow'])->name('events.show');
 Route::get('/gallery', [WebsiteController::class, 'gallery'])->name('gallery');
+Route::get('/staff', [WebsiteController::class, 'staff'])->name('staff');
 Route::get('/contact', [WebsiteController::class, 'contact'])->name('contact');
 Route::post('/contact', [WebsiteController::class, 'contactSubmit'])->name('contact.submit');
 Route::get('/programs', [WebsiteController::class, 'programs'])->name('programs');
