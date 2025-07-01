@@ -278,7 +278,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="feature-box modern-card">
                     <div class="feature-icon gradient-icon">
-                        <i class="fas fa-shield-check"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
                     <h5 class="fw-bold mb-3">Safe & Secure</h5>
                     <p class="text-muted">A fully secure campus with 24/7 CCTV monitoring, trained security personnel, and comprehensive safety protocols.</p>

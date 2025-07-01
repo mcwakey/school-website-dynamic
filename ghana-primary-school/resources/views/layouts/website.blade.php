@@ -651,9 +651,9 @@
                 @if($school && $school->logo)
                     <img src="{{ asset('storage/' . $school->logo) }}" alt="{{ $school->name ?? 'School Logo' }}" height="40" class="me-2">
                 @else
-                    <img src="{{ asset('storage/logos/school-logo.svg') }}" alt="Ghana Excellence Primary School" height="40" class="me-2">
+                    <img src="{{ asset('storage/logos/school-logo.svg') }}" alt="" height="40" class="me-2">
                 @endif
-                {{ $school->name ?? (isset($settings['site_name']) ? $settings['site_name']->value : 'Ghana Excellence Primary School') }}
+                {{ $school->name ?? (isset($settings['site_name']) ? $settings['site_name']->value : '') }}
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
