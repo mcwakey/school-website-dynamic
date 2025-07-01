@@ -876,51 +876,51 @@
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
 
-    <!-- Search Dropdown Script -->
+    <!-- School Navigation JavaScript -->
+    <script src="{{ asset('js/navigation.js') }}" defer></script>
+
+    <!-- Fallback initialization script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const searchDropdown = document.getElementById('searchDropdown');
+        // Ensure navigation is initialized even if external script fails
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (typeof window.SchoolNavigation === 'undefined') {
+                    console.warn('External navigation script failed to load, using fallback');
 
-            if (searchInput && searchDropdown) {
-                // Focus input when dropdown is shown
-                searchDropdown.addEventListener('shown.bs.dropdown', function () {
-                    setTimeout(() => {
-                        searchInput.focus();
-                    }, 100);
-                });
-
-                // Prevent dropdown from closing when clicking inside the form
-                const dropdown = document.querySelector('.search-dropdown');
-                if (dropdown) {
-                    dropdown.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                    });
-                }
-
-                // Handle form submission
-                const searchForm = dropdown.querySelector('form');
-                if (searchForm) {
-                    searchForm.addEventListener('submit', function(e) {
-                        if (!searchInput.value.trim()) {
+                    // Simple fallback for dropdown functionality
+                    document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+                        toggle.addEventListener('click', function(e) {
                             e.preventDefault();
-                            searchInput.focus();
+                            const dropdown = this.parentElement;
+                            const menu = dropdown.querySelector('.dropdown-menu');
+
+                            // Close other dropdowns
+                            document.querySelectorAll('.dropdown-menu.show').forEach(function(m) {
+                                if (m !== menu) m.classList.remove('show');
+                            });
+
+                            // Toggle current
+                            if (menu) {
+                                menu.classList.toggle('show');
+                                this.setAttribute('aria-expanded', menu.classList.contains('show'));
+                            }
+                        });
+                    });
+
+                    // Close on outside click
+                    document.addEventListener('click', function(e) {
+                        if (!e.target.closest('.dropdown')) {
+                            document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
+                                menu.classList.remove('show');
+                            });
                         }
                     });
                 }
-
-                // Close dropdown on escape key
-                searchInput.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape') {
-                        const bsDropdown = bootstrap.Dropdown.getInstance(searchDropdown);
-                        if (bsDropdown) {
-                            bsDropdown.hide();
-                        }
-                    }
-                });
-            }
+            }, 1000);
         });
     </script>
 

@@ -318,6 +318,103 @@ sudo ufw allow 443/tcp
 sudo ufw enable
 ```
 
+### Content Security Policy (CSP) Configuration
+For proper JavaScript functionality, especially dropdown menus, configure CSP headers:
+
+#### Apache CSP Configuration
+Add to your virtual host or `.htaccess`:
+```apache
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'"
+```
+
+#### Nginx CSP Configuration
+Add to your server block:
+```nginx
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'" always;
+```
+
+### JavaScript Assets Configuration
+Ensure JavaScript files are properly served:
+
+```bash
+# Set correct MIME types for JavaScript
+# In Apache: /etc/apache2/mods-available/mime.conf
+AddType application/javascript .js
+
+# In Nginx: /etc/nginx/mime.types (should already be configured)
+application/javascript js;
+```
+
+### Dropdown Menu Troubleshooting
+If dropdown menus are not working after deployment:
+
+1. **Check Browser Console**:
+   ```javascript
+   // Open browser dev tools (F12) and check for errors
+   // Look for messages like "Bootstrap JS not loaded" or "CSP violations"
+   ```
+
+2. **Verify JavaScript Loading**:
+   ```bash
+   # Check if navigation.js is accessible
+   curl -I https://your-domain.com/js/navigation.js
+   
+   # Should return 200 OK with Content-Type: application/javascript
+   ```
+
+3. **Test Bootstrap Loading**:
+   ```javascript
+   // In browser console, check if Bootstrap is available
+   console.log(typeof bootstrap);
+   // Should return "object", not "undefined"
+   ```
+
+4. **Manual Dropdown Test**:
+   ```javascript
+   // In browser console, manually initialize dropdowns
+   if (typeof bootstrap !== 'undefined') {
+       document.querySelectorAll('.dropdown-toggle').forEach(function(el) {
+           new bootstrap.Dropdown(el);
+       });
+   }
+   ```
+
+### Common JavaScript Issues and Solutions
+
+#### Issue 1: "Bootstrap is not defined"
+```bash
+# Solution: Ensure Bootstrap JS is loaded before navigation.js
+# Check network tab in browser dev tools
+# Verify CDN URLs are accessible from your server
+```
+
+#### Issue 2: CSP Blocking Inline Scripts
+```bash
+# Solution: Use external JavaScript files instead of inline scripts
+# Our layout already uses external navigation.js file
+# Ensure CSP allows 'unsafe-inline' for scripts if needed
+```
+
+#### Issue 3: JavaScript Files Not Found (404)
+```bash
+# Solution: Check file paths and permissions
+ls -la public/js/navigation.js
+chmod 644 public/js/navigation.js
+
+# For Apache, ensure .htaccess allows JS files
+# For Nginx, ensure location blocks don't deny .js files
+```
+
+#### Issue 4: MIME Type Issues
+```bash
+# Solution: Configure correct MIME types
+# Add to .htaccess (Apache):
+AddType application/javascript .js
+
+# For Nginx, check /etc/nginx/mime.types includes:
+# application/javascript js;
+```
+
 ### File Permissions
 ```bash
 # Set correct ownership
@@ -457,6 +554,68 @@ tail -f /var/log/apache2/error.log
 
 # Check permissions
 ls -la storage bootstrap/cache
+```
+
+#### Dropdown Menus Not Working
+This is a common issue after deployment. Follow these steps:
+
+**Step 1: Check Browser Console**
+```javascript
+// Press F12 and look for JavaScript errors
+// Common errors:
+// - "Bootstrap is not defined"
+// - "Refused to execute inline script because of CSP"
+// - "Failed to load resource: 404 (Not Found)" for navigation.js
+```
+
+**Step 2: Verify JavaScript Files**
+```bash
+# Check if navigation.js exists and is accessible
+ls -la public/js/navigation.js
+curl -I https://your-domain.com/js/navigation.js
+
+# Should return 200 OK
+```
+
+**Step 3: Test Bootstrap Loading**
+```javascript
+// In browser console, check Bootstrap availability:
+console.log(typeof bootstrap);
+// Should show "object", not "undefined"
+
+// If undefined, check network tab for failed CDN requests
+```
+
+**Step 4: Manual Dropdown Test**
+```javascript
+// Try manual initialization in browser console:
+document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+    if (typeof bootstrap !== 'undefined') {
+        new bootstrap.Dropdown(toggle);
+    }
+});
+```
+
+**Step 5: Check Content Security Policy**
+```bash
+# If CSP is blocking scripts, add to your web server config:
+
+# For Apache (.htaccess or virtual host):
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net"
+
+# For Nginx (server block):
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net" always;
+```
+
+**Step 6: Fallback Solution**
+If Bootstrap is still not working, the layout includes a fallback script. Check if you see "using fallback dropdown initialization" in the console.
+
+**Step 7: Force Navigation Reinitialization**
+```javascript
+// If needed, manually reinitialize in browser console:
+if (typeof window.SchoolNavigation !== 'undefined') {
+    window.SchoolNavigation.init();
+}
 ```
 
 #### Database Connection Issues
