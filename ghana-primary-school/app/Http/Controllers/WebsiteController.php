@@ -21,14 +21,25 @@ class WebsiteController extends Controller
 {
     public function index()
     {
-        $school = School::first();
-        $heroSlides = HeroSlide::active()->ordered()->get();
-        $featuredNews = News::published()->featured()->latest()->limit(3)->get();
-        $upcomingEvents = Event::published()->upcoming()->latest()->limit(3)->get();
-        $featuredGallery = Gallery::featured()->latest()->limit(6)->get();
-        $featuredStaff = Staff::active()->featured()->limit(4)->get();
-
-        $settings = Setting::all()->keyBy('key');
+        try {
+            // Check if tables exist before querying
+            $school = \Illuminate\Support\Facades\Schema::hasTable('schools') ? School::first() : null;
+            $heroSlides = \Illuminate\Support\Facades\Schema::hasTable('hero_slides') ? HeroSlide::active()->ordered()->get() : collect();
+            $featuredNews = \Illuminate\Support\Facades\Schema::hasTable('news') ? News::published()->featured()->latest()->limit(3)->get() : collect();
+            $upcomingEvents = \Illuminate\Support\Facades\Schema::hasTable('events') ? Event::published()->upcoming()->latest()->limit(3)->get() : collect();
+            $featuredGallery = \Illuminate\Support\Facades\Schema::hasTable('galleries') ? Gallery::featured()->latest()->limit(6)->get() : collect();
+            $featuredStaff = \Illuminate\Support\Facades\Schema::hasTable('staff') ? Staff::active()->featured()->limit(4)->get() : collect();
+            $settings = \Illuminate\Support\Facades\Schema::hasTable('settings') ? Setting::all()->keyBy('key') : collect();
+        } catch (\Exception $e) {
+            // If database connection fails, provide empty collections
+            $school = null;
+            $heroSlides = collect();
+            $featuredNews = collect();
+            $upcomingEvents = collect();
+            $featuredGallery = collect();
+            $featuredStaff = collect();
+            $settings = collect();
+        }
 
         return view('website.index', compact(
             'school',
@@ -97,9 +108,15 @@ class WebsiteController extends Controller
 
     public function staff()
     {
-        $school = School::first();
-        $staff = Staff::active()->orderBy('sort_order')->get();
-        $settings = Setting::all()->keyBy('key');
+        try {
+            $school = \Illuminate\Support\Facades\Schema::hasTable('schools') ? School::first() : null;
+            $staff = \Illuminate\Support\Facades\Schema::hasTable('staff') ? Staff::active()->orderBy('sort_order')->get() : collect();
+            $settings = \Illuminate\Support\Facades\Schema::hasTable('settings') ? Setting::all()->keyBy('key') : collect();
+        } catch (\Exception $e) {
+            $school = null;
+            $staff = collect();
+            $settings = collect();
+        }
         return view('website.staff', compact('school', 'staff', 'settings'));
     }
 

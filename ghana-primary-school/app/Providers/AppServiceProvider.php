@@ -22,13 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Share settings and school data with all views
-        View::composer('*', function ($view) {
-            $settings = Setting::all()->keyBy('key');
-            $school = School::first();
-
-            $view->with('settings', $settings);
-            $view->with('school', $school);
-        });
+        //
     }
 }

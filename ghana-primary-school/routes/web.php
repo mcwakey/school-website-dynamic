@@ -45,6 +45,181 @@ Route::get('/debug-slides', function() {
     }
 });
 
+// Installation Helper Route
+Route::get('/install', function() {
+    // Check if already installed
+    try {
+        \Illuminate\Support\Facades\DB::connection()->getPdo();
+
+        // Check if tables exist before querying them
+        $tablesExist = \Illuminate\Support\Facades\Schema::hasTable('users');
+
+        if ($tablesExist) {
+            $userCount = \App\Models\User::count();
+            $hasAdmin = \App\Models\User::where('is_admin', true)->exists();
+            $existingAdmins = \App\Models\User::where('is_admin', true)->get();
+
+            return view('install.index', [
+                'isInstalled' => $userCount > 0,
+                'hasAdmin' => $hasAdmin,
+                'userCount' => $userCount,
+                'existingAdmins' => $existingAdmins
+            ]);
+        } else {
+            return view('install.index', [
+                'isInstalled' => false,
+                'hasAdmin' => false,
+                'userCount' => 0,
+                'existingAdmins' => []
+            ]);
+        }
+    } catch (\Exception $e) {
+        return view('install.index', [
+            'isInstalled' => false,
+            'hasAdmin' => false,
+            'userCount' => 0,
+            'existingAdmins' => [],
+            'dbError' => $e->getMessage()
+        ]);
+    }
+})->name('install');
+
+// Installation Actions
+Route::post('/install/check-requirements', function() {
+    $requirements = [
+        'PHP Version >= 8.1' => version_compare(PHP_VERSION, '8.1.0', '>='),
+        'Laravel Framework' => class_exists('Illuminate\Foundation\Application'),
+        'Composer Installed' => file_exists(base_path('vendor/autoload.php')),
+        'Storage Writable' => is_writable(storage_path()),
+        'Bootstrap Cache Writable' => is_writable(base_path('bootstrap/cache')),
+        'Environment File' => file_exists(base_path('.env')),
+        'Database Connection' => false, // Will check separately
+    ];
+
+    // Check database connection
+    try {
+        \Illuminate\Support\Facades\DB::connection()->getPdo();
+        $requirements['Database Connection'] = true;
+    } catch (Exception $e) {
+        $requirements['Database Connection'] = false;
+    }
+
+    return response()->json($requirements);
+})->name('install.check-requirements');
+
+Route::post('/install/run-migrations', function() {
+    try {
+        // Check if this is a fresh installation or update
+        $hasUsers = \Illuminate\Support\Facades\Schema::hasTable('users') && \App\Models\User::count() > 0;
+
+        if ($hasUsers) {
+            // Run only pending migrations for existing installation
+            \Illuminate\Support\Facades\Artisan::call('migrate');
+            return response()->json(['success' => true, 'message' => 'Database updated successfully (existing installation detected)']);
+        } else {
+            // Fresh installation - safe to use migrate:fresh
+            \Illuminate\Support\Facades\Artisan::call('migrate:fresh');
+            return response()->json(['success' => true, 'message' => 'Database migrated successfully (fresh installation)']);
+        }
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+})->name('install.run-migrations');
+
+Route::post('/install/seed-data', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:seed');
+        return response()->json(['success' => true, 'message' => 'Sample data seeded successfully']);
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+})->name('install.seed-data');
+
+Route::post('/install/create-admin', function() {
+    try {
+        // Set proper headers for JSON response
+        header('Content-Type: application/json');
+
+        $data = request()->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = \App\Models\User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => \Illuminate\Support\Facades\Hash::make($data['password']),
+            'is_admin' => true,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Admin user created successfully',
+            'user' => [
+                'name' => $user->name,
+                'email' => $user->email
+            ]
+        ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        $errors = [];
+        foreach ($e->errors() as $field => $messages) {
+            $errors[$field] = $messages;
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $errors,
+            'detailed_message' => implode('; ', array_map(function($field, $msgs) {
+                return $field . ': ' . implode(', ', $msgs);
+            }, array_keys($errors), $errors))
+        ], 422);
+    } catch (\Exception $e) {
+        \Log::error('Admin creation error: ' . $e->getMessage(), [
+            'trace' => $e->getTraceAsString(),
+            'request_data' => request()->all()
+        ]);
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Server error: ' . $e->getMessage(),
+            'error_type' => get_class($e)
+        ], 500);
+    }
+})->name('install.create-admin');
+
+// Additional install utilities
+Route::post('/install/clear-cache', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('cache:clear');
+        \Illuminate\Support\Facades\Artisan::call('config:clear');
+        \Illuminate\Support\Facades\Artisan::call('view:clear');
+        \Illuminate\Support\Facades\Artisan::call('route:clear');
+
+        return response()->json(['success' => true, 'message' => 'All caches cleared successfully']);
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+})->name('install.clear-cache');
+
+Route::post('/install/storage-link', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('storage:link');
+        return response()->json(['success' => true, 'message' => 'Storage link created successfully']);
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+})->name('install.storage-link');
+
+Route::post('/install/optimize', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('optimize');
+        return response()->json(['success' => true, 'message' => 'Application optimized successfully']);
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+})->name('install.optimize');
+
 // Authentication Routes
 Auth::routes();
 

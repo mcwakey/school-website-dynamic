@@ -2,6 +2,13 @@
 
 @section('title', 'Our Staff')
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item">
+        <a href="{{ route('about') }}" class="text-decoration-none">About Us</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Our Staff</li>
+@endsection
+
 @section('content')
 <!-- Hero Section -->
 <section class="hero-section bg-primary-gradient text-white py-5">
@@ -47,7 +54,12 @@
                             @if($member->bio)
                                 <p class="text-muted small">{{ Str::limit($member->bio, 120) }}</p>
                             @endif
-                            @if($member->qualifications)
+                            @if($member->qualifications && is_array($member->qualifications) && count($member->qualifications) > 0)
+                                <div class="qualifications mb-3">
+                                    <h6 class="fw-bold small">Qualifications:</h6>
+                                    <p class="text-muted small">{{ implode(', ', $member->qualifications) }}</p>
+                                </div>
+                            @elseif($member->qualifications && is_string($member->qualifications))
                                 <div class="qualifications mb-3">
                                     <h6 class="fw-bold small">Qualifications:</h6>
                                     <p class="text-muted small">{{ $member->qualifications }}</p>

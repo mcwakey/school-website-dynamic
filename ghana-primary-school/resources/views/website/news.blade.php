@@ -3,6 +3,10 @@
 @section('title', 'News & Announcements - ' . (isset($settings['site_name']) ? $settings['site_name']->value : 'Ghana Excellence Primary School'))
 @section('description', 'Stay updated with the latest news and announcements from our school.')
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item active" aria-current="page">News & Events</li>
+@endsection
+
 @section('content')
 <!-- Hero Section -->
 <section class="hero-section bg-primary-gradient text-white py-5">

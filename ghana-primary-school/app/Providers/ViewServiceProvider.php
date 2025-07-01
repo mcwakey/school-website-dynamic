@@ -8,6 +8,7 @@ use App\Models\PageContent;
 use App\Models\ThemeSetting;
 use App\Models\CustomMenu;
 use App\Models\Setting;
+use App\Models\School;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -15,22 +16,56 @@ class ViewServiceProvider extends ServiceProvider
     {
         // Share common data with all views
         View::composer('*', function ($view) {
-            // Get theme settings for CSS variables
-            $themeSettings = ThemeSetting::all()->keyBy('key');
+            try {
+                // Check if database tables exist before querying
+                if (\Illuminate\Support\Facades\Schema::hasTable('theme_settings')) {
+                    $themeSettings = ThemeSetting::all()->keyBy('key');
+                } else {
+                    $themeSettings = collect();
+                }
 
-            // Get custom menus
-            $headerMenus = CustomMenu::getMenuItems('header');
-            $footerMenus = CustomMenu::getMenuItems('footer');
+                // Get custom menus
+                if (\Illuminate\Support\Facades\Schema::hasTable('custom_menus')) {
+                    $headerMenus = CustomMenu::getMenuItems('header');
+                    $footerMenus = CustomMenu::getMenuItems('footer');
+                } else {
+                    $headerMenus = collect();
+                    $footerMenus = collect();
+                }
 
-            // Get general settings
-            $settings = Setting::all()->keyBy('key');
+                // Get general settings
+                if (\Illuminate\Support\Facades\Schema::hasTable('settings')) {
+                    $settings = Setting::all()->keyBy('key');
+                } else {
+                    $settings = collect();
+                }
 
-            $view->with([
-                'themeSettings' => $themeSettings,
-                'headerMenus' => $headerMenus,
-                'footerMenus' => $footerMenus,
-                'globalSettings' => $settings
-            ]);
+                // Get school information
+                if (\Illuminate\Support\Facades\Schema::hasTable('schools')) {
+                    $school = School::first();
+                } else {
+                    $school = null;
+                }
+
+                $view->with([
+                    'themeSettings' => $themeSettings,
+                    'headerMenus' => $headerMenus,
+                    'footerMenus' => $footerMenus,
+                    'globalSettings' => $settings,
+                    'settings' => $settings,  // Also add as 'settings' for backwards compatibility
+                    'school' => $school
+                ]);
+            } catch (\Exception $e) {
+                // If database connection fails, provide empty collections
+                $view->with([
+                    'themeSettings' => collect(),
+                    'headerMenus' => collect(),
+                    'footerMenus' => collect(),
+                    'globalSettings' => collect(),
+                    'settings' => collect(),
+                    'school' => null
+                ]);
+            }
         });
 
         // Helper for getting page content

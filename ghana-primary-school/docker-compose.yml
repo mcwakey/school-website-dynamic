@@ -1,0 +1,108 @@
+# Ghana Primary School Application - Docker Setup
+
+# Development Docker Compose
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: ghana_primary_school_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+      - ./storage:/var/www/html/storage
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+    ports:
+      - "8000:8000"
+    networks:
+      - ghana_primary_school
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_HOST=mysql
+      - DB_DATABASE=ghana_primary_school
+      - DB_USERNAME=root
+      - DB_PASSWORD=secret
+    depends_on:
+      - mysql
+      - redis
+
+  nginx:
+    image: nginx:alpine
+    container_name: ghana_primary_school_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+    networks:
+      - ghana_primary_school
+    depends_on:
+      - app
+
+  mysql:
+    image: mysql:8.0
+    container_name: ghana_primary_school_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ghana_primary_school
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_PASSWORD: secret
+      MYSQL_USER: laravel
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - ghana_primary_school
+
+  redis:
+    image: redis:alpine
+    container_name: ghana_primary_school_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - ghana_primary_school
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ghana_primary_school_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: secret
+    networks:
+      - ghana_primary_school
+    depends_on:
+      - mysql
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: ghana_primary_school_mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - ghana_primary_school
+
+networks:
+  ghana_primary_school:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

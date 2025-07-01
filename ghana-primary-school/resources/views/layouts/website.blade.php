@@ -296,6 +296,227 @@
             margin: 0 15px;
             opacity: 0.5;
         }
+
+        /* Navigation Dropdown Styles */
+        .navbar-nav .dropdown-menu {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            margin-top: 8px;
+            min-width: 220px;
+            background: var(--white);
+        }
+
+        .navbar-nav .dropdown-item {
+            padding: 12px 20px;
+            color: var(--dark-gray);
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 0 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .navbar-nav .dropdown-item.active {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            color: var(--white);
+        }
+
+        .navbar-nav .dropdown-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .navbar-nav .dropdown-toggle::after {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-nav .dropdown-toggle[aria-expanded="true"]::after {
+            transform: rotate(180deg);
+        }
+
+        /* Navigation Link Icons */
+        .navbar-nav .nav-link i {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover i {
+            opacity: 1;
+        }
+
+        /* Mobile Dropdown Adjustments */
+        @media (max-width: 991.98px) {
+            .navbar-nav .dropdown-menu {
+                background: transparent;
+                box-shadow: none;
+                border: none;
+                margin-top: 0;
+                padding-left: 20px;
+            }
+
+            .navbar-nav .dropdown-item {
+                color: rgba(255, 255, 255, 0.8);
+                margin: 0;
+                border-radius: 0;
+                padding: 8px 0;
+            }
+
+            .navbar-nav .dropdown-item:hover {
+                background: transparent;
+                color: var(--white);
+                transform: none;
+            }
+
+            .navbar-nav .dropdown-item.active {
+                background: transparent;
+                color: var(--accent-color);
+            }
+        }
+
+        /* Improved Mobile Navigation */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: rgba(44, 85, 48, 0.95);
+                backdrop-filter: blur(10px);
+                border-radius: 12px;
+                margin-top: 10px;
+                padding: 20px;
+            }
+
+            .navbar-nav .nav-link {
+                color: rgba(255, 255, 255, 0.9) !important;
+                padding: 12px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .navbar-nav .nav-link:hover {
+                color: var(--accent-color) !important;
+            }
+
+            .navbar-nav .nav-link.active {
+                color: var(--accent-color) !important;
+            }
+        }
+
+        /* Search Form in Mobile */
+        @media (max-width: 991.98px) {
+            .navbar-nav ~ form {
+                margin-top: 20px;
+                padding-top: 20px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        /* Dropdown Search Styles */
+        .dropdown-search {
+            position: relative;
+        }
+
+        .search-toggle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border: 1px solid var(--primary-color);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .search-toggle-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            border-color: var(--primary-dark);
+            color: var(--white);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(231, 76, 37, 0.3);
+        }
+
+        .search-toggle-btn:focus {
+            box-shadow: 0 0 0 0.2rem rgba(231, 76, 37, 0.25);
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-color: var(--primary-color);
+        }
+
+        .search-dropdown {
+            min-width: 300px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            padding: 0;
+            margin-top: 8px;
+            background: var(--white);
+        }
+
+        .search-dropdown form {
+            margin: 0;
+        }
+
+        .search-dropdown .input-group {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .search-dropdown .form-control {
+            border: 1px solid #e2e8f0;
+            border-right: none;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+
+        .search-dropdown .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: none;
+        }
+
+        .search-dropdown .btn-primary {
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border: 1px solid var(--primary-color);
+        }
+
+        .search-dropdown .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            transform: none;
+        }
+
+        /* Mobile Search Dropdown */
+        @media (max-width: 991.98px) {
+            .dropdown-search {
+                order: 1;
+                margin: 20px 0 0 0 !important;
+            }
+
+            .search-toggle-btn {
+                background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+                border-color: var(--primary-color);
+                color: var(--white);
+            }
+
+            .search-dropdown {
+                min-width: 100%;
+                margin-top: 10px;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+            }
+
+            .search-dropdown form {
+                padding: 15px !important;
+            }
+        }
     </style>
 
     <!-- JSON-LD Structured Data -->
@@ -442,48 +663,111 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a>
+
+                    <!-- About Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('about', 'staff', 'programs') ? 'active' : '' }}"
+                           href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-info-circle me-1"></i>About Us
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
+                                <i class="fas fa-building me-2"></i>School Overview
+                            </a></li>
+                            <li><a class="dropdown-item {{ request()->routeIs('staff') ? 'active' : '' }}" href="{{ route('staff') }}">
+                                <i class="fas fa-users me-2"></i>Our Staff
+                            </a></li>
+                            <li><a class="dropdown-item {{ request()->routeIs('programs') ? 'active' : '' }}" href="{{ route('programs') }}">
+                                <i class="fas fa-graduation-cap me-2"></i>Academic Programs
+                            </a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('programs') ? 'active' : '' }}" href="{{ route('programs') }}">Programs</a>
+
+                    <!-- News & Events Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('news*', 'events*') ? 'active' : '' }}"
+                           href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-newspaper me-1"></i>News & Events
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item {{ request()->routeIs('news*') ? 'active' : '' }}" href="{{ route('news') }}">
+                                <i class="fas fa-newspaper me-2"></i>Latest News
+                            </a></li>
+                            <li><a class="dropdown-item {{ request()->routeIs('events*') ? 'active' : '' }}" href="{{ route('events') }}">
+                                <i class="fas fa-calendar-alt me-2"></i>Upcoming Events
+                            </a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('news*') ? 'active' : '' }}" href="{{ route('news') }}">News</a>
+
+                    <!-- Media & Resources Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('gallery', 'documents*') ? 'active' : '' }}"
+                           href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-folder-open me-1"></i>Media & Resources
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item {{ request()->routeIs('gallery') ? 'active' : '' }}" href="{{ route('gallery') }}">
+                                <i class="fas fa-images me-2"></i>Photo Gallery
+                            </a></li>
+                            <li><a class="dropdown-item {{ request()->routeIs('documents*') ? 'active' : '' }}" href="{{ route('documents') }}">
+                                <i class="fas fa-file-download me-2"></i>Downloads
+                            </a></li>
+                        </ul>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('events*') ? 'active' : '' }}" href="{{ route('events') }}">Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('gallery') ? 'active' : '' }}" href="{{ route('gallery') }}">Gallery</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('documents*') ? 'active' : '' }}" href="{{ route('documents') }}">Documents</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
+                        <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">
+                            <i class="fas fa-envelope me-1"></i>Contact
+                        </a>
                     </li>
                 </ul>
 
-                <!-- Search Form -->
-                <form class="d-flex ms-3" action="{{ route('search') }}" method="GET">
-                    <div class="input-group">
-                        <input class="form-control form-control-sm"
-                               type="search"
-                               name="q"
-                               placeholder="Search..."
-                               aria-label="Search"
-                               style="min-width: 200px;">
-                        <button class="btn btn-outline-light btn-sm" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
+                <!-- Dropdown Search -->
+                <div class="dropdown-search ms-3">
+                    <button class="search-toggle-btn btn btn-outline-primary btn-sm" type="button" id="searchDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end search-dropdown" aria-labelledby="searchDropdown">
+                        <form action="{{ route('search') }}" method="GET" class="p-3">
+                            <div class="input-group">
+                                <input class="form-control"
+                                       type="search"
+                                       name="q"
+                                       placeholder="Search our website..."
+                                       aria-label="Search"
+                                       id="searchInput">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </nav>
+
+    <!-- Breadcrumb (optional - can be added to pages) -->
+    @if(!request()->routeIs('home'))
+    <nav class="breadcrumb-nav py-3 bg-light">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('home') }}" class="text-decoration-none">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    @yield('breadcrumbs')
+                </ol>
+            </nav>
+        </div>
+    </nav>
+    @endif
 
     <!-- Main Content -->
     <main>
@@ -593,6 +877,52 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Search Dropdown Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchDropdown = document.getElementById('searchDropdown');
+
+            if (searchInput && searchDropdown) {
+                // Focus input when dropdown is shown
+                searchDropdown.addEventListener('shown.bs.dropdown', function () {
+                    setTimeout(() => {
+                        searchInput.focus();
+                    }, 100);
+                });
+
+                // Prevent dropdown from closing when clicking inside the form
+                const dropdown = document.querySelector('.search-dropdown');
+                if (dropdown) {
+                    dropdown.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                }
+
+                // Handle form submission
+                const searchForm = dropdown.querySelector('form');
+                if (searchForm) {
+                    searchForm.addEventListener('submit', function(e) {
+                        if (!searchInput.value.trim()) {
+                            e.preventDefault();
+                            searchInput.focus();
+                        }
+                    });
+                }
+
+                // Close dropdown on escape key
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        const bsDropdown = bootstrap.Dropdown.getInstance(searchDropdown);
+                        if (bsDropdown) {
+                            bsDropdown.hide();
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 
     <!-- Custom Scripts -->
     @stack('scripts')
