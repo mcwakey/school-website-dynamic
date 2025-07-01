@@ -1,6 +1,6 @@
 # 🏫 Ghana Primary School Website
 
-A complete, modern website and content management system built for Ghana Primary School using Laravel.
+**Version 1.0.0** - A complete, modern website and content management system built for Ghana Primary School using Laravel.
 
 ## 📚 Documentation
 
@@ -11,6 +11,7 @@ A complete, modern website and content management system built for Ghana Primary
 - **[🎨 Theme Guide](THEME_GUIDE.md)** - Design guidelines and branding
 - **[🚀 Deployment Guide](DEPLOYMENT.md)** - Production deployment instructions
 - **[✅ Project Status](PROJECT_COMPLETE.md)** - Complete project overview
+- **[📝 Changelog](CHANGELOG.md)** - Version history and release notes
 
 ## 🔐 Admin Access
 

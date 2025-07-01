@@ -1,5 +1,8 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
+    "name": "ghana-primary-school-website",
+    "version": "1.0.0",
+    "description": "Ghana Primary School Website - Modern, responsive school website with complete CMS",
     "private": true,
     "type": "module",
     "scripts": {

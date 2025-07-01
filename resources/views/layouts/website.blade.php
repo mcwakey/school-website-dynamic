@@ -585,6 +585,7 @@
                             </a>
                         @endauth
                         <p class="mb-0">Built with <i class="fas fa-heart text-danger"></i> for education</p>
+                        <small class="text-muted">Version {{ config('version.version', '1.0.0') }}</small>
                     </div>
                 </div>
             </div>

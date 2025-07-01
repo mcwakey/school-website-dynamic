@@ -287,4 +287,32 @@
         </div>
     </div>
 </div>
+
+<!-- Version Information -->
+<div class="row">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-3">
+                <div class="d-flex justify-content-center align-items-center flex-wrap gap-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-code-branch text-primary me-2"></i>
+                        <span class="fw-semibold">Version: {{ config('version.version', '1.0.0') }}</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-calendar text-success me-2"></i>
+                        <span>Released: {{ config('version.release_date', '2025-07-01') }}</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-rocket text-info me-2"></i>
+                        <span>Codename: {{ config('version.codename', 'Excellence') }}</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-server text-warning me-2"></i>
+                        <span>Environment: {{ config('app.env', 'production') }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
