@@ -517,6 +517,51 @@
                 padding: 15px !important;
             }
         }
+
+        /* Production Dropdown Styles */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            z-index: 1050;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        .dropdown-menu.show {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 1rem;
+            clear: both;
+            font-weight: 400;
+            color: #212529;
+            text-align: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
+            transition: background-color 0.15s ease-in-out;
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+            background-color: #f8f9fa;
+            color: #1e2125;
+        }
     </style>
 
     <!-- JSON-LD Structured Data -->
@@ -889,8 +934,6 @@
         window.addEventListener('load', function() {
             setTimeout(function() {
                 if (typeof window.SchoolNavigation === 'undefined') {
-                    console.warn('External navigation script failed to load, using fallback');
-
                     // Simple fallback for dropdown functionality
                     document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
                         toggle.addEventListener('click', function(e) {

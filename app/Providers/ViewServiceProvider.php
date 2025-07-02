@@ -70,11 +70,11 @@ class ViewServiceProvider extends ServiceProvider
 
         // Helper for getting page content
         View::composer(['website.*', 'layouts.app'], function ($view) {
-            $view->with('pageContent', function($page, $key, $default = null) {
+            $view->with('getPageContent', function($page, $key, $default = null) {
                 return PageContent::getContent($page, $key, $default);
             });
 
-            $view->with('pageTitle', function($page, $key, $default = null) {
+            $view->with('getPageTitle', function($page, $key, $default = null) {
                 return PageContent::getTitle($page, $key, $default);
             });
         });

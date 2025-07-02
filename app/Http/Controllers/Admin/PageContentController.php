@@ -8,24 +8,71 @@ use App\Models\PageContent;
 
 class PageContentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $contents = PageContent::with([])
-                              ->orderBy('page')
-                              ->orderBy('section')
-                              ->orderBy('sort_order')
-                              ->paginate(20);
+        $query = PageContent::query();
 
-        $pages = PageContent::distinct()->pluck('page');
-        $sections = PageContent::distinct()->pluck('section');
+        // Apply filters
+        if ($request->filled('filter_page')) {
+            $query->where('page', $request->filter_page);
+        }
+
+        if ($request->filled('section')) {
+            $query->where('section', $request->section);
+        }
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title', 'like', "%{$searchTerm}%")
+                  ->orWhere('content', 'like', "%{$searchTerm}%")
+                  ->orWhere('key', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        // Get the total count before pagination
+        $total = $query->count();
+        
+        // Get current page from request
+        $page = $request->get('page', 1);
+        $perPage = 20;
+        
+        // Calculate offset
+        $offset = ($page - 1) * $perPage;
+        
+        // Get the items for current page
+        $items = $query->orderBy('page')
+                      ->orderBy('section')
+                      ->orderBy('sort_order')
+                      ->offset($offset)
+                      ->limit($perPage)
+                      ->get();
+
+        // Create paginator manually
+        $contents = new \Illuminate\Pagination\LengthAwarePaginator(
+            $items,
+            $total,
+            $perPage,
+            $page,
+            [
+                'path' => $request->url(),
+                'pageName' => 'page',
+            ]
+        );
+        
+        // Preserve query parameters
+        $contents->withQueryString();
+
+        $pages = PageContent::distinct()->orderBy('page')->pluck('page');
+        $sections = PageContent::distinct()->orderBy('section')->pluck('section');
 
         return view('admin.page-contents.index', compact('contents', 'pages', 'sections'));
     }
 
     public function create()
     {
-        $pages = ['home', 'about', 'contact', 'news', 'events', 'gallery', 'staff', 'academics'];
-        $sections = ['hero', 'welcome', 'mission', 'vision', 'features', 'testimonials', 'footer'];
+        $pages = PageContent::distinct()->orderBy('page')->pluck('page');
+        $sections = PageContent::distinct()->orderBy('section')->pluck('section');
 
         return view('admin.page-contents.create', compact('pages', 'sections'));
     }
@@ -70,8 +117,8 @@ class PageContentController extends Controller
 
     public function edit(PageContent $pageContent)
     {
-        $pages = ['home', 'about', 'contact', 'news', 'events', 'gallery', 'staff', 'academics'];
-        $sections = ['hero', 'welcome', 'mission', 'vision', 'features', 'testimonials', 'footer'];
+        $pages = PageContent::distinct()->orderBy('page')->pluck('page');
+        $sections = PageContent::distinct()->orderBy('section')->pluck('section');
 
         return view('admin.page-contents.edit', compact('pageContent', 'pages', 'sections'));
     }

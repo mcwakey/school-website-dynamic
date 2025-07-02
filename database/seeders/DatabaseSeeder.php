@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             SchoolSeeder::class,
             SettingsSeeder::class,
+            CoreValueSeeder::class,
+            CustomizationSeeder::class,
             // SampleContentSeeder::class, // Commented out - replaced with enhanced version
             EnhancedSampleContentSeeder::class,
         ]);

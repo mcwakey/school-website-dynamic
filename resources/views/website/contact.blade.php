@@ -2,6 +2,10 @@
 
 @section('title', 'Contact Us')
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+@endsection
+
 @section('content')
 <!-- Hero Section -->
 <section class="hero-section bg-primary-gradient text-white py-5">
@@ -9,8 +13,12 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Get In Touch</span>
-                <h1 class="display-4 fw-bold mb-3">Contact Us</h1>
-                <p class="lead mb-4">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                <h1 class="display-4 fw-bold mb-3">
+                    {{ isset($pageContent['contact_welcome']['title']) ? $pageContent['contact_welcome']['title'] : 'Contact Us' }}
+                </h1>
+                <p class="lead mb-4">
+                    {{ isset($pageContent['contact_welcome']['content']) ? $pageContent['contact_welcome']['content'] : 'We\\'d love to hear from you. Send us a message and we\\'ll respond as soon as possible.' }}
+                </p>
             </div>
             <div class="col-lg-4 text-center">
                 <img src="{{ asset('images/contact-hero.svg') }}" alt="Contact Us" class="img-fluid" style="max-height: 300px;">

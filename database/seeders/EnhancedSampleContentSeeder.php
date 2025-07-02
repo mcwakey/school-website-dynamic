@@ -9,8 +9,11 @@ use App\Models\Event;
 use App\Models\Staff;
 use App\Models\Gallery;
 use App\Models\HeroSlide;
+use App\Models\PageContent;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class EnhancedSampleContentSeeder extends Seeder
 {
@@ -19,7 +22,21 @@ class EnhancedSampleContentSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminUser = User::where('email', 'admin@school.com')->first();
+        // Ensure admin role exists
+        $adminRole = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+
+        // Ensure admin user exists and has the admin role
+        $adminUser = User::firstOrCreate(
+            ['email' => 'admin@school.com'],
+            [
+                'name' => 'Admin User',
+                'password' => Hash::make('password'), // Default password
+            ]
+        );
+
+        if (!$adminUser->hasRole('admin')) {
+            $adminUser->assignRole($adminRole);
+        }
 
         // Clear existing data to avoid duplicates
         HeroSlide::truncate();
@@ -27,8 +44,9 @@ class EnhancedSampleContentSeeder extends Seeder
         Event::truncate();
         Staff::truncate();
         Gallery::truncate();
+        PageContent::truncate();
 
-        // Create Hero Slides
+        // Create Hero Slides with more variety
         $heroSlidesData = [
             [
                 'title' => 'Royal Life Montessory School',
@@ -60,13 +78,33 @@ class EnhancedSampleContentSeeder extends Seeder
                 'sort_order' => 3,
                 'is_active' => true,
             ],
+            [
+                'title' => 'State-of-the-Art Facilities',
+                'subtitle' => 'Modern Learning Environments',
+                'description' => 'From our computer lab to science facilities, playground areas, and library, we provide comprehensive resources for holistic education.',
+                'image_path' => 'hero-slides/slide-4.svg',
+                'button_text' => 'Tour Campus',
+                'button_link' => '/facilities',
+                'sort_order' => 4,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Extracurricular Excellence',
+                'subtitle' => 'Beyond the Classroom',
+                'description' => 'Sports, arts, music, and cultural activities that develop well-rounded personalities and discover hidden talents.',
+                'image_path' => 'hero-slides/slide-5.svg',
+                'button_text' => 'View Activities',
+                'button_link' => '/activities',
+                'sort_order' => 5,
+                'is_active' => false, // One slide inactive to show variety
+            ],
         ];
 
         foreach ($heroSlidesData as $slide) {
             HeroSlide::create($slide);
         }
 
-        // Enhanced News with featured images
+        // Enhanced News with featured images and more variety
         $newsData = [
             [
                 'title' => 'Welcome Back to School 2025',
@@ -112,13 +150,46 @@ class EnhancedSampleContentSeeder extends Seeder
                 'published_at' => Carbon::now()->subDays(7),
                 'user_id' => $adminUser->id,
             ],
+            [
+                'title' => 'New STEM Program Launched',
+                'slug' => 'new-stem-program-launched',
+                'content' => 'We are excited to introduce our new STEM (Science, Technology, Engineering, and Mathematics) program designed to spark curiosity and innovation in our students. The program includes hands-on experiments, robotics classes, coding workshops, and engineering challenges that make learning engaging and practical.',
+                'excerpt' => 'Our new STEM program combines science, technology, engineering, and mathematics for hands-on learning.',
+                'featured_image' => 'news/stem-program.svg',
+                'is_published' => true,
+                'is_featured' => true,
+                'published_at' => Carbon::now()->subDays(10),
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'Teacher Training Workshop Success',
+                'slug' => 'teacher-training-workshop-success',
+                'content' => 'Our teaching staff recently completed an intensive training workshop on modern teaching methodologies and digital education tools. This professional development initiative ensures our educators stay current with best practices and can provide the highest quality education to our students.',
+                'excerpt' => 'Our teachers completed advanced training to enhance their teaching skills and methods.',
+                'featured_image' => 'news/teacher-training.svg',
+                'is_published' => true,
+                'is_featured' => false,
+                'published_at' => Carbon::now()->subDays(12),
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'School Garden Project Yields First Harvest',
+                'slug' => 'school-garden-project-harvest',
+                'content' => 'Our students are celebrating the first harvest from our school garden project. This initiative teaches children about agriculture, nutrition, and environmental stewardship while providing fresh vegetables for our school meals program.',
+                'excerpt' => 'Students celebrate the first harvest from our educational school garden project.',
+                'featured_image' => 'news/garden-harvest.svg',
+                'is_published' => true,
+                'is_featured' => false,
+                'published_at' => Carbon::now()->subDays(15),
+                'user_id' => $adminUser->id,
+            ],
         ];
 
         foreach ($newsData as $news) {
             News::create($news);
         }
 
-        // Enhanced Events with featured images
+        // Enhanced Events with featured images and more variety
         $eventsData = [
             [
                 'title' => 'Annual Sports Day 2025',
@@ -167,6 +238,45 @@ class EnhancedSampleContentSeeder extends Seeder
                 'featured_image' => 'gallery/sports-day.svg',
                 'start_date' => Carbon::now()->addDays(30)->setTime(9, 0),
                 'end_date' => Carbon::now()->addDays(30)->setTime(14, 0),
+                'location' => 'School Assembly Hall',
+                'is_published' => true,
+                'is_featured' => false,
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'Reading Week Challenge',
+                'slug' => 'reading-week-challenge',
+                'description' => 'A week-long reading challenge to promote literacy and love for books. Students will participate in reading activities, storytelling sessions, and book discussions.',
+                'excerpt' => 'Join our exciting reading week to promote literacy and love for books among students.',
+                'featured_image' => 'events/reading-week.svg',
+                'start_date' => Carbon::now()->addDays(35)->setTime(8, 0),
+                'end_date' => Carbon::now()->addDays(39)->setTime(15, 0),
+                'location' => 'School Library',
+                'is_published' => true,
+                'is_featured' => true,
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'Art & Craft Exhibition',
+                'slug' => 'art-craft-exhibition',
+                'description' => 'Students will display their creative artwork and craft projects. This exhibition showcases the artistic talents of our students and their creativity in various mediums.',
+                'excerpt' => 'Discover the artistic talents of our students in this creative exhibition.',
+                'featured_image' => 'events/art-exhibition.svg',
+                'start_date' => Carbon::now()->addDays(25)->setTime(10, 0),
+                'end_date' => Carbon::now()->addDays(25)->setTime(16, 0),
+                'location' => 'School Art Room',
+                'is_published' => true,
+                'is_featured' => false,
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'Career Day with Professionals',
+                'slug' => 'career-day-professionals',
+                'description' => 'Local professionals will visit our school to share their career experiences and inspire students. This event exposes children to various career paths and possibilities.',
+                'excerpt' => 'Meet professionals from various fields and learn about different career opportunities.',
+                'featured_image' => 'events/career-day.svg',
+                'start_date' => Carbon::now()->addDays(40)->setTime(9, 0),
+                'end_date' => Carbon::now()->addDays(40)->setTime(12, 0),
                 'location' => 'School Assembly Hall',
                 'is_published' => true,
                 'is_featured' => false,
@@ -255,7 +365,7 @@ class EnhancedSampleContentSeeder extends Seeder
             Staff::create($staff);
         }
 
-        // Enhanced Gallery with more diverse images
+        // Enhanced Gallery with more diverse images and categories
         $galleryData = [
             [
                 'title' => 'New Computer Laboratory',
@@ -311,18 +421,333 @@ class EnhancedSampleContentSeeder extends Seeder
                 'sort_order' => 6,
                 'user_id' => $adminUser->id,
             ],
+            [
+                'title' => 'Art Class Creativity',
+                'description' => 'Students expressing their creativity through various art projects and artistic activities.',
+                'image_path' => 'storage/events/art-exhibition.svg',
+                'category' => 'academics',
+                'is_featured' => true,
+                'sort_order' => 7,
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'Music and Performances',
+                'description' => 'Students showcasing their musical talents during school performances and cultural events.',
+                'image_path' => 'storage/gallery/music-performance.svg',
+                'category' => 'activities',
+                'is_featured' => false,
+                'sort_order' => 8,
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'School Garden Project',
+                'description' => 'Students learning about agriculture and environmental stewardship through our school garden.',
+                'image_path' => 'storage/news/garden-harvest.svg',
+                'category' => 'activities',
+                'is_featured' => true,
+                'sort_order' => 9,
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'Reading and Literacy Activities',
+                'description' => 'Promoting literacy through reading sessions and book discussions in our library.',
+                'image_path' => 'storage/events/reading-week.svg',
+                'category' => 'academics',
+                'is_featured' => false,
+                'sort_order' => 10,
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'Playground Fun',
+                'description' => 'Students enjoying recreational activities and building friendships during break time.',
+                'image_path' => 'storage/gallery/playground.svg',
+                'category' => 'activities',
+                'is_featured' => true,
+                'sort_order' => 11,
+                'user_id' => $adminUser->id,
+            ],
+            [
+                'title' => 'Teacher Training Workshop',
+                'description' => 'Our dedicated teachers participating in professional development workshops.',
+                'image_path' => 'storage/news/teacher-training.svg',
+                'category' => 'staff',
+                'is_featured' => false,
+                'sort_order' => 12,
+                'user_id' => $adminUser->id,
+            ],
         ];
 
         foreach ($galleryData as $gallery) {
             Gallery::create($gallery);
         }
 
-        $this->command->info('Enhanced sample content with images has been seeded successfully!');
-        $this->command->info('✓ Hero slides created with slideshow images');
-        $this->command->info('✓ News articles created with featured images');
-        $this->command->info('✓ Events created with featured images');
-        $this->command->info('✓ Staff profiles created with placeholder photos');
-        $this->command->info('✓ Gallery items created with diverse images');
+        // Enhanced Page Contents for customizable areas
+        $pageContentsData = [
+            // Homepage customizable sections
+            [
+                'page' => 'home',
+                'section' => 'welcome',
+                'key' => 'welcome_title',
+                'title' => 'Welcome to Our School Community',
+                'content' => 'We are dedicated to providing quality education that nurtures creativity, critical thinking, and character development in every student.',
+                'metadata' => ['text_color' => '#333333', 'background_color' => '#f8f9fa'],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'home',
+                'section' => 'welcome',
+                'key' => 'welcome_subtitle',
+                'title' => 'Where Excellence Meets Innovation',
+                'content' => 'Our experienced teachers and modern facilities create the perfect environment for academic success and personal growth.',
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'home',
+                'section' => 'features',
+                'key' => 'features_title',
+                'title' => 'Our Core Features',
+                'content' => 'We provide a comprehensive educational experience focusing on the following key areas.',
+                'sort_order' => 0,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'home',
+                'section' => 'features',
+                'key' => 'feature_academic_excellence',
+                'title' => 'Academic Excellence',
+                'content' => 'Our curriculum is designed to challenge students while providing the support they need to succeed. We focus on developing critical thinking skills and fostering a love for learning.',
+                'metadata' => ['icon' => 'fas fa-graduation-cap', 'color' => '#007bff'],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'home',
+                'section' => 'features',
+                'key' => 'feature_modern_facilities',
+                'title' => 'Modern Facilities',
+                'content' => 'State-of-the-art computer labs, well-equipped science laboratories, comprehensive library, and spacious playgrounds provide the best learning environment.',
+                'metadata' => ['icon' => 'fas fa-building', 'color' => '#28a745'],
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'home',
+                'section' => 'features',
+                'key' => 'feature_experienced_teachers',
+                'title' => 'Experienced Teachers',
+                'content' => 'Our dedicated faculty members bring years of experience and passion for education. They use innovative teaching methods to ensure every student reaches their potential.',
+                'metadata' => ['icon' => 'fas fa-chalkboard-teacher', 'color' => '#ffc107'],
+                'sort_order' => 3,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'home',
+                'section' => 'features',
+                'key' => 'feature_holistic_development',
+                'title' => 'Holistic Development',
+                'content' => 'Beyond academics, we focus on developing character, creativity, and leadership skills through sports, arts, and community service programs.',
+                'metadata' => ['icon' => 'fas fa-heart', 'color' => '#dc3545'],
+                'sort_order' => 4,
+                'is_active' => true,
+            ],
+
+            // About page content
+            [
+                'page' => 'about',
+                'section' => 'mission',
+                'key' => 'school_mission',
+                'title' => 'Our Mission Statement',
+                'content' => 'To provide excellent primary education that develops confident, creative, and responsible citizens who can contribute positively to society and the global community.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'about',
+                'section' => 'vision',
+                'key' => 'school_vision',
+                'title' => 'Our Vision',
+                'content' => 'To be the leading primary school in Ghana, recognized for academic excellence, character development, and innovative teaching approaches that prepare students for success in the 21st century.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'about',
+                'section' => 'history',
+                'key' => 'school_history',
+                'title' => 'Our Rich History',
+                'content' => 'Established in 2010, Royal Life Montessori School has been serving the community with dedication and excellence. Over the years, we have grown from a small school to a recognized institution that has educated hundreds of students who are now making positive contributions to society.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'about',
+                'section' => 'achievements',
+                'key' => 'school_achievements',
+                'title' => 'Our Achievements',
+                'content' => 'We are proud of our students\' consistent performance in national examinations, our inter-school sports victories, and recognition as one of the top primary schools in the region. Our alumni have gone on to excel in prestigious secondary schools.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+
+            // Academic programs content
+            [
+                'page' => 'academics',
+                'section' => 'curriculum',
+                'key' => 'curriculum_overview',
+                'title' => 'Comprehensive Curriculum',
+                'content' => 'Our curriculum follows the Ghana Education Service standards while incorporating innovative teaching methods. We offer a well-rounded education that includes core subjects, STEM programs, arts, and physical education.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'academics',
+                'section' => 'programs',
+                'key' => 'stem_program',
+                'title' => 'STEM Education Program',
+                'content' => 'Our Science, Technology, Engineering, and Mathematics program encourages students to explore, experiment, and innovate. Through hands-on activities and project-based learning, students develop problem-solving skills and scientific thinking.',
+                'metadata' => ['program_type' => 'stem', 'age_group' => '6-12'],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'academics',
+                'section' => 'programs',
+                'key' => 'arts_program',
+                'title' => 'Creative Arts Program',
+                'content' => 'We believe in nurturing creativity through our comprehensive arts program. Students explore visual arts, music, drama, and creative writing, helping them express themselves and develop artistic talents.',
+                'metadata' => ['program_type' => 'arts', 'age_group' => '6-12'],
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'academics',
+                'section' => 'programs',
+                'key' => 'sports_program',
+                'title' => 'Sports and Physical Education',
+                'content' => 'Physical fitness and teamwork are integral to our education. Our sports program includes football, netball, athletics, and traditional games, promoting healthy lifestyles and team spirit.',
+                'metadata' => ['program_type' => 'sports', 'age_group' => '6-12'],
+                'sort_order' => 3,
+                'is_active' => true,
+            ],
+
+            // Admissions information
+            [
+                'page' => 'admissions',
+                'section' => 'process',
+                'key' => 'admission_requirements',
+                'title' => 'Admission Requirements',
+                'content' => 'We welcome students aged 6-12 years. Requirements include completed application form, birth certificate, previous school records (if applicable), and medical certificate. We also conduct a brief interview to understand the child\'s needs.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'admissions',
+                'section' => 'process',
+                'key' => 'admission_deadlines',
+                'title' => 'Important Dates',
+                'content' => 'Applications for the new academic year open in January. Early admission is recommended as spaces are limited. School visits can be arranged throughout the year to help families make informed decisions.',
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'admissions',
+                'section' => 'fees',
+                'key' => 'school_fees',
+                'title' => 'School Fees Information',
+                'content' => 'We offer competitive fees with flexible payment options. Fee structure includes tuition, feeding, transportation (optional), and extracurricular activities. Scholarships and financial assistance are available for deserving students.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+
+            // Contact page enhancement
+            [
+                'page' => 'contact',
+                'section' => 'info',
+                'key' => 'contact_welcome',
+                'title' => 'Get in Touch With Us',
+                'content' => 'We welcome inquiries from parents and guardians. Our friendly staff is ready to answer your questions about admissions, academic programs, school activities, or any other concerns you may have.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'contact',
+                'section' => 'office_hours',
+                'key' => 'office_hours_info',
+                'title' => 'Office Hours',
+                'content' => 'Our administrative office is open Monday through Friday from 7:00 AM to 4:00 PM. During school holidays, office hours may vary. Please call ahead to confirm availability.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+
+            // Custom footer content
+            [
+                'page' => 'footer',
+                'section' => 'about',
+                'key' => 'footer_about_school',
+                'title' => 'Royal Life Montessori School',
+                'content' => 'Dedicated to providing quality primary education in a nurturing environment. We are committed to developing confident, creative, and responsible global citizens.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'footer',
+                'section' => 'quick_links',
+                'key' => 'footer_quick_links',
+                'title' => 'Quick Links',
+                'content' => 'Admissions | Academic Calendar | School Policies | Parent Portal | Alumni Network | Career Opportunities',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+
+            // Facilities showcase
+            [
+                'page' => 'facilities',
+                'section' => 'overview',
+                'key' => 'facilities_overview',
+                'title' => 'World-Class Learning Facilities',
+                'content' => 'Our campus features modern classrooms, advanced computer laboratories, well-equipped science labs, a comprehensive library, art studios, music rooms, and expansive playgrounds designed to support holistic education.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'facilities',
+                'section' => 'technology',
+                'key' => 'computer_lab_info',
+                'title' => 'Computer Laboratory',
+                'content' => 'Our state-of-the-art computer lab features 30 modern computers with high-speed internet access. Students learn coding, digital literacy, and computer applications in an interactive environment.',
+                'metadata' => ['capacity' => '30', 'equipment' => 'modern_computers'],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'facilities',
+                'section' => 'science',
+                'key' => 'science_lab_info',
+                'title' => 'Science Laboratory',
+                'content' => 'Fully equipped science laboratory where students conduct experiments and explore scientific concepts through hands-on learning. Safety equipment and modern apparatus ensure effective and safe learning.',
+                'metadata' => ['capacity' => '25', 'equipment' => 'laboratory_apparatus'],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($pageContentsData as $content) {
+            PageContent::create($content);
+        }
+
+        $this->command->info('Enhanced sample content with comprehensive examples has been seeded successfully!');
+        $this->command->info('✓ 5 Hero slides created with diverse themes and purposes');
+        $this->command->info('✓ 7 News articles created with varied topics and featured images');
+        $this->command->info('✓ 7 Events created with different types and scheduling');
+        $this->command->info('✓ 5 Staff profiles created with diverse roles and qualifications');
+        $this->command->info('✓ 12 Gallery items created with multiple categories and descriptions');
+        $this->command->info('✓ 25 Page content sections created for all customizable areas');
+        $this->command->info('✓ All content includes realistic, production-ready examples');
+        $this->command->info('✓ Mixed active/inactive status to demonstrate functionality');
+        $this->command->info('✓ Comprehensive data for testing all customizable areas');
         $this->command->info('✓ All images are properly linked and ready for display');
+        $this->command->info('✓ Page contents cover homepage, about, academics, admissions, contact, and facilities');
     }
 }

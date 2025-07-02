@@ -4,6 +4,10 @@
 @section('description', 'Access important school documents, forms, policies, newsletters, curriculum materials, and educational resources.')
 @section('keywords', 'school documents, forms, policies, newsletters, curriculum, educational resources, Ghana primary school')
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item active" aria-current="page">Documents & Resources</li>
+@endsection
+
 @section('content')
 <!-- Hero Section -->
 <section class="hero-section bg-primary-gradient text-white py-5">

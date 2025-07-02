@@ -14,6 +14,7 @@ use App\Models\HeroSlide;
 use App\Models\CoreValue;
 use App\Models\AcademicProgram;
 use App\Models\AboutSection;
+use App\Models\PageContent;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,7 +30,19 @@ class WebsiteController extends Controller
             $upcomingEvents = \Illuminate\Support\Facades\Schema::hasTable('events') ? Event::published()->upcoming()->latest()->limit(3)->get() : collect();
             $featuredGallery = \Illuminate\Support\Facades\Schema::hasTable('galleries') ? Gallery::featured()->latest()->limit(6)->get() : collect();
             $featuredStaff = \Illuminate\Support\Facades\Schema::hasTable('staff') ? Staff::active()->featured()->limit(4)->get() : collect();
-            $settings = \Illuminate\Support\Facades\Schema::hasTable('settings') ? Setting::all()->keyBy('key') : collect();
+            $settings = \Illuminate\Support\Facades\Schema::hasTable('settings') ? Setting::all()->keyBy('key')->toArray() : [];
+
+            // Get page content with explicit query
+            if (\Illuminate\Support\Facades\Schema::hasTable('page_contents')) {
+                $pageContent = PageContent::where('page', 'home')
+                    ->where('is_active', true)
+                    ->orderBy('sort_order')
+                    ->get()
+                    ->keyBy('key')
+                    ->toArray();
+            } else {
+                $pageContent = [];
+            }
         } catch (\Exception $e) {
             // If database connection fails, provide empty collections
             $school = null;
@@ -38,7 +51,8 @@ class WebsiteController extends Controller
             $upcomingEvents = collect();
             $featuredGallery = collect();
             $featuredStaff = collect();
-            $settings = collect();
+            $settings = [];
+            $pageContent = []; // Changed from collect() to an empty array
         }
 
         return view('website.index', compact(
@@ -48,7 +62,8 @@ class WebsiteController extends Controller
             'upcomingEvents',
             'featuredGallery',
             'featuredStaff',
-            'settings'
+            'settings',
+            'pageContent'
         ));
     }
 
@@ -59,13 +74,15 @@ class WebsiteController extends Controller
         $coreValues = CoreValue::active()->ordered()->get();
         $academicPrograms = AcademicProgram::active()->ordered()->get();
         $aboutSections = AboutSection::active()->ordered()->get();
+        $pageContent = PageContent::where('page', 'about')->where('is_active', true)->orderBy('sort_order')->get()->keyBy('key')->toArray();
 
         return view('website.about', compact(
             'school',
             'staff',
             'coreValues',
             'academicPrograms',
-            'aboutSections'
+            'aboutSections',
+            'pageContent'
         ));
     }
 
@@ -111,11 +128,11 @@ class WebsiteController extends Controller
         try {
             $school = \Illuminate\Support\Facades\Schema::hasTable('schools') ? School::first() : null;
             $staff = \Illuminate\Support\Facades\Schema::hasTable('staff') ? Staff::active()->orderBy('sort_order')->get() : collect();
-            $settings = \Illuminate\Support\Facades\Schema::hasTable('settings') ? Setting::all()->keyBy('key') : collect();
+            $settings = \Illuminate\Support\Facades\Schema::hasTable('settings') ? Setting::all()->keyBy('key')->toArray() : [];
         } catch (\Exception $e) {
             $school = null;
             $staff = collect();
-            $settings = collect();
+            $settings = [];
         }
         return view('website.staff', compact('school', 'staff', 'settings'));
     }
@@ -123,13 +140,18 @@ class WebsiteController extends Controller
     public function contact()
     {
         $school = School::first();
-        return view('website.contact', compact('school'));
+        $settings = Setting::all()->keyBy('key')->toArray();
+        $pageContent = PageContent::where('page', 'contact')->where('is_active', true)->orderBy('sort_order')->get()->keyBy('key')->toArray();
+        return view('website.contact', compact('school', 'settings', 'pageContent'));
     }
 
     public function programs()
     {
         $school = School::first();
-        return view('website.programs', compact('school'));
+        $programs = AcademicProgram::active()->ordered()->get();
+        $pageContent = PageContent::where('page', 'programs')->where('is_active', true)->orderBy('sort_order')->get()->keyBy('key')->toArray();
+
+        return view('website.programs', compact('school', 'programs', 'pageContent'));
     }
 
     public function search(Request $request)

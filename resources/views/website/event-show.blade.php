@@ -2,23 +2,19 @@
 
 @section('title', $event->title)
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item">
+        <a href="{{ route('events') }}" class="text-decoration-none">Events</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($event->title, 50) }}</li>
+@endsection
+
 @section('content')
 <!-- Hero Section -->
 <section class="hero-section bg-primary-gradient text-white py-5">
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-lg-8">
-                <nav aria-label="breadcrumb" class="mb-3">
-                    <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" class="text-white-50 text-decoration-none">Home</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('events') }}" class="text-white-50 text-decoration-none">Events</a>
-                        </li>
-                        <li class="breadcrumb-item active text-white" aria-current="page">{{ $event->title }}</li>
-                    </ol>
-                </nav>
                 <h1 class="text-white mb-4 fw-bold">{{ $event->title }}</h1>
             </div>
         </div>

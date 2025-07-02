@@ -27,10 +27,10 @@
         <form method="GET" class="row g-3">
             <div class="col-md-3">
                 <label for="page" class="form-label">Page</label>
-                <select name="page" id="page" class="form-select">
+                <select name="filter_page" id="page" class="form-select">
                     <option value="">All Pages</option>
                     @foreach($pages as $page)
-                        <option value="{{ $page }}" {{ request('page') == $page ? 'selected' : '' }}>
+                        <option value="{{ $page }}" {{ request('filter_page') == $page ? 'selected' : '' }}>
                             {{ ucfirst($page) }}
                         </option>
                     @endforeach

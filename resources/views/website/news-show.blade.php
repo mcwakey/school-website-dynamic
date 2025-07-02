@@ -3,6 +3,13 @@
 @section('title', $article->title . ' - ' . (isset($settings['site_name']) ? $settings['site_name']->value : 'Ghana Excellence Primary School'))
 @section('description', $article->excerpt ?: Str::limit(strip_tags($article->content), 160))
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item">
+        <a href="{{ route('news') }}" class="text-decoration-none">News</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($article->title, 50) }}</li>
+@endsection
+
 @section('content')
 
 <!-- Article Header -->
@@ -10,14 +17,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('news') }}">News</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($article->title, 50) }}</li>
-                    </ol>
-                </nav>
-
                 <div class="mb-3">
                     @if($article->is_featured)
                         <span class="badge bg-accent text-white me-2">Featured</span>

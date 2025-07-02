@@ -2,6 +2,10 @@
 
 @section('title', 'Events')
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item active" aria-current="page">Events</li>
+@endsection
+
 @section('content')
 <!-- Hero Section -->
 <section class="hero-section bg-primary-gradient text-white py-5">

@@ -2,14 +2,22 @@
 
 @section('title', 'Academic Programs')
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item active" aria-current="page">Academic Programs</li>
+@endsection
+
 @section('content')
 <!-- Hero Section -->
 <section class="hero-section bg-primary-gradient text-white py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
-                <h1 class="display-4 fw-bold mb-3">Academic Programs</h1>
-                <p class="lead mb-4">Quality education designed to nurture young minds and build strong foundations</p>
+                <h1 class="display-4 fw-bold mb-3">
+                    {{ isset($pageContent['curriculum_overview']['title']) ? $pageContent['curriculum_overview']['title'] : 'Academic Programs' }}
+                </h1>
+                <p class="lead mb-4">
+                    {{ isset($pageContent['curriculum_overview']['content']) ? $pageContent['curriculum_overview']['content'] : 'Quality education designed to nurture young minds and build strong foundations' }}
+                </p>
             </div>
             <div class="col-lg-4 text-center">
                 <img src="{{ asset('images/programs-hero.svg') }}" alt="Academic Programs" class="img-fluid" style="max-height: 300px;">

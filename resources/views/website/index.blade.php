@@ -1,7 +1,7 @@
 @extends('layouts.website')
 
-@section('title', (isset($settings['hero_title']) ? $settings['hero_title']->value : 'Welcome to Ghana Excellence Primary School') . ' - ' . (isset($settings['site_name']) ? $settings['site_name']->value : 'Ghana Excellence Primary School'))
-@section('description', isset($settings['hero_description']) ? $settings['hero_description']->value : 'We provide quality education that nurtures creativity, critical thinking, and character development.')
+@section('title', (isset($settings['hero_title']['value']) ? $settings['hero_title']['value'] : 'Welcome to Ghana Excellence Primary School') . ' - ' . (isset($settings['site_name']['value']) ? $settings['site_name']['value'] : 'Ghana Excellence Primary School'))
+@section('description', isset($settings['hero_description']['value']) ? $settings['hero_description']['value'] : 'We provide quality education that nurtures creativity, critical thinking, and character development.')
 
 @section('content')
 
@@ -74,6 +74,7 @@
             </button>
         </div>
     @else
+        @if(isset($pageContent['hero_title']) || isset($pageContent['hero_subtitle']) || isset($pageContent['hero_intro']) || isset($settings['hero_title']) || isset($settings['hero_subtitle']) || isset($settings['hero_description']))
         <!-- Fallback hero section -->
         <div class="hero-fallback-bg">
             <div class="container">
@@ -81,15 +82,21 @@
                     <div class="col-lg-6">
                         <div class="hero-content animate-fade-in">
                             <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Welcome to Excellence</span>
+                            @if(isset($pageContent['hero_title']['title']) || isset($settings['hero_title']['value']))
                             <h1 class="display-4 fw-bold mb-4 text-white">
-                                {{ isset($settings['hero_title']) ? $settings['hero_title']->value : 'Shaping Tomorrow\'s Leaders Today' }}
+                                {{ isset($pageContent['hero_title']['title']) ? $pageContent['hero_title']['title'] : $settings['hero_title']['value'] }}
                             </h1>
+                            @endif
+                            @if(isset($pageContent['hero_subtitle']['title']) || isset($settings['hero_subtitle']['value']))
                             <h2 class="h4 mb-4 opacity-90 text-white">
-                                {{ isset($settings['hero_subtitle']) ? $settings['hero_subtitle']->value : 'Where Dreams Take Flight and Minds Grow Bright' }}
+                                {{ isset($pageContent['hero_subtitle']['title']) ? $pageContent['hero_subtitle']['title'] : $settings['hero_subtitle']['value'] }}
                             </h2>
+                            @endif
+                            @if(isset($pageContent['hero_intro']['content']) || isset($settings['hero_description']['value']))
                             <p class="lead mb-4 text-white">
-                                {{ isset($settings['hero_description']) ? $settings['hero_description']->value : 'We provide world-class primary education that nurtures creativity, builds character, and develops critical thinking skills in a safe, inclusive, and inspiring environment.' }}
+                                {{ isset($pageContent['hero_intro']['content']) ? $pageContent['hero_intro']['content'] : $settings['hero_description']['value'] }}
                             </p>
+                            @endif
                             <div class="d-flex gap-3 flex-wrap">
                                 <a href="{{ route('about') }}" class="btn btn-light btn-lg rounded-pill">
                                     <i class="fas fa-rocket me-2"></i>Discover Our School
@@ -143,9 +150,11 @@
                 </div>
             </div>
         </div>
+        @endif
     @endif
 </section>
 
+@if(isset($pageContent['welcome_title']) || isset($settings['about_title']) || $school)
 <!-- About Section -->
 <section class="py-5 bg-gradient-primary text-white">
     <div class="container">
@@ -153,12 +162,19 @@
             <div class="col-lg-6">
                 <div class="about-content">
                     <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">About Our School</span>
-                    <h2 class="section-title text-white mb-4">{{ isset($settings['about_title']) ? $settings['about_title']->value : 'Building Futures, One Student at a Time' }}</h2>
+                    @if(isset($pageContent['welcome_title']['title']) || isset($settings['about_title']['value']))
+                    <h2 class="section-title text-white mb-4">
+                        {{ isset($pageContent['welcome_title']['title']) ? $pageContent['welcome_title']['title'] : $settings['about_title']['value'] }}
+                    </h2>
+                    @endif
+                    @if(isset($pageContent['welcome_title']['content']) || isset($settings['about_description']['value']))
                     <p class="lead text-white mb-4">
-                        {{ isset($settings['about_description']) ? $settings['about_description']->value : 'For over a decade, we have been dedicated to providing exceptional primary education that prepares students for secondary school and life beyond. Our comprehensive approach combines academic excellence with character development.' }}
+                        {{ isset($pageContent['welcome_title']['content']) ? $pageContent['welcome_title']['content'] : $settings['about_description']['value'] }}
                     </p>
+                    @endif
                     @if($school)
                     <div class="row g-4 mt-3">
+                        @if($school->established_year)
                         <div class="col-sm-6">
                             <div class="info-card">
                                 <div class="info-icon">
@@ -166,10 +182,12 @@
                                 </div>
                                 <div class="info-content">
                                     <h6 class="fw-bold mb-1 text-white">Established</h6>
-                                    <small class="text-white opacity-90">{{ $school->established_year ?? 'Since 2010' }}</small>
+                                    <small class="text-white opacity-90">{{ $school->established_year }}</small>
                                 </div>
                             </div>
                         </div>
+                        @endif
+                        @if($school->principal_name)
                         <div class="col-sm-6">
                             <div class="info-card">
                                 <div class="info-icon">
@@ -177,10 +195,11 @@
                                 </div>
                                 <div class="info-content">
                                     <h6 class="fw-bold mb-1 text-white">Principal</h6>
-                                    <small class="text-white opacity-90">{{ $school->principal_name ?? 'Mrs. Akosua Mensah' }}</small>
+                                    <small class="text-white opacity-90">{{ $school->principal_name }}</small>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                     @endif
                     <div class="about-features mt-4">
@@ -239,69 +258,73 @@
         </div>
     </div>
 </section>
+@endif
 
+@if(isset($pageContent['features_title']) || isset($pageContent['feature_academic_excellence']) || isset($pageContent['feature_modern_facilities']) || isset($pageContent['feature_experienced_teachers']) || isset($pageContent['feature_holistic_development']))
 <!-- Features Section -->
 <section class="py-5 bg-light">
     <div class="container">
+        @if(isset($pageContent['features_title']))
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <span class="badge bg-primary-soft text-primary fs-6 px-3 py-2 rounded-pill mb-3">Why Choose Us</span>
-                <h2 class="section-title">Excellence in Every Aspect of Education</h2>
-                <p class="lead">We provide a nurturing environment where every child can thrive and reach their full potential through innovative teaching methods and dedicated support.</p>
+                <h2 class="section-title">{{ $pageContent['features_title']['title'] }}</h2>
+                <p class="lead">{{ $pageContent['features_title']['content'] }}</p>
             </div>
         </div>
+        @endif
         <div class="row g-4">
+            @if(isset($pageContent['feature_academic_excellence']))
             <div class="col-lg-3 col-md-6">
                 <div class="feature-box modern-card">
                     <div class="feature-icon gradient-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
+                        <i class="{{ isset($pageContent['feature_academic_excellence']['metadata']['icon']) ? $pageContent['feature_academic_excellence']['metadata']['icon'] : 'fas fa-graduation-cap' }}"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Expert Educators</h5>
-                    <p class="text-muted">Our highly qualified and experienced teachers are passionate about nurturing young minds and fostering academic excellence.</p>
-                    <div class="feature-stats">
-                        <span class="badge bg-success">15+ Years Experience</span>
-                    </div>
+                    <h5 class="fw-bold mb-3">{{ $pageContent['feature_academic_excellence']['title'] }}</h5>
+                    <p class="text-muted">{{ $pageContent['feature_academic_excellence']['content'] }}</p>
                 </div>
             </div>
+            @endif
+
+            @if(isset($pageContent['feature_modern_facilities']))
             <div class="col-lg-3 col-md-6">
                 <div class="feature-box modern-card">
                     <div class="feature-icon gradient-icon">
-                        <i class="fas fa-laptop-code"></i>
+                        <i class="{{ isset($pageContent['feature_modern_facilities']['metadata']['icon']) ? $pageContent['feature_modern_facilities']['metadata']['icon'] : 'fas fa-building' }}"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Digital Learning</h5>
-                    <p class="text-muted">State-of-the-art computer labs, interactive smart boards, and modern educational technology enhance every learning experience.</p>
-                    <div class="feature-stats">
-                        <span class="badge bg-info">100% Digital Ready</span>
-                    </div>
+                    <h5 class="fw-bold mb-3">{{ $pageContent['feature_modern_facilities']['title'] }}</h5>
+                    <p class="text-muted">{{ $pageContent['feature_modern_facilities']['content'] }}</p>
                 </div>
             </div>
+            @endif
+
+            @if(isset($pageContent['feature_experienced_teachers']))
             <div class="col-lg-3 col-md-6">
                 <div class="feature-box modern-card">
                     <div class="feature-icon gradient-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="{{ isset($pageContent['feature_experienced_teachers']['metadata']['icon']) ? $pageContent['feature_experienced_teachers']['metadata']['icon'] : 'fas fa-chalkboard-teacher' }}"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Safe & Secure</h5>
-                    <p class="text-muted">A fully secure campus with 24/7 CCTV monitoring, trained security personnel, and comprehensive safety protocols.</p>
-                    <div class="feature-stats">
-                        <span class="badge bg-warning">24/7 Monitoring</span>
-                    </div>
+                    <h5 class="fw-bold mb-3">{{ $pageContent['feature_experienced_teachers']['title'] }}</h5>
+                    <p class="text-muted">{{ $pageContent['feature_experienced_teachers']['content'] }}</p>
                 </div>
             </div>
+            @endif
+
+            @if(isset($pageContent['feature_holistic_development']))
             <div class="col-lg-3 col-md-6">
                 <div class="feature-box modern-card">
                     <div class="feature-icon gradient-icon">
-                        <i class="fas fa-award"></i>
+                        <i class="{{ isset($pageContent['feature_holistic_development']['metadata']['icon']) ? $pageContent['feature_holistic_development']['metadata']['icon'] : 'fas fa-heart' }}"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Award Winning</h5>
-                    <p class="text-muted">Nationally recognized for outstanding academic performance, innovative teaching methods, and exceptional student development programs.</p>
-                    <div class="feature-stats">
-                        <span class="badge bg-primary">Top Rated School</span>
-                    </div>
+                    <h5 class="fw-bold mb-3">{{ $pageContent['feature_holistic_development']['title'] }}</h5>
+                    <p class="text-muted">{{ $pageContent['feature_holistic_development']['content'] }}</p>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </section>
+@endif
 
 <!-- News Section -->
 @if($featuredNews->count() > 0)
@@ -523,6 +546,7 @@
 </section>
 @endif
 
+@if(isset($pageContent['cta_title']) || isset($pageContent['cta_content']) || isset($settings['cta_title']) || isset($settings['cta_content']))
 <!-- CTA Section -->
 <section class="py-5 bg-gradient-primary text-white">
     <div class="container">
@@ -530,11 +554,16 @@
             <div class="col-lg-8">
                 <div class="cta-content">
                     <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Join Our Community</span>
-                    <h3 class="fw-bold mb-3">Ready to Give Your Child the Best Start?</h3>
+                    @if(isset($pageContent['cta_title']['title']) || isset($settings['cta_title']['value']))
+                    <h3 class="fw-bold mb-3">
+                        {{ isset($pageContent['cta_title']['title']) ? $pageContent['cta_title']['title'] : $settings['cta_title']['value'] }}
+                    </h3>
+                    @endif
+                    @if(isset($pageContent['cta_content']['content']) || isset($settings['cta_content']['value']))
                     <p class="lead mb-0 opacity-90">
-                        Join our school community today and discover how we can help your child thrive academically, socially, and personally.
-                        Contact us to schedule a tour and learn more about our enrollment process.
+                        {{ isset($pageContent['cta_content']['content']) ? $pageContent['cta_content']['content'] : $settings['cta_content']['value'] }}
                     </p>
+                    @endif
                     <div class="cta-features mt-4">
                         <div class="row g-3">
                             <div class="col-md-4">
@@ -584,6 +613,7 @@
         </div>
     </div>
 </section>
+@endif
 
 @endsection
 

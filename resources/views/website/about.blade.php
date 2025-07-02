@@ -3,6 +3,10 @@
 @section('title', 'About Us - ' . (isset($settings['site_name']) ? $settings['site_name']->value : 'Ghana Excellence Primary School'))
 @section('description', 'Learn more about our school, mission, vision, and dedicated staff members.')
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item active" aria-current="page">About Us</li>
+@endsection
+
 @section('content')
 <!-- Hero Section -->
 <section class="hero-section bg-primary-gradient text-white py-5">
@@ -100,7 +104,7 @@
             </div>
         </div>
         <div class="row g-5">
-            @if($school->mission)
+            @if(isset($pageContent['school_mission']) || $school->mission)
             <div class="col-lg-6">
                 <div class="modern-card text-center h-100">
                     <div class="card-body p-4">
@@ -109,14 +113,18 @@
                                 <i class="fas fa-bullseye"></i>
                             </div>
                         </div>
-                        <h3 class="fw-bold mb-3">Our Mission</h3>
-                        <p class="lead text-muted">{{ $school->mission }}</p>
+                        <h3 class="fw-bold mb-3">
+                            {{ isset($pageContent['school_mission']['title']) ? $pageContent['school_mission']['title'] : 'Our Mission' }}
+                        </h3>
+                        <p class="lead text-muted">
+                            {{ isset($pageContent['school_mission']['content']) ? $pageContent['school_mission']['content'] : $school->mission }}
+                        </p>
                     </div>
                 </div>
             </div>
             @endif
 
-            @if($school->vision)
+            @if(isset($pageContent['school_vision']) || $school->vision)
             <div class="col-lg-6">
                 <div class="modern-card text-center h-100">
                     <div class="card-body p-4">
@@ -125,8 +133,12 @@
                                 <i class="fas fa-eye"></i>
                             </div>
                         </div>
-                        <h3 class="fw-bold mb-3">Our Vision</h3>
-                        <p class="lead text-muted">{{ $school->vision }}</p>
+                        <h3 class="fw-bold mb-3">
+                            {{ isset($pageContent['school_vision']['title']) ? $pageContent['school_vision']['title'] : 'Our Vision' }}
+                        </h3>
+                        <p class="lead text-muted">
+                            {{ isset($pageContent['school_vision']['content']) ? $pageContent['school_vision']['content'] : $school->vision }}
+                        </p>
                     </div>
                 </div>
             </div>

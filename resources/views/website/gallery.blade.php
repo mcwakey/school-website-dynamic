@@ -3,7 +3,7 @@
 @section('title', 'Photo Gallery')
 
 @section('breadcrumbs')
-    <li class="breadcrumb-item active" aria-current="page">Media & Resources</li>
+    <li class="breadcrumb-item active" aria-current="page">Gallery</li>
 @endsection
 
 @section('content')
