@@ -486,6 +486,16 @@
             padding: 0;
             margin-top: 8px;
             background: var(--white);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
 
         .search-dropdown form {
@@ -943,6 +953,26 @@
 
     <!-- Fallback initialization script -->
     <script>
+        // Initialize Bootstrap dropdowns and search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all Bootstrap dropdowns
+            var dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
+            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                return new bootstrap.Dropdown(dropdownToggleEl);
+            });
+
+            // Focus search input when dropdown is shown
+            const searchDropdown = document.getElementById('searchDropdown');
+            if (searchDropdown) {
+                searchDropdown.addEventListener('shown.bs.dropdown', function () {
+                    const searchInput = document.getElementById('searchInput');
+                    if (searchInput) {
+                        setTimeout(() => searchInput.focus(), 100);
+                    }
+                });
+            }
+        });
+
         // Ensure navigation is initialized even if external script fails
         window.addEventListener('load', function() {
             setTimeout(function() {
