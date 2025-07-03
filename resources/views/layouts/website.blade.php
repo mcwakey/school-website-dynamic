@@ -40,12 +40,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"></noscript>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <!-- Theme CSS -->
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
+
+    <!-- Prevent FOUC -->
+    <style>
+        body {
+            visibility: hidden;
+            opacity: 0;
+        }
+        body.loaded {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
 
     <!-- Custom Styles -->
     <style>
@@ -966,6 +978,19 @@
                 }
             }, 1000);
         });
+    </script>
+
+    <!-- Prevent FOUC Script -->
+    <script>
+        // Show body once everything is loaded
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+
+        // Fallback: show body after a short delay even if load event doesn't fire
+        setTimeout(function() {
+            document.body.classList.add('loaded');
+        }, 100);
     </script>
 
     <!-- Custom Scripts -->
