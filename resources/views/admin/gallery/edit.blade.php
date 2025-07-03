@@ -12,36 +12,36 @@
 @section('content')
 <div class="card shadow-sm">
     <div class="card-body">
-        <form action="{{ route('admin.gallery.update', $photo) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.gallery.update', $gallery) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $photo->title) }}" required>
+                <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $gallery->title) }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
-                <input type="text" name="category" id="category" class="form-control" value="{{ old('category', $photo->category) }}">
+                <input type="text" name="category" id="category" class="form-control" value="{{ old('category', $gallery->category) }}">
             </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="description" id="description" class="form-control" rows="3">{{ old('description', $photo->description) }}</textarea>
+                <textarea name="description" id="description" class="form-control" rows="3">{{ old('description', $gallery->description) }}</textarea>
             </div>
 
             <div class="mb-3">
                 <label for="image_path" class="form-label">Photo</label><br>
-                @if($photo->image_path)
-                    <img src="{{ asset('storage/' . $photo->image_path) }}" alt="Current Photo" class="mb-2" style="max-width: 200px; max-height: 150px; display: block;">
+                @if($gallery->image_path)
+                    <img src="{{ asset('storage/' . $gallery->image_path) }}" alt="Current Photo" class="mb-2" style="max-width: 200px; max-height: 150px; display: block;">
                 @endif
                 <input type="file" name="image_path" id="image_path" class="form-control">
                 <small class="text-muted">Leave blank to keep current photo.</small>
             </div>
 
             <div class="mb-3 form-check">
-                <input type="checkbox" name="is_featured" id="is_featured" class="form-check-input" value="1" {{ old('is_featured', $photo->is_featured) ? 'checked' : '' }}>
+                <input type="checkbox" name="is_featured" id="is_featured" class="form-check-input" value="1" {{ old('is_featured', $gallery->is_featured) ? 'checked' : '' }}>
                 <label for="is_featured" class="form-check-label">Featured</label>
             </div>
 
