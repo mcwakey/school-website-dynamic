@@ -115,5 +115,11 @@ function deleteItem(id) {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
 }
+
+/* Explicit h1 font-size and margin for accessibility and to avoid browser warnings */
+h1 {
+    font-size: 2rem;
+    margin: 1.5rem 0 1rem 0;
+}
 </style>
 @endpush
