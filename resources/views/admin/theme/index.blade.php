@@ -29,7 +29,8 @@
                                            class="form-control form-control-color"
                                            id="primary_color"
                                            name="colors[primary_color]"
-                                           value="{{ $colorSettings->get('primary_color')?->value ?? '#667eea' }}">
+                                           value="{{ $colorSettings->get('primary_color')?->value ?? '#667eea' }}"
+                                           required>
                                     <input type="text"
                                            class="form-control"
                                            value="{{ $colorSettings->get('primary_color')?->value ?? '#667eea' }}"
@@ -45,7 +46,8 @@
                                            class="form-control form-control-color"
                                            id="secondary_color"
                                            name="colors[secondary_color]"
-                                           value="{{ $colorSettings->get('secondary_color')?->value ?? '#764ba2' }}">
+                                           value="{{ $colorSettings->get('secondary_color')?->value ?? '#764ba2' }}"
+                                           required>
                                     <input type="text"
                                            class="form-control"
                                            value="{{ $colorSettings->get('secondary_color')?->value ?? '#764ba2' }}"
@@ -64,7 +66,8 @@
                                            class="form-control form-control-color"
                                            id="accent_color"
                                            name="colors[accent_color]"
-                                           value="{{ $colorSettings->get('accent_color')?->value ?? '#f093fb' }}">
+                                           value="{{ $colorSettings->get('accent_color')?->value ?? '#f093fb' }}"
+                                           required>
                                     <input type="text"
                                            class="form-control"
                                            value="{{ $colorSettings->get('accent_color')?->value ?? '#f093fb' }}"
@@ -80,7 +83,8 @@
                                            class="form-control form-control-color"
                                            id="text_color"
                                            name="colors[text_color]"
-                                           value="{{ $colorSettings->get('text_color')?->value ?? '#333333' }}">
+                                           value="{{ $colorSettings->get('text_color')?->value ?? '#333333' }}"
+                                           required>
                                     <input type="text"
                                            class="form-control"
                                            value="{{ $colorSettings->get('text_color')?->value ?? '#333333' }}"
@@ -102,7 +106,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="header_font" class="form-label">Header Font</label>
-                                <select class="form-select" id="header_font" name="fonts[header_font]">
+                                <select class="form-select" id="header_font" name="fonts[header_font]" required>
                                     <option value="Nunito" {{ ($fontSettings->get('header_font')?->value ?? 'Nunito') == 'Nunito' ? 'selected' : '' }}>Nunito</option>
                                     <option value="Inter" {{ ($fontSettings->get('header_font')?->value ?? 'Nunito') == 'Inter' ? 'selected' : '' }}>Inter</option>
                                     <option value="Roboto" {{ ($fontSettings->get('header_font')?->value ?? 'Nunito') == 'Roboto' ? 'selected' : '' }}>Roboto</option>
@@ -114,7 +118,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="body_font" class="form-label">Body Font</label>
-                                <select class="form-select" id="body_font" name="fonts[body_font]">
+                                <select class="form-select" id="body_font" name="fonts[body_font]" required>
                                     <option value="Nunito" {{ ($fontSettings->get('body_font')?->value ?? 'Nunito') == 'Nunito' ? 'selected' : '' }}>Nunito</option>
                                     <option value="Inter" {{ ($fontSettings->get('body_font')?->value ?? 'Nunito') == 'Inter' ? 'selected' : '' }}>Inter</option>
                                     <option value="Roboto" {{ ($fontSettings->get('body_font')?->value ?? 'Nunito') == 'Roboto' ? 'selected' : '' }}>Roboto</option>

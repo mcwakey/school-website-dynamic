@@ -1,6 +1,6 @@
 @extends('layouts.website')
 
-@section('title', 'Documents & Resources - ' . ($settings['site_title']->value ?? 'Ghana Excellence Primary School'))
+@section('title', 'Documents & Resources' . ((isset($settings['site_title']) && $settings['site_title']->value) ? (' - ' . $settings['site_title']->value) : ''))
 @section('description', 'Access important school documents, forms, policies, newsletters, curriculum materials, and educational resources.')
 @section('keywords', 'school documents, forms, policies, newsletters, curriculum, educational resources, Ghana primary school')
 

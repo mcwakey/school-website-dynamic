@@ -42,10 +42,10 @@ The EnhancedSampleContentSeeder now includes 25 comprehensive page content examp
 ### 📖 **About Page Content (4 sections)**
 
 #### Core Information
-- **school_mission**: Comprehensive mission statement
-- **school_vision**: Future-focused vision statement
-- **school_history**: Establishment and growth story
-- **school_achievements**: Recognition and accomplishments
+- **mission**: Comprehensive mission statement
+- **vision**: Future-focused vision statement
+- **history**: Establishment and growth story
+- **achievements**: Recognition and accomplishments
 
 ### 🎓 **Academic Programs Content (4 sections)**
 

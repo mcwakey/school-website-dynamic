@@ -68,7 +68,7 @@ class CustomizationSeeder extends Seeder
             [
                 'page' => 'about',
                 'section' => 'history',
-                'key' => 'school_history',
+                'key' => 'history',
                 'title' => 'Our History',
                 'content' => 'Established in 1985, Ghana Primary School has been serving the community for over three decades, providing quality primary education to thousands of students.',
                 'sort_order' => 1,
@@ -77,7 +77,7 @@ class CustomizationSeeder extends Seeder
             [
                 'page' => 'about',
                 'section' => 'vision',
-                'key' => 'school_vision',
+                'key' => 'vision',
                 'title' => 'Our Vision',
                 'content' => 'To be the leading primary school in Ghana, known for academic excellence, character development, and innovative teaching approaches.',
                 'sort_order' => 1,

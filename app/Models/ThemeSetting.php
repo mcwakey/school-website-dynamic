@@ -38,6 +38,11 @@ class ThemeSetting extends Model
     // Helper method to update or create theme setting
     public static function setValue($key, $value, $category = 'general', $type = 'text', $description = null)
     {
+        // Prevent null value: fallback to current value if exists, or empty string
+        if (is_null($value)) {
+            $current = static::where('key', $key)->first();
+            $value = $current ? $current->value : '';
+        }
         return static::updateOrCreate(
             ['key' => $key],
             [

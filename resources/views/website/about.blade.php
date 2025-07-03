@@ -23,15 +23,15 @@
     </div>
 </section>
 
-@if(isset($settings['site_name']) && $settings['site_name'])
+@if(isset($settings['site_name']) && $settings['site_name']->value)
 <!-- School Information -->
 <section class="py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <span class="badge bg-primary-soft text-primary fs-6 px-3 py-2 rounded-pill mb-3">Our Story</span>
-                <h2 class="section-title">{{ $settings['site_name']['value'] ?? 'Ghana Excellence Primary School' }}</h2>
-                <p class="lead">{{ $settings['site_description']['value'] ?? 'A leading primary school in Ghana providing quality education' }}</p>
+                <h2 class="section-title">{{ $settings['site_name']->value }}</h2>
+                <p class="lead">{{ $settings['site_description']->value }}</p>
 
                 <div class="row g-4 mt-4">
                     <div class="col-sm-6">
@@ -63,7 +63,7 @@
                             </div>
                             <div>
                                 <h6 class="fw-bold mb-0">Location</h6>
-                                <small class="text-muted">{{ $settings['address']['value'] ?? 'Ghana' }}</small>
+                                <small class="text-muted">{{ $settings['address']['value'] }}</small>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div>
                                 <h6 class="fw-bold mb-0">Contact</h6>
-                                <small class="text-muted">{{ $settings['phone']['value'] ?? '+233 XXX XXX XXX' }}</small>
+                                <small class="text-muted">{{ $settings['phone']['value'] }}</small>
                             </div>
                         </div>
                     </div>
@@ -82,8 +82,8 @@
             </div>
             <div class="col-lg-6 text-center">
                 <div class="mt-5 mt-lg-0">
-                    @if(isset($settings['school_logo']['value']) && $settings['school_logo']['value'])
-                        <img src="{{ asset('storage/' . $settings['school_logo']['value']) }}" alt="{{ $settings['school_name']['value'] ?? 'School' }}" class="img-fluid" style="max-width: 300px;">
+                    @if(isset($settings['site_logo']) && $settings['site_logo']->value)
+                        <img src="{{ asset('storage/' . $settings['site_logo']->value) }}" alt="{{ isset($settings['site_name']) ? $settings['site_name']->value : 'School' }}" class="img-fluid" style="max-width: 300px;">
                     @else
                         <img src="{{ asset('images/academic-excellence.svg') }}" alt="Academic Excellence" class="img-fluid rounded shadow" style="max-width: 400px;">
                     @endif
@@ -104,7 +104,7 @@
             </div>
         </div>
         <div class="row g-5">
-            @if(isset($pageContent['school_mission']) || isset($settings['about_description']['value']))
+            @if(isset($pageContent['mission']) || (isset($settings['about_description']) && $settings['about_description']->value))
             <div class="col-lg-6">
                 <div class="modern-card text-center h-100">
                     <div class="card-body p-4">
@@ -114,17 +114,17 @@
                             </div>
                         </div>
                         <h3 class="fw-bold mb-3">
-                            {{ isset($pageContent['school_mission']['title']) ? $pageContent['school_mission']['title'] : 'Our Mission' }}
+                            {{ isset($pageContent['mission']['title']) ? $pageContent['mission']['title'] : 'Our Mission' }}
                         </h3>
                         <p class="lead text-muted">
-                            {{ isset($pageContent['school_mission']['content']) ? $pageContent['school_mission']['content'] : ($settings['about_description']['value'] ?? 'Our mission is to provide quality education') }}
+                            {{ isset($pageContent['mission']['content']) ? $pageContent['mission']['content'] : (isset($settings['about_description']) ? $settings['about_description']->value : 'Our mission is to provide quality education') }}
                         </p>
                     </div>
                 </div>
             </div>
             @endif
 
-            @if(isset($pageContent['school_vision']) || isset($settings['site_tagline']['value']))
+            @if(isset($pageContent['vision']) || (isset($settings['site_tagline']) && $settings['site_tagline']->value))
             <div class="col-lg-6">
                 <div class="modern-card text-center h-100">
                     <div class="card-body p-4">
@@ -134,10 +134,10 @@
                             </div>
                         </div>
                         <h3 class="fw-bold mb-3">
-                            {{ isset($pageContent['school_vision']['title']) ? $pageContent['school_vision']['title'] : 'Our Vision' }}
+                            {{ $pageContent['vision']['title'] }}
                         </h3>
                         <p class="lead text-muted">
-                            {{ isset($pageContent['school_vision']['content']) ? $pageContent['school_vision']['content'] : ($settings['site_tagline']['value'] ?? 'Our vision is to be a leading educational institution') }}
+                            {{ $pageContent['vision']['content'] }}
                         </p>
                     </div>
                 </div>
@@ -149,6 +149,7 @@
 @endif
 
 <!-- Our Values -->
+@if($coreValues->count() > 0)
 <section class="py-5">
     <div class="container">
         <div class="row">
@@ -158,75 +159,26 @@
                 <p class="lead">The fundamental principles that guide everything we do and shape our school culture</p>
             </div>
         </div>
-        @if($coreValues->count() > 0)
-            <div class="row g-4">
-                @foreach($coreValues as $value)
-                <div class="col-lg-3 col-md-6">
-                    <div class="modern-card text-center h-100 value-card">
-                        <div class="card-body p-4">
-                            <div class="value-icon mb-3">
-                                <div class="value-icon-circle" style="background-color: {{ $value->color }};">
-                                    <i class="{{ $value->icon }}"></i>
-                                </div>
+        <div class="row g-4">
+            @foreach($coreValues as $value)
+            <div class="col-lg-3 col-md-6">
+                <div class="modern-card text-center h-100 value-card">
+                    <div class="card-body p-4">
+                        <div class="value-icon mb-3">
+                            <div class="value-icon-circle" style="background-color: {{ $value->color }};">
+                                <i class="{{ $value->icon }}"></i>
                             </div>
-                            <h5 class="card-title fw-bold">{{ $value->title }}</h5>
-                            <p class="card-text text-muted">{{ $value->description }}</p>
                         </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        @else
-            <!-- Fallback to default values if none are set -->
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6">
-                    <div class="card text-center h-100 border-0 shadow">
-                        <div class="card-body">
-                            <div class="bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <h5 class="card-title">Excellence</h5>
-                            <p class="card-text">We strive for excellence in all aspects of education and character development.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card text-center h-100 border-0 shadow">
-                        <div class="card-body">
-                            <div class="bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <h5 class="card-title">Integrity</h5>
-                            <p class="card-text">We promote honesty, respect, and moral values in all our interactions.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card text-center h-100 border-0 shadow">
-                        <div class="card-body">
-                            <div class="bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                                <i class="fas fa-lightbulb"></i>
-                            </div>
-                            <h5 class="card-title">Innovation</h5>
-                            <p class="card-text">We embrace creative thinking and modern teaching methods to enhance learning.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card text-center h-100 border-0 shadow">
-                        <div class="card-body">
-                            <div class="bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <h5 class="card-title">Community</h5>
-                            <p class="card-text">We foster a strong sense of community and collaboration among all stakeholders.</p>
-                        </div>
+                        <h5 class="card-title fw-bold">{{ $value->title }}</h5>
+                        <p class="card-text text-muted">{{ $value->description }}</p>
                     </div>
                 </div>
             </div>
-        @endif
+            @endforeach
+        </div>
     </div>
 </section>
+@endif
 
 <!-- Staff Section -->
 @if($staff->count() > 0)
@@ -295,6 +247,7 @@
 @endif
 
 <!-- Academic Programs -->
+@if(isset($programs) && count($programs) > 0)
 <section class="py-5">
     <div class="container">
         <div class="row">
@@ -304,45 +257,26 @@
             </div>
         </div>
         <div class="row g-4">
+            @foreach($programs as $program)
             <div class="col-lg-4">
                 <div class="card h-100 border-0 shadow">
                     <div class="card-body text-center">
                         <div class="bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-baby fa-2x"></i>
+                            <i class="{{ $program->icon }} fa-2x"></i>
                         </div>
-                        <h5 class="card-title">Early Years (Nursery - KG2)</h5>
-                        <p class="card-text">Foundation learning through play-based activities, developing basic literacy, numeracy, and social skills.</p>
+                        <h5 class="card-title">{{ $program->title }}</h5>
+                        <p class="card-text">{{ $program->description }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body text-center">
-                        <div class="bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-child fa-2x"></i>
-                        </div>
-                        <h5 class="card-title">Lower Primary (Class 1-3)</h5>
-                        <p class="card-text">Building strong foundations in reading, writing, mathematics, and introducing basic science concepts.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body text-center">
-                        <div class="bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-user-graduate fa-2x"></i>
-                        </div>
-                        <h5 class="card-title">Upper Primary (Class 4-6)</h5>
-                        <p class="card-text">Advanced learning in all subjects, preparing students for secondary education and national examinations.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
+@endif
 
 <!-- CTA Section -->
-<section class="py-5 bg-primary-custom text-white">
+<section class="py-5 bg-light">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">

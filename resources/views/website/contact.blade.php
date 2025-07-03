@@ -13,12 +13,14 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Get In Touch</span>
-                <h1 class="display-4 fw-bold mb-3">
-                    {{ isset($pageContent['contact_welcome']['title']) ? $pageContent['contact_welcome']['title'] : 'Contact Us' }}
-                </h1>
-                <p class="lead mb-4">
-                    {{ isset($pageContent['contact_welcome']['content']) ? $pageContent['contact_welcome']['content'] : 'We\\'d love to hear from you. Send us a message and we\\'ll respond as soon as possible.' }}
-                </p>
+                {{-- @if(isset($pageContent['contact_welcome'])) --}}
+                    <h1 class="display-4 fw-bold mb-3">
+                        {{ isset($pageContent['contact_welcome']) ? $pageContent['contact_welcome']['title'] : 'Contact Us' }}
+                    </h1>
+                    <p class="lead mb-4">
+                        {{ isset($pageContent['contact_welcome']) ? $pageContent['contact_welcome']['content'] : 'We\'d love to hear from you!' }}
+                    </p>
+                {{-- @endif --}}
             </div>
             <div class="col-lg-4 text-center">
                 <img src="{{ asset('images/contact-hero.svg') }}" alt="Contact Us" class="img-fluid" style="max-height: 300px;">
@@ -182,11 +184,11 @@
                             </div>
                             <div class="contact-content">
                                 <h6 class="fw-bold mb-1">School Address</h6>
-                                <p class="text-muted mb-0">{{ $settings['address']['value'] ?? 'Address not available' }}</p>
+                                <p class="text-muted mb-0">{{ isset($settings['address']) ? $settings['address']->value : 'Address not available' }}</p>
                             </div>
                         </div>
 
-                        @if(isset($settings['phone']['value']))
+                        @if(isset($settings['phone']) && $settings['phone']->value)
                             <div class="contact-item-modern mb-4">
                                 <div class="contact-icon">
                                     <i class="fas fa-phone"></i>
@@ -194,13 +196,13 @@
                                 <div class="contact-content">
                                     <h6 class="fw-bold mb-1">Phone Number</h6>
                                     <p class="text-muted mb-0">
-                                        <a href="tel:{{ $settings['phone']['value'] }}" class="text-decoration-none text-primary">{{ $settings['phone']['value'] }}</a>
+                                        <a href="tel:{{ $settings['phone']->value }}" class="text-decoration-none text-primary">{{ $settings['phone']->value }}</a>
                                     </p>
                                 </div>
                             </div>
                         @endif
 
-                        @if(isset($settings['email']['value']))
+                        @if(isset($settings['email']) && $settings['email']->value)
                             <div class="contact-item-modern mb-4">
                                 <div class="contact-icon">
                                     <i class="fas fa-envelope"></i>
@@ -208,20 +210,20 @@
                                 <div class="contact-content">
                                     <h6 class="fw-bold mb-1">Email Address</h6>
                                     <p class="text-muted mb-0">
-                                        <a href="mailto:{{ $settings['email']['value'] }}" class="text-decoration-none text-primary">{{ $settings['email']['value'] }}</a>
+                                        <a href="mailto:{{ $settings['email']->value }}" class="text-decoration-none text-primary">{{ $settings['email']->value }}</a>
                                     </p>
                                 </div>
                             </div>
                         @endif
 
-                        @if(isset($settings['website']['value']) && $settings['website']['value'])
+                        @if(isset($settings['website']) && $settings['website']->value)
                             <div class="contact-item mb-4">
                                 <div class="d-flex align-items-start">
                                     <i class="fas fa-globe text-primary me-3 mt-1"></i>
                                     <div>
                                         <h6 class="mb-1">Website</h6>
                                         <p class="text-muted mb-0">
-                                            <a href="{{ $settings['website']['value'] }}" target="_blank" class="text-decoration-none">{{ $settings['website']['value'] }}</a>
+                                            <a href="{{ $settings['website']->value }}" target="_blank" class="text-decoration-none">{{ $settings['website']->value }}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -257,27 +259,37 @@
             </div>
 
             <!-- Social Media -->
+            @if((isset($settings['facebook']) && $settings['facebook']->value) || (isset($settings['twitter']) && $settings['twitter']->value) || (isset($settings['instagram']) && $settings['instagram']->value) || (isset($settings['whatsapp']) && $settings['whatsapp']->value))
             <div class="card shadow-sm">
                 <div class="card-header bg-success text-white">
                     <h5 class="mb-0"><i class="fas fa-share-alt me-2"></i>Follow Us</h5>
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-outline-primary btn-sm">
+                        @if(isset($settings['facebook']) && $settings['facebook']->value)
+                        <a href="{{ $settings['facebook']->value }}" class="btn btn-outline-primary btn-sm" target="_blank">
                             <i class="fab fa-facebook-f me-2"></i>Facebook
                         </a>
-                        <a href="#" class="btn btn-outline-info btn-sm">
+                        @endif
+                        @if(isset($settings['twitter']) && $settings['twitter']->value)
+                        <a href="{{ $settings['twitter']->value }}" class="btn btn-outline-info btn-sm" target="_blank">
                             <i class="fab fa-twitter me-2"></i>Twitter
                         </a>
-                        <a href="#" class="btn btn-outline-danger btn-sm">
+                        @endif
+                        @if(isset($settings['instagram']) && $settings['instagram']->value)
+                        <a href="{{ $settings['instagram']->value }}" class="btn btn-outline-danger btn-sm" target="_blank">
                             <i class="fab fa-instagram me-2"></i>Instagram
                         </a>
-                        <a href="#" class="btn btn-outline-success btn-sm">
+                        @endif
+                        @if(isset($settings['whatsapp']) && $settings['whatsapp']->value)
+                        <a href="{{ $settings['whatsapp']->value }}" class="btn btn-outline-success btn-sm" target="_blank">
                             <i class="fab fa-whatsapp me-2"></i>WhatsApp
                         </a>
+                        @endif
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

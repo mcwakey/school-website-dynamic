@@ -557,7 +557,7 @@ class EnhancedSampleContentSeeder extends Seeder
             [
                 'page' => 'about',
                 'section' => 'mission',
-                'key' => 'school_mission',
+                'key' => 'mission',
                 'title' => 'Our Mission Statement',
                 'content' => 'To provide excellent primary education that develops confident, creative, and responsible citizens who can contribute positively to society and the global community.',
                 'sort_order' => 1,
@@ -566,7 +566,7 @@ class EnhancedSampleContentSeeder extends Seeder
             [
                 'page' => 'about',
                 'section' => 'vision',
-                'key' => 'school_vision',
+                'key' => 'vision',
                 'title' => 'Our Vision',
                 'content' => 'To be the leading primary school in Ghana, recognized for academic excellence, character development, and innovative teaching approaches that prepare students for success in the 21st century.',
                 'sort_order' => 1,
@@ -575,7 +575,7 @@ class EnhancedSampleContentSeeder extends Seeder
             [
                 'page' => 'about',
                 'section' => 'history',
-                'key' => 'school_history',
+                'key' => 'history',
                 'title' => 'Our Rich History',
                 'content' => 'Established in 2010, Royal Life Montessori School has been serving the community with dedication and excellence. Over the years, we have grown from a small school to a recognized institution that has educated hundreds of students who are now making positive contributions to society.',
                 'sort_order' => 1,
@@ -584,7 +584,7 @@ class EnhancedSampleContentSeeder extends Seeder
             [
                 'page' => 'about',
                 'section' => 'achievements',
-                'key' => 'school_achievements',
+                'key' => 'achievements',
                 'title' => 'Our Achievements',
                 'content' => 'We are proud of our students\' consistent performance in national examinations, our inter-school sports victories, and recognition as one of the top primary schools in the region. Our alumni have gone on to excel in prestigious secondary schools.',
                 'sort_order' => 1,
@@ -654,7 +654,7 @@ class EnhancedSampleContentSeeder extends Seeder
             [
                 'page' => 'admissions',
                 'section' => 'fees',
-                'key' => 'school_fees',
+                'key' => 'fees_information',
                 'title' => 'School Fees Information',
                 'content' => 'We offer competitive fees with flexible payment options. Fee structure includes tuition, feeding, transportation (optional), and extracurricular activities. Scholarships and financial assistance are available for deserving students.',
                 'sort_order' => 1,
@@ -728,6 +728,262 @@ class EnhancedSampleContentSeeder extends Seeder
                 'title' => 'Science Laboratory',
                 'content' => 'Fully equipped science laboratory where students conduct experiments and explore scientific concepts through hands-on learning. Safety equipment and modern apparatus ensure effective and safe learning.',
                 'metadata' => ['capacity' => '25', 'equipment' => 'laboratory_apparatus'],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+
+            // Programs page content - Hero and Overview
+            [
+                'page' => 'programs',
+                'section' => 'hero',
+                'key' => 'programs_hero',
+                'title' => 'Academic Programs',
+                'content' => 'Quality education designed to nurture young minds and build strong foundations for lifelong learning.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'overview',
+                'key' => 'programs_overview',
+                'title' => 'Our Educational Approach',
+                'content' => 'We provide a comprehensive primary education that focuses on academic excellence, character development, and practical skills that prepare students for their future educational journey.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+
+            // Programs - Section Titles
+            [
+                'page' => 'programs',
+                'section' => 'titles',
+                'key' => 'grade_levels_title',
+                'title' => 'Grade Levels & Classes',
+                'content' => '',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'titles',
+                'key' => 'core_subjects_title',
+                'title' => 'Core Subjects',
+                'content' => '',
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'titles',
+                'key' => 'additional_programs_title',
+                'title' => 'Additional Programs',
+                'content' => '',
+                'sort_order' => 3,
+                'is_active' => true,
+            ],
+
+            // Grade Levels
+            [
+                'page' => 'programs',
+                'section' => 'grade_levels',
+                'key' => 'nursery_section',
+                'title' => 'Nursery Section',
+                'content' => 'Our nursery program provides a nurturing environment where young children develop foundational skills through play-based learning and structured activities.',
+                'metadata' => [
+                    'age_range' => 'Ages 3-5',
+                    'card_color' => 'bg-primary',
+                    'classes' => ['Nursery 1 (Age 3)', 'Nursery 2 (Age 4)', 'Kindergarten (Age 5)'],
+                    'focus_areas' => ['Play-based learning', 'Basic numeracy and literacy', 'Social skills development', 'Creative arts and crafts']
+                ],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'grade_levels',
+                'key' => 'lower_primary',
+                'title' => 'Lower Primary',
+                'content' => 'The lower primary section focuses on building strong foundations in reading, writing, and mathematics while encouraging curiosity and exploration.',
+                'metadata' => [
+                    'age_range' => 'Ages 6-8',
+                    'card_color' => 'bg-info',
+                    'classes' => ['Primary 1 (Age 6)', 'Primary 2 (Age 7)', 'Primary 3 (Age 8)'],
+                    'focus_areas' => ['Reading and writing foundation', 'Basic mathematics', 'Environmental studies', 'Physical education']
+                ],
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'grade_levels',
+                'key' => 'upper_primary',
+                'title' => 'Upper Primary',
+                'content' => 'Upper primary students engage with more advanced concepts and begin preparing for the transition to secondary education.',
+                'metadata' => [
+                    'age_range' => 'Ages 9-12',
+                    'card_color' => 'bg-success',
+                    'classes' => ['Primary 4 (Age 9)', 'Primary 5 (Age 10)', 'Primary 6 (Age 11-12)'],
+                    'focus_areas' => ['Advanced literacy and numeracy', 'Science and technology', 'Social studies', 'BECE preparation']
+                ],
+                'sort_order' => 3,
+                'is_active' => true,
+            ],
+
+            // Core Subjects
+            [
+                'page' => 'programs',
+                'section' => 'core_subjects',
+                'key' => 'english_language',
+                'title' => 'English Language',
+                'content' => 'Reading, writing, speaking, and listening skills development with emphasis on communication and comprehension.',
+                'metadata' => [
+                    'icon' => 'fas fa-book',
+                    'icon_color' => 'text-primary'
+                ],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'core_subjects',
+                'key' => 'mathematics',
+                'title' => 'Mathematics',
+                'content' => 'Number operations, geometry, measurement, and problem-solving skills with practical applications.',
+                'metadata' => [
+                    'icon' => 'fas fa-calculator',
+                    'icon_color' => 'text-success'
+                ],
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'core_subjects',
+                'key' => 'science',
+                'title' => 'Science',
+                'content' => 'Basic scientific concepts, experiments, and exploration of the natural world around us.',
+                'metadata' => [
+                    'icon' => 'fas fa-flask',
+                    'icon_color' => 'text-info'
+                ],
+                'sort_order' => 3,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'core_subjects',
+                'key' => 'social_studies',
+                'title' => 'Social Studies',
+                'content' => 'History, geography, civics, and cultural studies to understand society and community.',
+                'metadata' => [
+                    'icon' => 'fas fa-globe',
+                    'icon_color' => 'text-warning'
+                ],
+                'sort_order' => 4,
+                'is_active' => true,
+            ],
+
+            // Additional Programs
+            [
+                'page' => 'programs',
+                'section' => 'additional_programs',
+                'key' => 'arts_crafts',
+                'title' => 'Arts & Crafts',
+                'content' => 'Creative expression through drawing, painting, and handcrafts',
+                'metadata' => [
+                    'icon' => 'fas fa-palette',
+                    'icon_color' => 'text-primary'
+                ],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'additional_programs',
+                'key' => 'physical_education',
+                'title' => 'Physical Education',
+                'content' => 'Sports, games, and physical fitness activities',
+                'metadata' => [
+                    'icon' => 'fas fa-running',
+                    'icon_color' => 'text-success'
+                ],
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'additional_programs',
+                'key' => 'music_dance',
+                'title' => 'Music & Dance',
+                'content' => 'Traditional and modern music with cultural dance',
+                'metadata' => [
+                    'icon' => 'fas fa-music',
+                    'icon_color' => 'text-info'
+                ],
+                'sort_order' => 3,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'additional_programs',
+                'key' => 'computer_skills',
+                'title' => 'Computer Skills',
+                'content' => 'Basic computer literacy and digital skills',
+                'metadata' => [
+                    'icon' => 'fas fa-laptop',
+                    'icon_color' => 'text-warning'
+                ],
+                'sort_order' => 4,
+                'is_active' => true,
+            ],
+
+            // Assessment Section
+            [
+                'page' => 'programs',
+                'section' => 'assessment',
+                'key' => 'assessment_overview',
+                'title' => 'Assessment & Progress Tracking',
+                'content' => 'We use comprehensive assessment methods to track student progress and ensure every child reaches their full potential.',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'assessment_methods',
+                'key' => 'continuous_assessment',
+                'title' => 'Continuous Assessment',
+                'content' => 'Regular evaluation to monitor student progress throughout the term.',
+                'metadata' => [
+                    'icon' => 'fas fa-chart-line',
+                    'icon_color' => 'text-primary',
+                    'items' => ['Weekly quizzes and assignments', 'Monthly progress reports', 'Parent-teacher conferences']
+                ],
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'assessment_methods',
+                'key' => 'final_examinations',
+                'title' => 'Final Examinations',
+                'content' => 'Formal assessments to evaluate student learning and preparation for next level.',
+                'metadata' => [
+                    'icon' => 'fas fa-award',
+                    'icon_color' => 'text-success',
+                    'items' => ['Mid-term examinations', 'End-of-term examinations', 'BECE preparation (Primary 6)']
+                ],
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'page' => 'programs',
+                'section' => 'assessment',
+                'key' => 'assessment_cta',
+                'title' => 'Contact Us for More Information',
+                'content' => '',
+                'metadata' => [
+                    'icon' => 'fas fa-envelope',
+                    'link' => '/contact'
+                ],
                 'sort_order' => 1,
                 'is_active' => true,
             ],
