@@ -33,8 +33,7 @@
                 <div class="col-lg-4 col-md-6">
                     <article class="modern-card h-100 news-card">
                         <div class="card-image-wrapper">
-                            @if($article->featured_image)
-                            {{ asset('storage/' . $settings['site_logo']->value) }}
+                            @if($article->featured_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($article->featured_image))
                                 <img src="{{ asset('storage/' . $article->featured_image) }}" class="card-img-top" alt="{{ $article->title }}">
                             @else
                                 <div class="card-img-placeholder">
@@ -164,6 +163,28 @@
         max-height: 220px;
         object-fit: cover;
         width: 100%;
+    }
+
+    .news-card .card-img-placeholder {
+        border-radius: 0.75rem;
+        min-height: 180px;
+        max-height: 220px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .news-card .placeholder-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(231, 76, 37, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e74c25;
+        font-size: 1.5rem;
     }
 
     .news-card .card-title {

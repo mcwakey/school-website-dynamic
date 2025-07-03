@@ -46,7 +46,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                @if($article->featured_image)
+                @if($article->featured_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($article->featured_image))
                     <div class="mb-4">
                         <img src="{{ asset('storage/' . $article->featured_image) }}" class="img-fluid rounded" alt="{{ $article->title }}">
                     </div>

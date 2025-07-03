@@ -108,21 +108,21 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="image" class="form-label">Event Image</label>
-                        @if($event->image)
+                        <label for="featured_image" class="form-label">Event Image</label>
+                        @if($event->featured_image)
                             <div class="mb-2">
-                                <img src="{{ asset('storage/' . $event->image) }}"
+                                <img src="{{ asset('storage/' . $event->featured_image) }}"
                                      class="img-thumbnail"
                                      style="max-height: 150px;">
                                 <p class="small text-muted mt-1">Current image</p>
                             </div>
                         @endif
                         <input type="file"
-                               class="form-control @error('image') is-invalid @enderror"
-                               id="image"
-                               name="image"
+                               class="form-control @error('featured_image') is-invalid @enderror"
+                               id="featured_image"
+                               name="featured_image"
                                accept="image/*">
-                        @error('image')
+                        @error('featured_image')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         <small class="form-text text-muted">Upload a new image to replace the current one. Max size: 2MB.</small>

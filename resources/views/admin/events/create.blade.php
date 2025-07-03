@@ -101,13 +101,13 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="image" class="form-label">Event Image</label>
+                        <label for="featured_image" class="form-label">Event Image</label>
                         <input type="file"
-                               class="form-control @error('image') is-invalid @enderror"
-                               id="image"
-                               name="image"
+                               class="form-control @error('featured_image') is-invalid @enderror"
+                               id="featured_image"
+                               name="featured_image"
                                accept="image/*">
-                        @error('image')
+                        @error('featured_image')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         <small class="form-text text-muted">Upload an image (JPG, PNG, GIF). Max size: 2MB.</small>

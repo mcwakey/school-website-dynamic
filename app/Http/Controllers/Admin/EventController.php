@@ -38,15 +38,15 @@ class EventController extends Controller
             'event_time' => 'nullable|date_format:H:i',
             'location' => 'nullable|string|max:255',
             'event_url' => 'nullable|url',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_published' => 'boolean'
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('events', 'public');
+        if ($request->hasFile('featured_image')) {
+            $data['featured_image'] = $request->file('featured_image')->store('events', 'public');
         }
 
         Event::create($data);
@@ -82,19 +82,19 @@ class EventController extends Controller
             'event_time' => 'nullable|date_format:H:i',
             'location' => 'nullable|string|max:255',
             'event_url' => 'nullable|url',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_published' => 'boolean'
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('featured_image')) {
             // Delete old image if exists
-            if ($event->image) {
-                \Storage::disk('public')->delete($event->image);
+            if ($event->featured_image) {
+                \Storage::disk('public')->delete($event->featured_image);
             }
-            $data['image'] = $request->file('image')->store('events', 'public');
+            $data['featured_image'] = $request->file('featured_image')->store('events', 'public');
         }
 
         $event->update($data);
@@ -108,8 +108,8 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         // Delete image if exists
-        if ($event->image) {
-            \Storage::disk('public')->delete($event->image);
+        if ($event->featured_image) {
+            \Storage::disk('public')->delete($event->featured_image);
         }
 
         $event->delete();

@@ -2,8 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Contro        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'excerpt' => 'nullable|string|max:500',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'is_published' => 'boolean',
+            'is_featured' => 'boolean',
+            'published_at' => 'nullable|date'
+        ]);
+
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->title);
+
+        if ($request->hasFile('featured_image')) {
+            // Delete old image if exists
+            if ($news->featured_image) {
+                \Storage::disk('public')->delete($news->featured_image);
+            }
+            $data['featured_image'] = $request->file('featured_image')->store('news', 'public');
+        }\Http\Request;
 use App\Models\News;
 use Illuminate\Support\Str;
 
@@ -35,7 +53,7 @@ class NewsController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'excerpt' => 'nullable|string|max:500',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_published' => 'boolean',
             'is_featured' => 'boolean',
             'published_at' => 'nullable|date'
@@ -43,10 +61,10 @@ class NewsController extends Controller
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
-        $data['author_id'] = auth()->id();
+        $data['user_id'] = auth()->id();
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('news', 'public');
+        if ($request->hasFile('featured_image')) {
+            $data['featured_image'] = $request->file('featured_image')->store('news', 'public');
         }
 
         News::create($data);
@@ -79,7 +97,7 @@ class NewsController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'excerpt' => 'nullable|string|max:500',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_published' => 'boolean',
             'is_featured' => 'boolean',
             'published_at' => 'nullable|date'
@@ -88,12 +106,12 @@ class NewsController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('featured_image')) {
             // Delete old image if exists
-            if ($news->image) {
-                \Storage::disk('public')->delete($news->image);
+            if ($news->featured_image) {
+                \Storage::disk('public')->delete($news->featured_image);
             }
-            $data['image'] = $request->file('image')->store('news', 'public');
+            $data['featured_image'] = $request->file('featured_image')->store('news', 'public');
         }
 
         $news->update($data);
@@ -107,8 +125,8 @@ class NewsController extends Controller
     public function destroy(News $news)
     {
         // Delete image if exists
-        if ($news->image) {
-            \Storage::disk('public')->delete($news->image);
+        if ($news->featured_image) {
+            \Storage::disk('public')->delete($news->featured_image);
         }
 
         $news->delete();

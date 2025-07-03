@@ -58,11 +58,10 @@
                                 <img src="{{ asset('storage/' . $photo->image_path) }}"
                                      class="gallery-image w-100"
                                      alt="{{ $photo->title }}"
-                                     data-bs-toggle="modal"
-                                     data-bs-target="#imageModal"
                                      data-image="{{ asset('storage/' . $photo->image_path) }}"
                                      data-title="{{ $photo->title }}"
-                                     data-description="{{ $photo->description }}">
+                                     data-description="{{ $photo->description }}"
+                                     style="cursor: pointer;">
                             @else
                                 <div class="d-flex align-items-center justify-content-center bg-light" style="height: 250px;">
                                     <div class="placeholder-icon">
@@ -188,19 +187,18 @@
 </style>
 
 <script>
-    // Add lightbox navigation for gallery
-    let currentIndex = 0;
-    let galleryImages = [];
+    // Gallery lightbox functionality
     document.addEventListener('DOMContentLoaded', function () {
-        galleryImages = Array.from(document.querySelectorAll('.gallery-image'));
         const imageModal = document.getElementById('imageModal');
         const modalImage = document.getElementById('modalImage');
         const modalTitle = document.getElementById('modalTitle');
         const modalDescription = document.getElementById('modalDescription');
+        const galleryImages = Array.from(document.querySelectorAll('.gallery-image'));
+        let currentIndex = 0;
 
         function showImage(index) {
+            if (index < 0 || index >= galleryImages.length) return;
             const img = galleryImages[index];
-            if (!img) return;
             modalImage.src = img.dataset.image;
             modalImage.alt = img.dataset.title;
             modalTitle.textContent = img.dataset.title;
@@ -208,40 +206,102 @@
             currentIndex = index;
         }
 
-        galleryImages.forEach((img, idx) => {
+        // Handle image clicks
+        galleryImages.forEach((img, index) => {
             img.addEventListener('click', function () {
-                showImage(idx);
+                showImage(index);
+                // Manually show the modal
+                const modal = new bootstrap.Modal(imageModal);
+                modal.show();
             });
         });
 
         // Keyboard navigation
         document.addEventListener('keydown', function (e) {
             if (!imageModal.classList.contains('show')) return;
+
             if (e.key === 'ArrowRight') {
-                showImage((currentIndex + 1) % galleryImages.length);
+                e.preventDefault();
+                const nextIndex = (currentIndex + 1) % galleryImages.length;
+                showImage(nextIndex);
             } else if (e.key === 'ArrowLeft') {
-                showImage((currentIndex - 1 + galleryImages.length) % galleryImages.length);
+                e.preventDefault();
+                const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+                showImage(prevIndex);
+            } else if (e.key === 'Escape') {
+                const modal = bootstrap.Modal.getInstance(imageModal);
+                if (modal) modal.hide();
             }
         });
 
-        // Optional: Add next/prev buttons to modal
+        // Add navigation buttons to modal
         const modalBody = imageModal.querySelector('.modal-body');
-        if (modalBody && !document.getElementById('galleryNav')) {
+        if (modalBody && !document.getElementById('galleryNav') && galleryImages.length > 1) {
             const nav = document.createElement('div');
             nav.id = 'galleryNav';
             nav.className = 'd-flex justify-content-between align-items-center mb-3';
             nav.innerHTML = `
-                <button type="button" class="btn btn-outline-secondary btn-sm" id="prevImage"><i class="fas fa-chevron-left"></i> Prev</button>
-                <button type="button" class="btn btn-outline-secondary btn-sm" id="nextImage">Next <i class="fas fa-chevron-right"></i></button>
+                <button type="button" class="btn btn-outline-primary btn-sm" id="prevImage">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <span class="text-muted" id="imageCounter">1 of ${galleryImages.length}</span>
+                <button type="button" class="btn btn-outline-primary btn-sm" id="nextImage">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
             `;
             modalBody.prepend(nav);
-            document.getElementById('prevImage').onclick = function() {
-                showImage((currentIndex - 1 + galleryImages.length) % galleryImages.length);
-            };
-            document.getElementById('nextImage').onclick = function() {
-                showImage((currentIndex + 1) % galleryImages.length);
-            };
+
+            document.getElementById('prevImage').addEventListener('click', function() {
+                const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+                showImage(prevIndex);
+                updateCounter();
+            });
+
+            document.getElementById('nextImage').addEventListener('click', function() {
+                const nextIndex = (currentIndex + 1) % galleryImages.length;
+                showImage(nextIndex);
+                updateCounter();
+            });
         }
+
+        function updateCounter() {
+            const counter = document.getElementById('imageCounter');
+            if (counter) {
+                counter.textContent = `${currentIndex + 1} of ${galleryImages.length}`;
+            }
+        }
+
+        // Update counter when modal is shown
+        imageModal.addEventListener('shown.bs.modal', function () {
+            updateCounter();
+        });
+    });
+
+    // Category filter functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterButtons = document.querySelectorAll('[data-filter]');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const filter = this.dataset.filter;
+
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                // Filter gallery items
+                galleryItems.forEach(item => {
+                    if (filter === '*' || item.classList.contains(filter.substring(1))) {
+                        item.style.display = 'block';
+                        item.style.opacity = '1';
+                    } else {
+                        item.style.display = 'none';
+                        item.style.opacity = '0';
+                    }
+                });
+            });
+        });
     });
 </script>
 @endsection

@@ -25,8 +25,8 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="card shadow-sm">
-                @if($event->image)
-                    <img src="{{ asset('storage/' . $event->image) }}"
+                @if($event->featured_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($event->featured_image))
+                    <img src="{{ asset('storage/' . $event->featured_image) }}"
                          class="card-img-top"
                          alt="{{ $event->title }}"
                          style="height: 400px; object-fit: cover;">

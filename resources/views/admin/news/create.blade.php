@@ -56,13 +56,13 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="image" class="form-label">Featured Image</label>
+                        <label for="featured_image" class="form-label">Featured Image</label>
                         <input type="file"
-                               class="form-control @error('image') is-invalid @enderror"
-                               id="image"
-                               name="image"
+                               class="form-control @error('featured_image') is-invalid @enderror"
+                               id="featured_image"
+                               name="featured_image"
                                accept="image/*">
-                        @error('image')
+                        @error('featured_image')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         <small class="form-text text-muted">Upload an image (JPG, PNG, GIF). Max size: 2MB.</small>
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Preview image upload
-    const imageInput = document.getElementById('image');
+    const imageInput = document.getElementById('featured_image');
     imageInput.addEventListener('change', function(e) {
         if (e.target.files.length > 0) {
             const file = e.target.files[0];

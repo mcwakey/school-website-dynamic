@@ -30,8 +30,8 @@
                     @foreach($events as $event)
                         <div class="col-lg-6 mb-4">
                             <div class="card event-card h-100 shadow-sm">
-                                @if($event->image && \Illuminate\Support\Facades\Storage::disk('public')->exists($event->image))
-                                    <img src="{{ asset('storage/' . $event->image) }}"
+                                @if($event->featured_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($event->featured_image))
+                                    <img src="{{ asset('storage/' . $event->featured_image) }}"
                                          class="card-img-top"
                                          alt="{{ $event->title }}"
                                          style="height: 250px; object-fit: cover;">
