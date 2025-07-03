@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="hero-section bg-primary-gradient text-white py-5">
+<section class="hero-section bg-primary-gradient text-white py-5 mb-0">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
@@ -31,7 +31,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <div class="text-center">
-                    <div class="btn-group" role="group" aria-label="Gallery Categories">
+                    <div class="btn-group btn-group-lg" role="group" aria-label="Gallery Categories">
                         <button type="button" class="btn btn-outline-primary active" data-filter="*">
                             All Photos
                         </button>
@@ -48,64 +48,46 @@
         </div>
     @endif
 
-    <div class="row">
+    <div class="row g-4 justify-content-center">
         @if($photos->count() > 0)
-            <div class="gallery-grid" id="gallery">
-                @foreach($photos as $photo)
-                    <div class="col-lg-4 col-md-6 mb-4 gallery-item {{ $photo->category ? Str::slug($photo->category) : '' }}">
-                        <div class="modern-card gallery-card">
-                            <div class="gallery-image-container position-relative overflow-hidden">
-                                @if($photo->image_path)
-                                    <img src="{{ asset($photo->image_path) }}"
-                                         class="gallery-image w-100"
-                                         alt="{{ $photo->title }}"
-                                         data-bs-toggle="modal"
-                                         data-bs-target="#imageModal"
-                                         data-image="{{ asset('storage/' . $photo->image_path) }}"
-                                         data-title="{{ $photo->title }}"
-                                         data-description="{{ $photo->description }}">
-                                @else
-                                    <div class="d-flex align-items-center justify-content-center bg-light"
-                                         style="height: 250px;">
-                                        <div class="placeholder-icon">
-                                            <i class="fas fa-image"></i>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                <div class="gallery-overlay">
-                                    <div class="overlay-content">
-                                        <div class="gallery-actions">
-                                            <button class="btn btn-light btn-sm rounded-circle mb-2">
-                                                <i class="fas fa-expand"></i>
-                                            </button>
-                                        </div>
-                                        <h6 class="text-white fw-bold">{{ $photo->title }}</h6>
-                                        @if($photo->category)
-                                            <span class="badge bg-primary mt-2">{{ $photo->category }}</span>
-                                        @endif
+            @foreach($photos as $photo)
+                <div class="col-lg-4 col-md-6 col-sm-12 gallery-item {{ $photo->category ? Str::slug($photo->category) : '' }}">
+                    <div class="card shadow-sm border-0 h-100 gallery-card">
+                        <div class="gallery-image-container position-relative overflow-hidden rounded-4">
+                            @if($photo->image_path && file_exists(public_path('storage/' . $photo->image_path)))
+                                <img src="{{ asset('storage/' . $photo->image_path) }}"
+                                     class="gallery-image w-100"
+                                     alt="{{ $photo->title }}"
+                                     data-bs-toggle="modal"
+                                     data-bs-target="#imageModal"
+                                     data-image="{{ asset('storage/' . $photo->image_path) }}"
+                                     data-title="{{ $photo->title }}"
+                                     data-description="{{ $photo->description }}">
+                            @else
+                                <div class="d-flex align-items-center justify-content-center bg-light" style="height: 250px;">
+                                    <div class="placeholder-icon">
+                                        <i class="fas fa-image"></i>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="card-body p-3">
-                                <h6 class="card-title fw-bold mb-1">{{ $photo->title }}</h6>
+                            @endif
+                            @if($photo->event_type)
+                                <span class="badge bg-accent position-absolute top-0 start-0 m-2 px-3 py-2" style="z-index:2; font-size:0.95rem;">
+                                    <i class="fas fa-calendar-alt me-1"></i>{{ $photo->event_type }}
+                                </span>
+                            @endif
+                            <div class="gallery-overlay d-flex flex-column justify-content-end align-items-start p-3">
+                                <h5 class="text-white fw-bold mb-1">{{ $photo->title }}</h5>
                                 @if($photo->description)
-                                    <p class="text-muted small mb-2">{{ Str::limit($photo->description, 80) }}</p>
-                                @endif
-                                @if($photo->category)
-                                    <span class="badge bg-primary">{{ $photo->category }}</span>
+                                    <p class="text-white small mb-2">{{ Str::limit($photo->description, 80) }}</p>
                                 @endif
                             </div>
                         </div>
                     </div>
-                @endforeach
-            </div>
-
-            <!-- Pagination -->
-            <div class="col-12">
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $photos->links() }}
+                </div>
+            @endforeach
+            <div class="col-12 mt-4">
+                <div class="d-flex justify-content-center">
+                    {{ $photos->onEachSide(1)->links() }}
                 </div>
             </div>
         @else
@@ -138,164 +120,49 @@
 </div>
 
 <style>
-    .gallery-image-container {
-        height: 250px;
-        cursor: pointer;
+    .bg-primary-gradient {
+        background: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
     }
-
+    .gallery-image-container {
+        height: 260px;
+        cursor: pointer;
+        border-radius: 1.25rem;
+        overflow: hidden;
+        position: relative;
+        background: #f8f9fa;
+    }
     .gallery-image {
         height: 100%;
         object-fit: cover;
-        transition: transform 0.3s ease;
+        transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
     }
-
-    .gallery-card {
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        overflow: hidden;
-    }
-
-    .gallery-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    }
-
     .gallery-card:hover .gallery-image {
-        transform: scale(1.05);
+        transform: scale(1.08);
     }
-
     .gallery-overlay {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background: linear-gradient(180deg,rgba(0,0,0,0.55) 60%,rgba(0,0,0,0.85) 100%);
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s;
+        z-index: 1;
     }
-
     .gallery-card:hover .gallery-overlay {
         opacity: 1;
     }
-
-    .overlay-content {
-        text-align: center;
+    .gallery-overlay h5, .gallery-overlay p {
+        color: #fff;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.25);
     }
-
-    .btn-group .btn {
-        border-radius: 25px !important;
-        margin: 0 2px;
+    .badge.bg-accent {
+        background: linear-gradient(135deg, #f093fb 0%, #667eea 100%);
+        color: #fff;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(102,126,234,0.15);
     }
-
-    .gallery-grid {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .gallery-item {
-        transition: all 0.3s ease;
-    }
-
-    .gallery-item.hide {
-        opacity: 0;
-        transform: scale(0.8);
-        pointer-events: none;
-    }
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Image modal functionality
-        const imageModal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
-
-        document.querySelectorAll('.gallery-image').forEach(img => {
-            img.addEventListener('click', function () {
-                modalImage.src = this.dataset.image;
-                modalImage.alt = this.dataset.title;
-                modalTitle.textContent = this.dataset.title;
-                modalDescription.textContent = this.dataset.description || '';
-            });
-        });
-
-        // Category filter functionality
-        const filterButtons = document.querySelectorAll('[data-filter]');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                this.classList.add('active');
-
-                const filter = this.dataset.filter;
-
-                galleryItems.forEach(item => {
-                    if (filter === '*' || item.classList.contains(filter.substring(1))) {
-                        item.classList.remove('hide');
-                    } else {
-                        item.classList.add('hide');
-                    }
-                });
-            });
-        });
-    });
-</script>
-
-<style>
-    /* Modern Gallery Styles */
-    .bg-primary-gradient {
-        background: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
-    }
-
-    .modern-card {
-        border: none;
-        border-radius: 1rem;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
-        background: #fff;
-    }
-
-    .modern-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
-    }
-
-    .gallery-image {
-        height: 280px;
-        object-fit: cover;
-        transition: transform 0.4s ease;
-    }
-
-    .gallery-card:hover .gallery-image {
-        transform: scale(1.1);
-    }
-
-    .gallery-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-        padding: 2rem 1.5rem 1.5rem;
-        transform: translateY(100%);
-        transition: all 0.3s ease;
-    }
-
-    .gallery-card:hover .gallery-overlay {
-        transform: translateY(0);
-    }
-
     .placeholder-icon {
         width: 60px;
         height: 60px;
@@ -307,18 +174,74 @@
         color: #e74c25;
         font-size: 1.5rem;
     }
-
-    .gallery-actions .btn {
-        width: 36px;
-        height: 36px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .pagination-lg .page-link {
+        font-size: 1.15rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.75rem;
     }
-
-    .hide {
-        display: none !important;
+    .pagination-lg .page-item.active .page-link {
+        background: linear-gradient(135deg, #e74c25 0%, #2c5530 100%);
+        border: none;
+        color: #fff;
+        font-weight: 600;
     }
 </style>
+
+<script>
+    // Add lightbox navigation for gallery
+    let currentIndex = 0;
+    let galleryImages = [];
+    document.addEventListener('DOMContentLoaded', function () {
+        galleryImages = Array.from(document.querySelectorAll('.gallery-image'));
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+
+        function showImage(index) {
+            const img = galleryImages[index];
+            if (!img) return;
+            modalImage.src = img.dataset.image;
+            modalImage.alt = img.dataset.title;
+            modalTitle.textContent = img.dataset.title;
+            modalDescription.textContent = img.dataset.description || '';
+            currentIndex = index;
+        }
+
+        galleryImages.forEach((img, idx) => {
+            img.addEventListener('click', function () {
+                showImage(idx);
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            if (!imageModal.classList.contains('show')) return;
+            if (e.key === 'ArrowRight') {
+                showImage((currentIndex + 1) % galleryImages.length);
+            } else if (e.key === 'ArrowLeft') {
+                showImage((currentIndex - 1 + galleryImages.length) % galleryImages.length);
+            }
+        });
+
+        // Optional: Add next/prev buttons to modal
+        const modalBody = imageModal.querySelector('.modal-body');
+        if (modalBody && !document.getElementById('galleryNav')) {
+            const nav = document.createElement('div');
+            nav.id = 'galleryNav';
+            nav.className = 'd-flex justify-content-between align-items-center mb-3';
+            nav.innerHTML = `
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="prevImage"><i class="fas fa-chevron-left"></i> Prev</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="nextImage">Next <i class="fas fa-chevron-right"></i></button>
+            `;
+            modalBody.prepend(nav);
+            document.getElementById('prevImage').onclick = function() {
+                showImage((currentIndex - 1 + galleryImages.length) % galleryImages.length);
+            };
+            document.getElementById('nextImage').onclick = function() {
+                showImage((currentIndex + 1) % galleryImages.length);
+            };
+        }
+    });
+</script>
 @endsection

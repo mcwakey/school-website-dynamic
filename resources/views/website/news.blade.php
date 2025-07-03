@@ -139,73 +139,61 @@
         background: #fff;
     }
 
-    .modern-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
+    .modern-card.news-card {
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
+        margin-bottom: 1.5rem;
+        border-radius: 1.25rem;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.10);
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        min-height: 420px;
     }
 
-    .news-card {
+    .news-card .card-image-wrapper {
+        margin-bottom: 1rem;
+        border-radius: 0.75rem;
         overflow: hidden;
-        position: relative;
+        box-shadow: 0 2px 12px rgba(231, 76, 37, 0.08);
     }
 
-    .card-image-wrapper {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .card-image-wrapper img {
-        height: 220px;
-        width: 100%;
+    .news-card .card-img-top {
+        border-radius: 0.75rem;
+        min-height: 180px;
+        max-height: 220px;
         object-fit: cover;
-        transition: transform 0.3s ease;
+        width: 100%;
     }
 
-    .news-card:hover .card-image-wrapper img {
-        transform: scale(1.05);
+    .news-card .card-title {
+        margin-bottom: 0.75rem;
+        font-size: 1.15rem;
     }
 
-    .card-img-placeholder {
-        height: 220px;
-        background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .news-card .card-text {
+        margin-bottom: 1.25rem;
+        font-size: 1rem;
     }
 
-    .placeholder-icon {
-        width: 60px;
-        height: 60px;
-        background: rgba(231, 76, 37, 0.1);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #e74c25;
-        font-size: 1.5rem;
+    .news-card .card-meta {
+        border-top: 1px solid rgba(0, 0, 0, 0.07);
+        padding-top: 0.75rem;
+        margin-top: 1rem;
     }
 
-    .card-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        z-index: 2;
+    .news-card .card-badge {
+        top: 0.75rem;
+        right: 0.75rem;
     }
 
-    .card-meta {
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
-        padding-top: 1rem;
+    .news-card .btn {
+        padding: 0.4rem 1.1rem;
+        font-size: 0.95rem;
+        border-radius: 0.5rem;
     }
 
-    .meta-icon {
-        width: 24px;
-        height: 24px;
-        background: rgba(231, 76, 37, 0.1);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.8rem;
+    .news-card .meta-icon {
+        margin-right: 0.5rem;
     }
 
     .empty-state {

@@ -44,6 +44,9 @@ class GalleryController extends Controller
             $data['image_path'] = $request->file('image_path')->store('gallery', 'public');
         }
 
+        // Set user_id to the currently authenticated user
+        $data['user_id'] = auth()->id();
+
         Gallery::create($data);
 
         return redirect()->route('admin.gallery.index')->with('success', 'Photo added successfully!');

@@ -87,7 +87,7 @@
                         </div>
                     @endif
                     <h1 class="display-4 fw-bold mb-4 text-white">
-                        {{ isset($settings['site_name']) ? $settings['site_name']->value : 'Ghana Excellence Primary School' }}
+                        {{ isset($settings['site_name']) ? $settings['site_name']->value : 'Excellence Primary School' }}
                     </h1>
                     @if(isset($settings['site_tagline']) && $settings['site_tagline']->value)
                         <h2 class="h4 mb-4 opacity-90 text-white">
@@ -119,7 +119,7 @@
 <section class="py-5 bg-gradient-primary text-white">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="about-content">
                     @if(isset($pageContent['welcome_title']['title']) || isset($settings['about_title']['value']))
                     <h2 class="section-title text-white mb-4">
@@ -163,6 +163,22 @@
                     @endif
                 </div>
             </div>
+            <!-- Image Column -->
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-4">
+                <div class="about-visual text-center text-lg-start">
+                    <div class="image-stack">
+                        <span class="image-main">
+                            <img src="{{ isset($settings['about_image']) && $settings['about_image']->value ? asset('storage/' . $settings['about_image']->value) : asset('images/about-default.jpg') }}"
+                                 alt="About Us"
+                                 class="img-fluid"
+                                 style="max-width: 420px;">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Content Column -->
         </div>
     </div>
 </section>

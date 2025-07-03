@@ -23,7 +23,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                         <div class="card gallery-card h-100">
                             <div class="position-relative">
-                                @if($photo->image_path)
+                                @if($photo->image_path && file_exists(public_path('storage/' . $photo->image_path)))
                                     <img src="{{ asset('storage/' . $photo->image_path) }}"
                                          class="card-img-top"
                                          style="height: 200px; object-fit: cover;">
