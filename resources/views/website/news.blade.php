@@ -34,6 +34,7 @@
                     <article class="modern-card h-100 news-card">
                         <div class="card-image-wrapper">
                             @if($article->featured_image)
+                            {{ asset('storage/' . $settings['site_logo']->value) }}
                                 <img src="{{ asset('storage/' . $article->featured_image) }}" class="card-img-top" alt="{{ $article->title }}">
                             @else
                                 <div class="card-img-placeholder">
