@@ -32,7 +32,7 @@
         <div class="col-lg-8 mx-auto text-center">
             <h2 class="mb-4">Our Educational Approach</h2>
             <p class="lead text-muted mb-4">
-                At {{ $school->name ?? 'our school' }}, we provide a comprehensive primary education that focuses on academic excellence,
+                At {{ $settings['site_name']['value'] ?? 'our school' }}, we provide a comprehensive primary education that focuses on academic excellence,
                 character development, and practical skills that prepare students for their future educational journey.
             </p>
         </div>

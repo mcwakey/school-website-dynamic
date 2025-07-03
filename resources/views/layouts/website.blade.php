@@ -9,15 +9,15 @@
     <title>@yield('title', ($settings['site_title']->value ?? 'Ghana Excellence Primary School'))</title>
     <meta name="description" content="@yield('description', ($settings['meta_description']->value ?? 'A leading primary school in Ghana providing quality education'))">
     <meta name="keywords" content="@yield('keywords', 'Ghana primary school, education, academic excellence, quality education')">
-    <meta name="author" content="{{ $school->name ?? 'Ghana Excellence Primary School' }}">
+    <meta name="author" content="{{ $settings['site_name']['value'] ?? 'Ghana Excellence Primary School' }}">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="@yield('title', ($settings['site_title']->value ?? 'Ghana Excellence Primary School'))">
     <meta property="og:description" content="@yield('description', ($settings['meta_description']->value ?? 'A leading primary school in Ghana providing quality education'))">
-    @if($school && $school->logo)
-        <meta property="og:image" content="{{ asset('storage/' . $school->logo) }}">
+    @if(isset($settings['site_logo']) && $settings['site_logo']->value)
+        <meta property="og:image" content="{{ asset('storage/' . $settings['site_logo']->value) }}">
     @endif
 
     <!-- Twitter -->
@@ -25,13 +25,13 @@
     <meta property="twitter:url" content="{{ url()->current() }}">
     <meta property="twitter:title" content="@yield('title', ($settings['site_title']->value ?? 'Ghana Excellence Primary School'))">
     <meta property="twitter:description" content="@yield('description', ($settings['meta_description']->value ?? 'A leading primary school in Ghana providing quality education'))">
-    @if($school && $school->logo)
-        <meta property="twitter:image" content="{{ asset('storage/' . $school->logo) }}">
+    @if(isset($settings['site_logo']) && $settings['site_logo']->value)
+        <meta property="twitter:image" content="{{ asset('storage/' . $settings['site_logo']->value) }}">
     @endif
 
     <!-- Favicon -->
-    @if($school && $school->logo)
-        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $school->logo) }}">
+    @if(isset($settings['site_logo']) && $settings['site_logo']->value)
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $settings['site_logo']->value) }}">
     @endif
 
     <!-- Fonts -->
@@ -569,41 +569,42 @@
     {
         "@context": "https://schema.org",
         "@type": "EducationalOrganization",
-        "name": "{{ $school->name ?? 'Ghana Excellence Primary School' }}",
-        "alternateName": "{{ $settings['site_title']->value ?? 'Ghana Excellence Primary School' }}",
-        "description": "{{ $school->description ?? ($settings['meta_description']->value ?? 'A leading primary school in Ghana providing quality education') }}",
-        @if($school && $school->logo)
-        "logo": "{{ asset('storage/' . $school->logo) }}",
-        "image": "{{ asset('storage/' . $school->logo) }}",
+        "name": "{{ isset($settings['site_name']) ? $settings['site_name']->value : 'Ghana Excellence Primary School' }}",
+        "alternateName": "{{ isset($settings['site_title']) ? $settings['site_title']->value : 'Ghana Excellence Primary School' }}",
+        "description": "{{ isset($settings['site_description']) ? $settings['site_description']->value : (isset($settings['meta_description']) ? $settings['meta_description']->value : 'A leading primary school in Ghana providing quality education') }}",
+        @if(isset($settings['site_logo']) && $settings['site_logo']->value)
+        "logo": "{{ asset('storage/' . $settings['site_logo']->value) }}",
+        "image": "{{ asset('storage/' . $settings['site_logo']->value) }}",
         @endif
         "url": "{{ url('/') }}",
-        @if($school && $school->address)
+        @if(isset($settings['address']) && $settings['address']->value)
         "address": {
             "@type": "PostalAddress",
-            "addressLocality": "{{ $school->address }}"
+            "addressLocality": "{{ $settings['address']->value }}"
         },
         @endif
-        @if($school && $school->phone)
-        "telephone": "{{ $school->phone }}",
+        @if(isset($settings['phone']) && $settings['phone']->value)
+        "telephone": "{{ $settings['phone']->value }}",
         @endif
-        @if($school && $school->email)
-        "email": "{{ $school->email }}",
+        @if(isset($settings['email']) && $settings['email']->value)
+        "email": "{{ $settings['email']->value }}",
         @endif
-        @if($school && $school->website)
-        "sameAs": [
-            "{{ $school->website }}"
-            @if(isset($settings['facebook_url']) && $settings['facebook_url']->value)
-                ,"{{ $settings['facebook_url']->value }}"
-            @endif
-            @if(isset($settings['twitter_url']) && $settings['twitter_url']->value)
-                ,"{{ $settings['twitter_url']->value }}"
-            @endif
-            @if(isset($settings['instagram_url']) && $settings['instagram_url']->value)
-                ,"{{ $settings['instagram_url']->value }}"
-            @endif
-        ],
+        @php
+            $socialLinks = [];
+            if(isset($settings['facebook_url']) && $settings['facebook_url']->value) {
+                $socialLinks[] = $settings['facebook_url']->value;
+            }
+            if(isset($settings['twitter_url']) && $settings['twitter_url']->value) {
+                $socialLinks[] = $settings['twitter_url']->value;
+            }
+            if(isset($settings['instagram_url']) && $settings['instagram_url']->value) {
+                $socialLinks[] = $settings['instagram_url']->value;
+            }
+        @endphp
+        @if(!empty($socialLinks))
+        "sameAs": @json($socialLinks),
         @endif
-        "foundingDate": "{{ $school->established_year ?? '2020' }}",
+        "foundingDate": "2020",
         "educationalLevel": "Primary Education"
     }
     </script>
@@ -622,11 +623,6 @@
                                 <i class="fas fa-phone me-2"></i>
                                 <a href="tel:{{ $settings['phone']->value }}">{{ $settings['phone']->value }}</a>
                             </div>
-                        @elseif($school && $school->phone)
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-phone me-2"></i>
-                                <a href="tel:{{ $school->phone }}">{{ $school->phone }}</a>
-                            </div>
                         @endif
 
                         @if(isset($settings['email']) && $settings['email']->value)
@@ -635,12 +631,6 @@
                                 <i class="fas fa-envelope me-2"></i>
                                 <a href="mailto:{{ $settings['email']->value }}">{{ $settings['email']->value }}</a>
                             </div>
-                        @elseif($school && $school->email)
-                            <span class="divider">|</span>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-envelope me-2"></i>
-                                <a href="mailto:{{ $school->email }}">{{ $school->email }}</a>
-                            </div>
                         @endif
 
                         @if(isset($settings['address']) && $settings['address']->value)
@@ -648,12 +638,6 @@
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-map-marker-alt me-2"></i>
                                 <span>{{ $settings['address']->value }}</span>
-                            </div>
-                        @elseif($school && $school->address)
-                            <span class="divider">|</span>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-map-marker-alt me-2"></i>
-                                <span>{{ $school->address }}</span>
                             </div>
                         @endif
                     </div>
@@ -693,12 +677,12 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
-                @if($school && $school->logo)
-                    <img src="{{ asset('storage/' . $school->logo) }}" alt="{{ $school->name ?? 'School Logo' }}" height="40" class="me-2">
+                @if(isset($settings['site_logo']) && $settings['site_logo']->value)
+                    <img src="{{ asset('storage/' . $settings['site_logo']->value) }}" alt="{{ isset($settings['site_name']) ? $settings['site_name']->value : 'School Logo' }}" height="40" class="me-2">
                 @else
                     <img src="{{ asset('storage/logos/school-logo.svg') }}" alt="" height="40" class="me-2">
                 @endif
-                {{ $school->name ?? (isset($settings['site_name']) ? $settings['site_name']->value : '') }}
+                {{ isset($settings['site_name']) ? $settings['site_name']->value : 'Ghana Excellence Primary School' }}
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -825,8 +809,8 @@
             <div class="row">
                 <div class="col-lg-4 mb-4">
                     <div class="d-flex align-items-center mb-3">
-                        @if($school && $school->logo)
-                            <img src="{{ asset('storage/' . $school->logo) }}" alt="{{ $school->name ?? 'School Logo' }}" height="50" class="me-3">
+                        @if(isset($settings['site_logo']) && $settings['site_logo']->value)
+                            <img src="{{ asset('storage/' . $settings['site_logo']->value) }}" alt="{{ isset($settings['site_name']) ? $settings['site_name']->value : 'School Logo' }}" height="50" class="me-3">
                         @else
                             <img src="{{ asset('storage/logos/school-logo.svg') }}" alt="Ghana Excellence Primary School" height="50" class="me-3">
                         @endif

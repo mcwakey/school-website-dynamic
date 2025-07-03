@@ -175,18 +175,18 @@
                     </div>
                 </div>
                 <div class="card-body p-4">
-                    @if($school)
+                    @if(isset($settings['address']))
                         <div class="contact-item-modern mb-4">
                             <div class="contact-icon">
                                 <i class="fas fa-school"></i>
                             </div>
                             <div class="contact-content">
                                 <h6 class="fw-bold mb-1">School Address</h6>
-                                <p class="text-muted mb-0">{{ $school->address ?? 'Address not available' }}</p>
+                                <p class="text-muted mb-0">{{ $settings['address']['value'] ?? 'Address not available' }}</p>
                             </div>
                         </div>
 
-                        @if($school->phone)
+                        @if(isset($settings['phone']['value']))
                             <div class="contact-item-modern mb-4">
                                 <div class="contact-icon">
                                     <i class="fas fa-phone"></i>
@@ -194,13 +194,13 @@
                                 <div class="contact-content">
                                     <h6 class="fw-bold mb-1">Phone Number</h6>
                                     <p class="text-muted mb-0">
-                                        <a href="tel:{{ $school->phone }}" class="text-decoration-none text-primary">{{ $school->phone }}</a>
+                                        <a href="tel:{{ $settings['phone']['value'] }}" class="text-decoration-none text-primary">{{ $settings['phone']['value'] }}</a>
                                     </p>
                                 </div>
                             </div>
                         @endif
 
-                        @if($school->email)
+                        @if(isset($settings['email']['value']))
                             <div class="contact-item-modern mb-4">
                                 <div class="contact-icon">
                                     <i class="fas fa-envelope"></i>
@@ -208,20 +208,20 @@
                                 <div class="contact-content">
                                     <h6 class="fw-bold mb-1">Email Address</h6>
                                     <p class="text-muted mb-0">
-                                        <a href="mailto:{{ $school->email }}" class="text-decoration-none text-primary">{{ $school->email }}</a>
+                                        <a href="mailto:{{ $settings['email']['value'] }}" class="text-decoration-none text-primary">{{ $settings['email']['value'] }}</a>
                                     </p>
                                 </div>
                             </div>
                         @endif
 
-                        @if($school->website)
+                        @if(isset($settings['website']['value']) && $settings['website']['value'])
                             <div class="contact-item mb-4">
                                 <div class="d-flex align-items-start">
                                     <i class="fas fa-globe text-primary me-3 mt-1"></i>
                                     <div>
                                         <h6 class="mb-1">Website</h6>
                                         <p class="text-muted mb-0">
-                                            <a href="{{ $school->website }}" target="_blank" class="text-decoration-none">{{ $school->website }}</a>
+                                            <a href="{{ $settings['website']['value'] }}" target="_blank" class="text-decoration-none">{{ $settings['website']['value'] }}</a>
                                         </p>
                                     </div>
                                 </div>

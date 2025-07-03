@@ -32,14 +32,14 @@ class PageContentController extends Controller
 
         // Get the total count before pagination
         $total = $query->count();
-        
+
         // Get current page from request
         $page = $request->get('page', 1);
         $perPage = 20;
-        
+
         // Calculate offset
         $offset = ($page - 1) * $perPage;
-        
+
         // Get the items for current page
         $items = $query->orderBy('page')
                       ->orderBy('section')
@@ -59,7 +59,7 @@ class PageContentController extends Controller
                 'pageName' => 'page',
             ]
         );
-        
+
         // Preserve query parameters
         $contents->withQueryString();
 

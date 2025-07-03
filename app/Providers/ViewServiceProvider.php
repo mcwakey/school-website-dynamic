@@ -8,7 +8,6 @@ use App\Models\PageContent;
 use App\Models\ThemeSetting;
 use App\Models\CustomMenu;
 use App\Models\Setting;
-use App\Models\School;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -40,20 +39,12 @@ class ViewServiceProvider extends ServiceProvider
                     $settings = collect();
                 }
 
-                // Get school information
-                if (\Illuminate\Support\Facades\Schema::hasTable('schools')) {
-                    $school = School::first();
-                } else {
-                    $school = null;
-                }
-
                 $view->with([
                     'themeSettings' => $themeSettings,
                     'headerMenus' => $headerMenus,
                     'footerMenus' => $footerMenus,
                     'globalSettings' => $settings,
-                    'settings' => $settings,  // Also add as 'settings' for backwards compatibility
-                    'school' => $school
+                    'settings' => $settings  // Also add as 'settings' for backwards compatibility
                 ]);
             } catch (\Exception $e) {
                 // If database connection fails, provide empty collections
@@ -62,8 +53,7 @@ class ViewServiceProvider extends ServiceProvider
                     'headerMenus' => collect(),
                     'footerMenus' => collect(),
                     'globalSettings' => collect(),
-                    'settings' => collect(),
-                    'school' => null
+                    'settings' => collect()
                 ]);
             }
         });

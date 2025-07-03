@@ -5,163 +5,122 @@
 
 @section('content')
 
+@if($heroSlides->count() > 0)
 <!-- Hero Section -->
 <section class="hero-section position-relative">
-    @if($heroSlides->count() > 0)
-        <!-- Debug: Show slide count -->
-        <!-- Total Slides: {{ $heroSlides->count() }} -->
-        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-wrap="true">
-            <!-- Note: Add 'carousel-fade' class above for fade effect instead of slide -->
-            <!-- Indicators -->
-            <div class="carousel-indicators">
-                @foreach($heroSlides as $index => $slide)
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ $index }}"
-                            class="{{ $index === 0 ? 'active' : '' }}"
-                            aria-current="{{ $index === 0 ? 'true' : 'false' }}"
-                            aria-label="Slide {{ $index + 1 }}"></button>
-                @endforeach
-            </div>
-
-            <!-- Slides -->
-            <div class="carousel-inner">
-                @foreach($heroSlides as $index => $slide)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-slide-id="{{ $slide->id }}">
-                        <div class="hero-slide-bg" style="background-image: url('{{ asset('storage/' . $slide->image_path) }}');"></div>
-                        <div class="hero-overlay"></div>
-                        <div class="container position-relative">
-                            <div class="row align-items-center justify-content-start">
-                                <div class="col-lg-8 col-md-10">
-                                    <div class="hero-content">
-                                        <h1 class="display-4 fw-bold mb-4 text-white">
-                                            {{ $slide->title }}
-                                        </h1>
-                                        @if($slide->subtitle)
-                                            <h2 class="h4 mb-4 opacity-90 text-white">
-                                                {{ $slide->subtitle }}
-                                            </h2>
-                                        @endif
-                                        @if($slide->description)
-                                            <p class="lead mb-4 text-white">
-                                                {{ $slide->description }}
-                                            </p>
-                                        @endif
-                                        <div class="d-flex gap-3 flex-wrap">
-                                            @if($slide->button_text && $slide->button_link)
-                                                <a href="{{ $slide->button_link }}" class="btn btn-light btn-lg">
-                                                    <i class="fas fa-arrow-right me-2"></i>{{ $slide->button_text }}
-                                                </a>
-                                            @endif
-                                            <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg">
-                                                <i class="fas fa-phone me-2"></i>Contact Us
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <!-- Navigation Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+    <!-- Debug: Show slide count -->
+    <!-- Total Slides: {{ $heroSlides->count() }} -->
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-wrap="true">
+        <!-- Note: Add 'carousel-fade' class above for fade effect instead of slide -->
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            @foreach($heroSlides as $index => $slide)
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ $index }}"
+                        class="{{ $index === 0 ? 'active' : '' }}"
+                        aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                        aria-label="Slide {{ $index + 1 }}"></button>
+            @endforeach
         </div>
-    @else
-        @if(isset($pageContent['hero_title']) || isset($pageContent['hero_subtitle']) || isset($pageContent['hero_intro']) || isset($settings['hero_title']) || isset($settings['hero_subtitle']) || isset($settings['hero_description']))
-        <!-- Fallback hero section -->
-        <div class="hero-fallback-bg">
-            <div class="container">
-                <div class="row align-items-center min-vh-100">
-                    <div class="col-lg-6">
-                        <div class="hero-content animate-fade-in">
-                            <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Welcome to Excellence</span>
-                            @if(isset($pageContent['hero_title']['title']) || isset($settings['hero_title']['value']))
-                            <h1 class="display-4 fw-bold mb-4 text-white">
-                                {{ isset($pageContent['hero_title']['title']) ? $pageContent['hero_title']['title'] : $settings['hero_title']['value'] }}
-                            </h1>
-                            @endif
-                            @if(isset($pageContent['hero_subtitle']['title']) || isset($settings['hero_subtitle']['value']))
-                            <h2 class="h4 mb-4 opacity-90 text-white">
-                                {{ isset($pageContent['hero_subtitle']['title']) ? $pageContent['hero_subtitle']['title'] : $settings['hero_subtitle']['value'] }}
-                            </h2>
-                            @endif
-                            @if(isset($pageContent['hero_intro']['content']) || isset($settings['hero_description']['value']))
-                            <p class="lead mb-4 text-white">
-                                {{ isset($pageContent['hero_intro']['content']) ? $pageContent['hero_intro']['content'] : $settings['hero_description']['value'] }}
-                            </p>
-                            @endif
-                            <div class="d-flex gap-3 flex-wrap">
-                                <a href="{{ route('about') }}" class="btn btn-light btn-lg rounded-pill">
-                                    <i class="fas fa-rocket me-2"></i>Discover Our School
-                                </a>
-                                <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg rounded-pill">
-                                    <i class="fas fa-phone me-2"></i>Schedule a Visit
-                                </a>
-                            </div>
-                            <div class="hero-stats mt-4">
-                                <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <div class="stat-item text-white">
-                                            <div class="stat-number">500+</div>
-                                            <div class="stat-label">Happy Students</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="stat-item text-white">
-                                            <div class="stat-number">15+</div>
-                                            <div class="stat-label">Years Excellence</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="stat-item text-white">
-                                            <div class="stat-number">50+</div>
-                                            <div class="stat-label">Expert Teachers</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 text-center">
-                        <div class="hero-image mt-5 mt-lg-0 animate-slide-up">
-                            <div class="hero-image-wrapper">
-                                <img src="{{ asset('images/hero-school.svg') }}" alt="Ghana Excellence Primary School" class="img-fluid hero-main-image">
-                                <div class="floating-elements">
-                                    <div class="floating-element element-1">
-                                        <i class="fas fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="floating-element element-2">
-                                        <i class="fas fa-book"></i>
-                                    </div>
-                                    <div class="floating-element element-3">
-                                        <i class="fas fa-star"></i>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+            @foreach($heroSlides as $index => $slide)
+                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-slide-id="{{ $slide->id }}">
+                    <div class="hero-slide-bg" style="background-image: url('{{ asset('storage/' . $slide->image_path) }}');"></div>
+                    <div class="hero-overlay"></div>
+                    <div class="container position-relative">
+                        <div class="row align-items-center justify-content-start">
+                            <div class="col-lg-8 col-md-10">
+                                <div class="hero-content">
+                                    <h1 class="display-4 fw-bold mb-4 text-white">
+                                        {{ $slide->title }}
+                                    </h1>
+                                    @if($slide->subtitle)
+                                        <h2 class="h4 mb-4 opacity-90 text-white">
+                                            {{ $slide->subtitle }}
+                                        </h2>
+                                    @endif
+                                    @if($slide->description)
+                                        <p class="lead mb-4 text-white">
+                                            {{ $slide->description }}
+                                        </p>
+                                    @endif
+                                    <div class="d-flex gap-3 flex-wrap">
+                                        @if($slide->button_text && $slide->button_link)
+                                            <a href="{{ $slide->button_link }}" class="btn btn-light btn-lg">
+                                                <i class="fas fa-arrow-right me-2"></i>{{ $slide->button_text }}
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            @endforeach
+        </div>
+
+        <!-- Navigation Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+@else
+<!-- Fallback Hero Section -->
+<section class="hero-section position-relative bg-gradient-primary">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center justify-content-center min-vh-75">
+            <div class="col-lg-8 col-md-10 text-center">
+                <div class="hero-content">
+                    @if(isset($settings['site_logo']) && $settings['site_logo']->value)
+                        <div class="mb-4">
+                            <img src="{{ asset('storage/' . $settings['site_logo']->value) }}"
+                                 alt="{{ isset($settings['site_name']) ? $settings['site_name']->value : 'School Logo' }}"
+                                 height="120" class="img-fluid">
+                        </div>
+                    @endif
+                    <h1 class="display-4 fw-bold mb-4 text-white">
+                        {{ isset($settings['site_name']) ? $settings['site_name']->value : 'Ghana Excellence Primary School' }}
+                    </h1>
+                    @if(isset($settings['site_tagline']) && $settings['site_tagline']->value)
+                        <h2 class="h4 mb-4 opacity-90 text-white">
+                            {{ $settings['site_tagline']->value }}
+                        </h2>
+                    @endif
+                    @if(isset($settings['site_description']) && $settings['site_description']->value)
+                        <p class="lead mb-4 text-white">
+                            {{ $settings['site_description']->value }}
+                        </p>
+                    @endif
+                    <div class="d-flex gap-3 flex-wrap justify-content-center">
+                        <a href="{{ route('about') }}" class="btn btn-light btn-lg">
+                            <i class="fas fa-info-circle me-2"></i>Learn More About Us
+                        </a>
+                        <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Contact Us
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-        @endif
-    @endif
+    </div>
 </section>
+@endif
 
-@if(isset($pageContent['welcome_title']) || isset($settings['about_title']) || $school)
+@if(isset($pageContent['welcome_title']) || isset($settings['about_title']) || isset($settings['site_name']))
 <!-- About Section -->
 <section class="py-5 bg-gradient-primary text-white">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="about-content">
-                    <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">About Our School</span>
                     @if(isset($pageContent['welcome_title']['title']) || isset($settings['about_title']['value']))
                     <h2 class="section-title text-white mb-4">
                         {{ isset($pageContent['welcome_title']['title']) ? $pageContent['welcome_title']['title'] : $settings['about_title']['value'] }}
@@ -172,87 +131,36 @@
                         {{ isset($pageContent['welcome_title']['content']) ? $pageContent['welcome_title']['content'] : $settings['about_description']['value'] }}
                     </p>
                     @endif
-                    @if($school)
+                    @if(isset($settings['email']) || isset($settings['phone']))
                     <div class="row g-4 mt-3">
-                        @if($school->established_year)
+                        @if(isset($settings['email']) && $settings['email']->value)
                         <div class="col-sm-6">
                             <div class="info-card">
                                 <div class="info-icon">
-                                    <i class="fas fa-calendar-alt"></i>
+                                    <i class="fas fa-envelope"></i>
                                 </div>
                                 <div class="info-content">
-                                    <h6 class="fw-bold mb-1 text-white">Established</h6>
-                                    <small class="text-white opacity-90">{{ $school->established_year }}</small>
+                                    <h6 class="fw-bold mb-1 text-white">Email</h6>
+                                    <small class="text-white opacity-90">{{ $settings['email']->value }}</small>
                                 </div>
                             </div>
                         </div>
                         @endif
-                        @if($school->principal_name)
+                        @if(isset($settings['phone']) && $settings['phone']->value)
                         <div class="col-sm-6">
                             <div class="info-card">
                                 <div class="info-icon">
-                                    <i class="fas fa-user-tie"></i>
+                                    <i class="fas fa-phone"></i>
                                 </div>
                                 <div class="info-content">
-                                    <h6 class="fw-bold mb-1 text-white">Principal</h6>
-                                    <small class="text-white opacity-90">{{ $school->principal_name }}</small>
+                                    <h6 class="fw-bold mb-1 text-white">Phone</h6>
+                                    <small class="text-white opacity-90">{{ $settings['phone']->value }}</small>
                                 </div>
                             </div>
                         </div>
                         @endif
                     </div>
                     @endif
-                    <div class="about-features mt-4">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="feature-point">
-                                    <i class="fas fa-check-circle me-2"></i>
-                                    <span>STEM-Focused Curriculum</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="feature-point">
-                                    <i class="fas fa-check-circle me-2"></i>
-                                    <span>Small Class Sizes</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="feature-point">
-                                    <i class="fas fa-check-circle me-2"></i>
-                                    <span>Extracurricular Activities</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="feature-point">
-                                    <i class="fas fa-check-circle me-2"></i>
-                                    <span>Community Partnerships</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="{{ route('about') }}" class="btn btn-light btn-lg mt-4 rounded-pill">
-                        <i class="fas fa-arrow-right me-2"></i>Discover More About Us
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-6 text-center">
-                <div class="about-visual mt-5 mt-lg-0">
-                    <div class="image-stack">
-                        <div class="image-main">
-                            <img src="{{ asset('images/about-students.svg') }}" alt="Our Students" class="img-fluid">
-                        </div>
-                        <div class="image-stats">
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="stat-info">
-                                    <div class="stat-value">500+</div>
-                                    <div class="stat-desc">Students</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -267,7 +175,6 @@
         @if(isset($pageContent['features_title']))
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <span class="badge bg-primary-soft text-primary fs-6 px-3 py-2 rounded-pill mb-3">Why Choose Us</span>
                 <h2 class="section-title">{{ $pageContent['features_title']['title'] }}</h2>
                 <p class="lead">{{ $pageContent['features_title']['content'] }}</p>
             </div>
@@ -332,7 +239,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <span class="badge bg-primary-soft text-primary fs-6 px-3 py-2 rounded-pill mb-3">Stay Informed</span>
                 <h2 class="section-title">Latest News & Announcements</h2>
                 <p class="lead">Stay updated with the latest happenings, achievements, and important announcements from our school community</p>
             </div>
@@ -393,7 +299,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <span class="badge bg-accent-soft text-accent fs-6 px-3 py-2 rounded-pill mb-3">Mark Your Calendar</span>
                 <h2 class="section-title">Upcoming Events & Activities</h2>
                 <p class="lead">Join us for exciting events, educational activities, and community celebrations throughout the academic year</p>
             </div>
@@ -455,7 +360,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <span class="badge bg-success-soft text-success fs-6 px-3 py-2 rounded-pill mb-3">School Life</span>
                 <h2 class="section-title">Moments That Matter</h2>
                 <p class="lead">Discover the vibrant life at our school through these captured moments of learning, growth, and joy</p>
             </div>
@@ -496,7 +400,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
-                <span class="badge bg-secondary-soft text-secondary fs-6 px-3 py-2 rounded-pill mb-3">Our Team</span>
                 <h2 class="section-title">Meet Our Dedicated Educators</h2>
                 <p class="lead">Our passionate team of educators brings years of experience and a commitment to nurturing every student's potential</p>
             </div>
@@ -553,7 +456,6 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <div class="cta-content">
-                    <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill mb-3">Join Our Community</span>
                     @if(isset($pageContent['cta_title']['title']) || isset($settings['cta_title']['value']))
                     <h3 class="fw-bold mb-3">
                         {{ isset($pageContent['cta_title']['title']) ? $pageContent['cta_title']['title'] : $settings['cta_title']['value'] }}
@@ -564,50 +466,6 @@
                         {{ isset($pageContent['cta_content']['content']) ? $pageContent['cta_content']['content'] : $settings['cta_content']['value'] }}
                     </p>
                     @endif
-                    <div class="cta-features mt-4">
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center text-white">
-                                    <div class="feature-check me-3">
-                                        <i class="fas fa-check-circle"></i>
-                                    </div>
-                                    <span>Enrollment Open</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center text-white">
-                                    <div class="feature-check me-3">
-                                        <i class="fas fa-check-circle"></i>
-                                    </div>
-                                    <span>Free Campus Tour</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center text-white">
-                                    <div class="feature-check me-3">
-                                        <i class="fas fa-check-circle"></i>
-                                    </div>
-                                    <span>24/7 Support</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                <div class="cta-actions">
-                    <a href="{{ route('contact') }}" class="btn btn-light btn-lg rounded-pill mb-3 me-2">
-                        <i class="fas fa-phone me-2"></i>Contact Us Today
-                    </a>
-                    <a href="{{ route('about') }}" class="btn btn-outline-light btn-lg rounded-pill">
-                        <i class="fas fa-info-circle me-2"></i>Learn More
-                    </a>
-                    <div class="mt-3">
-                        <small class="text-light opacity-75">
-                            <i class="fas fa-star me-1"></i>
-                            Trusted by 500+ families in the community
-                        </small>
-                    </div>
                 </div>
             </div>
         </div>
@@ -640,6 +498,9 @@
     .btn-outline-accent:hover { background-color: #ffc107; color: #000; }
     .bg-gradient-primary { background: var(--gradient-primary) !important; }
     .bg-gradient-light { background: var(--gradient-light) !important; }
+
+    /* Additional Utility Classes */
+    .min-vh-75 { min-height: 75vh !important; }
 
     /* Modern Card Styles */
     .modern-card {

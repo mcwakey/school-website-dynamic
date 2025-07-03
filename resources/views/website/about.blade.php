@@ -23,15 +23,15 @@
     </div>
 </section>
 
-@if($school)
+@if(isset($settings['site_name']) && $settings['site_name'])
 <!-- School Information -->
 <section class="py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <span class="badge bg-primary-soft text-primary fs-6 px-3 py-2 rounded-pill mb-3">Our Story</span>
-                <h2 class="section-title">{{ $school->name }}</h2>
-                <p class="lead">{{ $school->description }}</p>
+                <h2 class="section-title">{{ $settings['site_name']['value'] ?? 'Ghana Excellence Primary School' }}</h2>
+                <p class="lead">{{ $settings['site_description']['value'] ?? 'A leading primary school in Ghana providing quality education' }}</p>
 
                 <div class="row g-4 mt-4">
                     <div class="col-sm-6">
@@ -41,7 +41,7 @@
                             </div>
                             <div class="info-content">
                                 <h6 class="fw-bold mb-1">Established</h6>
-                                <small class="text-muted">{{ $school->established_year }}</small>
+                                <small class="text-muted">2010</small>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="info-content">
                                 <h6 class="fw-bold mb-1">Principal</h6>
-                                <small class="text-muted">{{ $school->principal_name }}</small>
+                                <small class="text-muted">School Administration</small>
                             </div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                             </div>
                             <div>
                                 <h6 class="fw-bold mb-0">Location</h6>
-                                <small class="text-muted">{{ $school->address }}</small>
+                                <small class="text-muted">{{ $settings['address']['value'] ?? 'Ghana' }}</small>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div>
                                 <h6 class="fw-bold mb-0">Contact</h6>
-                                <small class="text-muted">{{ $school->phone }}</small>
+                                <small class="text-muted">{{ $settings['phone']['value'] ?? '+233 XXX XXX XXX' }}</small>
                             </div>
                         </div>
                     </div>
@@ -82,8 +82,8 @@
             </div>
             <div class="col-lg-6 text-center">
                 <div class="mt-5 mt-lg-0">
-                    @if($school->logo)
-                        <img src="{{ asset('storage/' . $school->logo) }}" alt="{{ $school->name }}" class="img-fluid" style="max-width: 300px;">
+                    @if(isset($settings['school_logo']['value']) && $settings['school_logo']['value'])
+                        <img src="{{ asset('storage/' . $settings['school_logo']['value']) }}" alt="{{ $settings['school_name']['value'] ?? 'School' }}" class="img-fluid" style="max-width: 300px;">
                     @else
                         <img src="{{ asset('images/academic-excellence.svg') }}" alt="Academic Excellence" class="img-fluid rounded shadow" style="max-width: 400px;">
                     @endif
@@ -104,7 +104,7 @@
             </div>
         </div>
         <div class="row g-5">
-            @if(isset($pageContent['school_mission']) || $school->mission)
+            @if(isset($pageContent['school_mission']) || isset($settings['about_description']['value']))
             <div class="col-lg-6">
                 <div class="modern-card text-center h-100">
                     <div class="card-body p-4">
@@ -117,14 +117,14 @@
                             {{ isset($pageContent['school_mission']['title']) ? $pageContent['school_mission']['title'] : 'Our Mission' }}
                         </h3>
                         <p class="lead text-muted">
-                            {{ isset($pageContent['school_mission']['content']) ? $pageContent['school_mission']['content'] : $school->mission }}
+                            {{ isset($pageContent['school_mission']['content']) ? $pageContent['school_mission']['content'] : ($settings['about_description']['value'] ?? 'Our mission is to provide quality education') }}
                         </p>
                     </div>
                 </div>
             </div>
             @endif
 
-            @if(isset($pageContent['school_vision']) || $school->vision)
+            @if(isset($pageContent['school_vision']) || isset($settings['site_tagline']['value']))
             <div class="col-lg-6">
                 <div class="modern-card text-center h-100">
                     <div class="card-body p-4">
@@ -137,7 +137,7 @@
                             {{ isset($pageContent['school_vision']['title']) ? $pageContent['school_vision']['title'] : 'Our Vision' }}
                         </h3>
                         <p class="lead text-muted">
-                            {{ isset($pageContent['school_vision']['content']) ? $pageContent['school_vision']['content'] : $school->vision }}
+                            {{ isset($pageContent['school_vision']['content']) ? $pageContent['school_vision']['content'] : ($settings['site_tagline']['value'] ?? 'Our vision is to be a leading educational institution') }}
                         </p>
                     </div>
                 </div>

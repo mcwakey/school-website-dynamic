@@ -8,7 +8,6 @@ use App\Models\Event;
 use App\Models\Gallery;
 use App\Models\Staff;
 use App\Models\Setting;
-use App\Models\School;
 use App\Models\Document;
 use App\Models\HeroSlide;
 use App\Models\CoreValue;
@@ -24,7 +23,6 @@ class WebsiteController extends Controller
     {
         try {
             // Check if tables exist before querying
-            $school = \Illuminate\Support\Facades\Schema::hasTable('schools') ? School::first() : null;
             $heroSlides = \Illuminate\Support\Facades\Schema::hasTable('hero_slides') ? HeroSlide::active()->ordered()->get() : collect();
             $featuredNews = \Illuminate\Support\Facades\Schema::hasTable('news') ? News::published()->featured()->latest()->limit(3)->get() : collect();
             $upcomingEvents = \Illuminate\Support\Facades\Schema::hasTable('events') ? Event::published()->upcoming()->latest()->limit(3)->get() : collect();
@@ -45,7 +43,6 @@ class WebsiteController extends Controller
             }
         } catch (\Exception $e) {
             // If database connection fails, provide empty collections
-            $school = null;
             $heroSlides = collect();
             $featuredNews = collect();
             $upcomingEvents = collect();
@@ -56,7 +53,6 @@ class WebsiteController extends Controller
         }
 
         return view('website.index', compact(
-            'school',
             'heroSlides',
             'featuredNews',
             'upcomingEvents',
@@ -69,7 +65,7 @@ class WebsiteController extends Controller
 
     public function about()
     {
-        $school = School::first();
+        $settings = Setting::all()->keyBy('key')->toArray();
         $staff = Staff::active()->orderBy('sort_order')->get();
         $coreValues = CoreValue::active()->ordered()->get();
         $academicPrograms = AcademicProgram::active()->ordered()->get();
@@ -77,7 +73,7 @@ class WebsiteController extends Controller
         $pageContent = PageContent::where('page', 'about')->where('is_active', true)->orderBy('sort_order')->get()->keyBy('key')->toArray();
 
         return view('website.about', compact(
-            'school',
+            'settings',
             'staff',
             'coreValues',
             'academicPrograms',
@@ -126,32 +122,29 @@ class WebsiteController extends Controller
     public function staff()
     {
         try {
-            $school = \Illuminate\Support\Facades\Schema::hasTable('schools') ? School::first() : null;
             $staff = \Illuminate\Support\Facades\Schema::hasTable('staff') ? Staff::active()->orderBy('sort_order')->get() : collect();
             $settings = \Illuminate\Support\Facades\Schema::hasTable('settings') ? Setting::all()->keyBy('key')->toArray() : [];
         } catch (\Exception $e) {
-            $school = null;
             $staff = collect();
             $settings = [];
         }
-        return view('website.staff', compact('school', 'staff', 'settings'));
+        return view('website.staff', compact('staff', 'settings'));
     }
 
     public function contact()
     {
-        $school = School::first();
         $settings = Setting::all()->keyBy('key')->toArray();
         $pageContent = PageContent::where('page', 'contact')->where('is_active', true)->orderBy('sort_order')->get()->keyBy('key')->toArray();
-        return view('website.contact', compact('school', 'settings', 'pageContent'));
+        return view('website.contact', compact('settings', 'pageContent'));
     }
 
     public function programs()
     {
-        $school = School::first();
+        $settings = Setting::all()->keyBy('key')->toArray();
         $programs = AcademicProgram::active()->ordered()->get();
         $pageContent = PageContent::where('page', 'programs')->where('is_active', true)->orderBy('sort_order')->get()->keyBy('key')->toArray();
 
-        return view('website.programs', compact('school', 'programs', 'pageContent'));
+        return view('website.programs', compact('settings', 'programs', 'pageContent'));
     }
 
     public function search(Request $request)
