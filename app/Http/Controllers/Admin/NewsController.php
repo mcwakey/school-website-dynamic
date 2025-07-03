@@ -2,26 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Contro        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'excerpt' => 'nullable|string|max:500',
-            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_published' => 'boolean',
-            'is_featured' => 'boolean',
-            'published_at' => 'nullable|date'
-        ]);
-
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->title);
-
-        if ($request->hasFile('featured_image')) {
-            // Delete old image if exists
-            if ($news->featured_image) {
-                \Storage::disk('public')->delete($news->featured_image);
-            }
-            $data['featured_image'] = $request->file('featured_image')->store('news', 'public');
-        }\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\News;
 use Illuminate\Support\Str;
 

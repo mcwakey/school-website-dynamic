@@ -42,7 +42,7 @@
                                                 {{ ucfirst($page) }}
                                             </option>
                                         @endforeach
-                                        @if(!in_array($pageContent->page, $pages))
+                                        @if(!$pages->contains($pageContent->page))
                                             <option value="{{ $pageContent->page }}" selected>{{ ucfirst($pageContent->page) }} (Current)</option>
                                         @endif
                                     </select>

@@ -189,12 +189,20 @@
 <script>
     // Gallery lightbox functionality
     document.addEventListener('DOMContentLoaded', function () {
+        // Debug: Check if Bootstrap is loaded
+        if (typeof bootstrap === 'undefined') {
+            console.error('Bootstrap JavaScript not loaded!');
+            return;
+        }
+
         const imageModal = document.getElementById('imageModal');
         const modalImage = document.getElementById('modalImage');
         const modalTitle = document.getElementById('modalTitle');
         const modalDescription = document.getElementById('modalDescription');
         const galleryImages = Array.from(document.querySelectorAll('.gallery-image'));
         let currentIndex = 0;
+
+        console.log('Found gallery images:', galleryImages.length);
 
         function showImage(index) {
             if (index < 0 || index >= galleryImages.length) return;
@@ -208,11 +216,22 @@
 
         // Handle image clicks
         galleryImages.forEach((img, index) => {
-            img.addEventListener('click', function () {
+            img.addEventListener('click', function (e) {
+                e.preventDefault();
+                console.log('Image clicked:', index);
                 showImage(index);
-                // Manually show the modal
-                const modal = new bootstrap.Modal(imageModal);
-                modal.show();
+
+                // Try multiple ways to show the modal
+                try {
+                    const modal = new bootstrap.Modal(imageModal);
+                    modal.show();
+                } catch (error) {
+                    console.error('Bootstrap modal error:', error);
+                    // Fallback: manual modal show
+                    imageModal.classList.add('show');
+                    imageModal.style.display = 'block';
+                    document.body.classList.add('modal-open');
+                }
             });
         });
 
@@ -224,13 +243,22 @@
                 e.preventDefault();
                 const nextIndex = (currentIndex + 1) % galleryImages.length;
                 showImage(nextIndex);
+                updateCounter();
             } else if (e.key === 'ArrowLeft') {
                 e.preventDefault();
                 const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
                 showImage(prevIndex);
+                updateCounter();
             } else if (e.key === 'Escape') {
-                const modal = bootstrap.Modal.getInstance(imageModal);
-                if (modal) modal.hide();
+                try {
+                    const modal = bootstrap.Modal.getInstance(imageModal);
+                    if (modal) modal.hide();
+                } catch (error) {
+                    // Fallback: manual modal hide
+                    imageModal.classList.remove('show');
+                    imageModal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                }
             }
         });
 
@@ -275,6 +303,21 @@
         imageModal.addEventListener('shown.bs.modal', function () {
             updateCounter();
         });
+
+        // Manual close button handler as fallback
+        const closeBtn = imageModal.querySelector('.btn-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                try {
+                    const modal = bootstrap.Modal.getInstance(imageModal);
+                    if (modal) modal.hide();
+                } catch (error) {
+                    imageModal.classList.remove('show');
+                    imageModal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                }
+            });
+        }
     });
 
     // Category filter functionality
