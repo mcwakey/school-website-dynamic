@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gallery Test - Real Images</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .test-gallery img { width: 200px; height: 200px; object-fit: cover; cursor: pointer; margin: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Gallery Test - Real Images from Database</h1>
+        <div class="test-gallery">
+            <img src="http://127.0.0.1:8000/storage/gallery/6rB3XsF8ztfFhydq5ypVjJRqDtXGLpCN1Pt6aWN8.jpg"
+                 class="gallery-image"
+                 data-image="http://127.0.0.1:8000/storage/gallery/6rB3XsF8ztfFhydq5ypVjJRqDtXGLpCN1Pt6aWN8.jpg"
+                 data-title="Test Image 1"
+                 data-description="Real image from gallery">
+            <img src="http://127.0.0.1:8000/storage/gallery/RXbACa30tohOJAur5bwIHAVbFvElow2fhvjJm96M.png"
+                 class="gallery-image"
+                 data-image="http://127.0.0.1:8000/storage/gallery/RXbACa30tohOJAur5bwIHAVbFvElow2fhvjJm96M.png"
+                 data-title="Test Image 2"
+                 data-description="Another real image">
+        </div>
+        <div id="debug" style="background: #f0f0f0; padding: 10px; margin: 20px 0;"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Photo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="" alt="" class="img-fluid mb-3" id="modalImage">
+                    <h6 id="modalTitle"></h6>
+                    <p id="modalDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function debug(msg) {
+            console.log(msg);
+            document.getElementById('debug').innerHTML += msg + '<br>';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            debug('DOM loaded');
+            debug('Bootstrap: ' + (typeof bootstrap !== 'undefined' ? 'loaded' : 'NOT loaded'));
+
+            const images = document.querySelectorAll('.gallery-image');
+            debug('Found ' + images.length + ' images');
+
+            images.forEach((img, i) => {
+                img.addEventListener('click', function() {
+                    debug('Image ' + i + ' clicked!');
+
+                    const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+                    document.getElementById('modalImage').src = this.dataset.image;
+                    document.getElementById('modalTitle').textContent = this.dataset.title;
+                    document.getElementById('modalDescription').textContent = this.dataset.description;
+                    modal.show();
+                    debug('Modal should be shown');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

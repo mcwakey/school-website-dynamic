@@ -11,4 +11,22 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        // Ensure assets are properly chunked for production
+        rollupOptions: {
+            output: {
+                manualChunks: undefined,
+            }
+        },
+        // Ensure CSS is extracted properly
+        cssCodeSplit: true,
+        // Set a higher chunk size warning limit
+        chunkSizeWarningLimit: 1000,
+    },
+    // Ensure proper MIME types in dev mode
+    server: {
+        hmr: {
+            host: 'localhost',
+        },
+    },
 });
