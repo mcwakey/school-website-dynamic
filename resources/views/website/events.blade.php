@@ -30,7 +30,7 @@
                     @foreach($events as $event)
                         <div class="col-lg-6 mb-4">
                             <div class="card event-card h-100 shadow-sm">
-                                @if($event->image)
+                                @if($event->image && \Illuminate\Support\Facades\Storage::disk('public')->exists($event->image))
                                     <img src="{{ asset('storage/' . $event->image) }}"
                                          class="card-img-top"
                                          alt="{{ $event->title }}"

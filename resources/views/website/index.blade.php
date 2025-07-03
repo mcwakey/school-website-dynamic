@@ -1,6 +1,6 @@
 @extends('layouts.website')
 
-@section('title', (isset($settings['hero_title']['value']) ? $settings['hero_title']['value'] : 'Welcome to Ghana Excellence Primary School') . ' - ' . (isset($settings['site_name']['value']) ? $settings['site_name']['value'] : 'Ghana Excellence Primary School'))
+@section('title', (isset($settings['hero_title']['value']) ? $settings['hero_title']['value'] : 'Welcome to Excellence Primary School') . ' - ' . (isset($settings['site_name']['value']) ? $settings['site_name']['value'] : 'Ghana Excellence Primary School'))
 @section('description', isset($settings['hero_description']['value']) ? $settings['hero_description']['value'] : 'We provide quality education that nurtures creativity, critical thinking, and character development.')
 
 @section('content')
