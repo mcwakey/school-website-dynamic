@@ -58,13 +58,14 @@
                          data-description="{{ $photo->description }}"
                          style="cursor: pointer;">
                         <div class="gallery-image-container position-relative overflow-hidden rounded-4">
-                            @if($photo->image_path && file_exists(public_path('storage/' . $photo->image_path)))
+                            @if($photo->image_path && \Illuminate\Support\Facades\Storage::disk('public')->exists($photo->image_path))
                                 <img src="{{ asset('storage/' . $photo->image_path) }}"
                                      class="gallery-image w-100"
                                      alt="{{ $photo->title }}"
                                      data-image="{{ asset('storage/' . $photo->image_path) }}"
                                      data-title="{{ $photo->title }}"
                                      data-description="{{ $photo->description }}"
+                                     onerror="this.onerror=null; this.style.display='none';"
                                      style="transition: transform 0.3s ease;">
                                 <!-- Click indicator overlay -->
                                 <div class="gallery-click-indicator position-absolute top-50 start-50 translate-middle">

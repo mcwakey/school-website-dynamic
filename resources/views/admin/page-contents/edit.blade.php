@@ -62,7 +62,7 @@
                                                 {{ ucfirst($section) }}
                                             </option>
                                         @endforeach
-                                        @if(!in_array($pageContent->section, $sections))
+                                        @if(!$sections->contains($pageContent->section))
                                             <option value="{{ $pageContent->section }}" selected>{{ ucfirst($pageContent->section) }} (Current)</option>
                                         @endif
                                     </select>
